@@ -1,1 +1,1 @@
-# SmartCold
+# paper
