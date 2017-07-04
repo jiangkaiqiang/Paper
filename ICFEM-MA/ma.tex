@@ -1,0 +1,83 @@
+\section{Co-simulation Execution}
+\label{sec:ma}
+In this section, we use timed automata to encode three master algorithms and verify some expected properties of co-simulation such as deadlock, liveness and reachability with UPPAAL.
+\subsection{I/O Dependency Information}
+When it comes to co-simulation, I/O dependency information \cite{BromanBGLMTW13} is inevitably required to be well considered. The master algorithm calls function $Set$ to provide input value to an FMU and function $Get$ to retrieve an output value. So it is essential to know which outputs of an FMU depend immediately on which inputs. In the design of a MA, the direct dependency information can be used to call the function $Set$ and $Get$ in a well-defined order. In FMI 2.0 this information can be provided using the element $ModelStructure$ \cite{FMI2INTRO}. However, sometime there may be an algebraic loop in the dependency information, which may not converge. Since we are interested in non-diverging and deterministic composition of FMUs, we need to distinguish these two cases. 
+\subsection{Master Algorithm (MA)}
+The master algorithm is to orchestrate the execution of different subsystems. Each subsystems serves as an FMU block whose simulation is triggered by a particular MA. FMUs can be seen as black boxes comprising input. The process of simulation is divided into several steps where each FMU can be simulated independently until it needs to exchange data or implement synchronization. Master algorithms commonly are illustrated as following.
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=5.0in,height=2.5in]{fig/MA.jpg}
+\caption{Activity diagrams for three master algorithms}
+\label{ad-fixedstep}
+\end{center}
+\end{figure}
+\subsubsection{Fixed Step Algorithm}
+In fixed step algorithm, all FMUs have the same step size. When master algorithm calls $doStep$ with the step size $h$, time will advance from a communication point $t$ to the next communication point $t+h$. During the simulation step, an FMU with it's own solver will simulate independently according to its input value and generate a running result as output value. MA will wait until all FMUs finish their simulation step and then get their output values to exchange data for preparing next simulation step. The activity diagram of fixed step algorithm is illustrated in the top of Fig.\ref{ad-fixedstep}. There are mainly three activities in the control flow: $initialize$, $doStep$ and $continue$.
+\subsubsection{Rollback Algorithm}
+In the fixed step algorithm \cite{BromanBGLMTW13}, the process can maintain correct when all FMUs are reliable. When some error happens during a simulation step, the process will be affected after the wrong simulation step. Then we need the FMU rollback mechanism. There are some important features proposed in the FMI 2.0. We can save the FMU state if necessary and the state we saved in the process can be restored. For example, MA calls $doStep$ on $FMU_{1}$ and $FMU_{2}$ while $FMU_{1}$ can accept the request and $FMU_{2}$ can reject it. If we save the state of $FMU_{1}$ and $FMU_{2}$ at the communicating point t, we can restore the scene after $FMU_{2}$ rejects $doStep$. Under this circumstances, we need all FMUs support rollback. The activity diagram of rollback algorithm is clearly shown in Fig.\ref{ad-fixedstep}. Compared with the fixed step algorithm, all FMUs are required to support $rollback$, that is, all FMUs need to return to the previous state if the simulation steps of all FMUs are not equal.
+\subsubsection{Predictable Step Sizes Algorithm}
+The rollback algorithm require all FMUs support rollback. However, this approach is inefficient in many cases. The function $GetMaxStepSize$ was introduced to optimize the performance of rollback algorithm. This function return the maximum step size and state flag of a predictable FMU. Maximum step is the largest step that a predictable FMU can perform. State flag includes $ok$, $discard$ and $error$. $OK$ denotes the predictable FMU can accept the simulation step size. $Discard$ denotes the predictable FMU only implement partial step during simulation. $Error$ denotes the predictable FMU can't continue the simulation because of its unacceptable state or unreasonable input value. Also, when $discard$ and $error$ happen, the FMU need to rollback to the previous state saved before. Whether an FMU is a predictable FMU or not should be indicated in FMU's $xml$ file. Moreover, if an FMU supports rollback and predictable step size at the same time, the predictable step size algorithm only uses predictable ability to get the maximum step of a predictable FMU. On the other hand, a predictable FMU can accept any step size less than or equal to the maximum step returned by $GetMaxStepSize$.
+
+First off, the master algorithm get the maximum step of all predictable FMUs and find the smallest communication step size $h$ that all predictable can accept. Then, we save the states of all FMUs supporting rollback. MA calls $doStep(h)$ on FMUs supporting rollback. The function $doStep()$ will return the real performed step size. If all performed step sizes are equal to $h$, MA will call $doStep(h)$ on FMUs supporting predictable. Otherwise, MA will find the smallest performed step $h_{min}$, then all rollback FMUs will restore the state saved before the simulation step. Finally, MA will call $doStep(h_{min})$ on all FMUs. The control flow of predictable step size algorithm is shown in Fig.\ref{ad-fixedstep}. For example, $getMinStepFromCP$ is an activity that MA will call $GetMaxStepSize$ on all predictable FMUs to find their maximum simulation steps and then return the smallest one of them. 
+
+\subsection{Modelling and Analysis of MA} 
+We model three master algorithms using timed automata in UPPAAL. The following Fig.\ref{ta-rollfix} and Fig.\ref{ta-pre} show the execution of three master algorithms in the form of timed automata respectively. Fixed step algorithm has $Init$, $doStep$ states and synchronize with FMU by channel $continue$. Rollback algorithm has $Init$, $isEqual$, and $con$ states. If all FMUs don't have the same step size, rollback algorithm will communicate with FMUs by $rollback$ signal, otherwise, it will send $continue$ signal and move to $con$ state. Predictable step size algorithm has $Init$, $findCP5$, $getCRh$, $writecp$ states. It obtains the minimal step size ($step2$) of FMUs supporting $GetMaxStepSize$ function and the maximal step size ($step1$) of FMUs supporting rollback function. If $step1$ is greater than $step2$, FMUs receive $rollback$ signal and return to $getCRh$ state. Otherwise, FMUs receive $continue$ signal and do next step.  
+\begin{figure}[htbp]
+\centering{
+		\subfigure[Timed automata for fixed step algorithm]{\includegraphics[width=1.5in,height=1.0in]{fig/fixedstep_master.png}
+			\label{ta_fixedstep}}
+		\hfil
+		\subfigure[Timed automata for rollback algorithm]{\includegraphics[width=3.0in,height=1.5in]{fig/rollback_master.png}
+			\label{ta-rollback}}		
+	\caption{Timed automata for fixed step algorithm and rollback algorithm.}
+	\label{ta-rollfix}
+	}
+\end{figure}
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=4.8in,height=2.0in]{fig/pma_master.png}
+\caption{Timed automata for predictable step sizes algorithm}
+\label{ta-pre}
+\end{center}
+\end{figure}
+We check the properties of master algorithms including reachability , liveness and deadlock. Experimental results are shown in Table \ref{rs}.
+
+\begin{itemize}
+\item
+$E\langle\rangle~master.dostep$, $E\langle\rangle~master.con$ and $E\langle\rangle~master.writecp$ are reachability properties checking whether the model can reach these states;
+\item
+$master.Init \rightarrow master.dostep$, $master.Init \rightarrow master.con$ and $master.Init \rightarrow master.con$ are liveness property. If the master algorithm arrives at former state, it eventually reaches the latter state;
+\item
+$A[]~not~deadlock$ is safety property checking whether the model will be deadlock.
+\end{itemize}
+
+In Table \ref{rs}, we can find that the properties such as deadlock, liveness and reachability are satisfied,  which proves the correctness of three master algorithms. For an example, $A[]~not~deadlock$ is satisfied, which means that the execution of the master algorithm will not be deadlock. $master.Init \rightarrow master.doStep$ is satisfied, which means that if the model reach the former state $Init$, it must reach the later state $doStep$. $E\langle\rangle~master.doStep$ is satisfied, which means that it can reach $doStep$ state. 
+
+\begin{table}
+\caption{Checking Properties of Master Algorithms}
+\centering
+\begin{tabular}{c c c}
+        \hline
+        Master Algorithm & Property & Verification Result\\
+        \hline
+        \multirow{4}{5.0cm}{Fixed Step Algorithm}
+                & $A[]~not~deadlock$ & True\\
+                & $master.Init \rightarrow master.dostep$ & True\\
+                & $E\langle\rangle~master.dostep$ & True\\
+
+        \hline
+        \multirow{4}{5.0cm}{Rollback Algorithm}
+                & $A[]~not~deadlock$ & True\\
+                & $master.Init \rightarrow master.con$ & True\\
+                & $E\langle\rangle~master.coninue$ & True\\
+
+        \hline
+        \multirow{4}{5.0cm}{Predictable Step Size Algorithm}
+                & $A[]~not~deadlock$ & True\\
+                & $master.Init \rightarrow  master.writecp$ & True\\
+                & $E\langle\rangle~master.writecp$ & True\\
+        \hline
+\end{tabular}
+\label{ta_rs}
+\end{table}

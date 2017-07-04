@@ -41,7 +41,7 @@ P_{=?}(F^{\leq100}~Train(0).Cross)
 \end{equation}
 \begin{figure}[htbp]
 	\centering
-	{\includegraphics[width=2.5in,height=1.4in]{fig/trace-slave.png}}
+	{\includegraphics[width=3.2in,height=1.4in]{fig/trace-slave.png}}
 	%\vspace{0.10in}
 	\caption{Trace number of each slave}
    \label{trace-slave}
@@ -49,10 +49,10 @@ P_{=?}(F^{\leq100}~Train(0).Cross)
 The evaluation result is in [0.52707,0.626969] with half-interval size of $\pm0.05$ and interval coverage coefficient of 95\%. Further, we plot the number of traces and satisfying traces of each slave in Figure \ref{trace-slave}. It shows that the slaves generate same number of traces, however, the number of satisfying traces are not equal. Besides, in order to compare the probability partition between DAL-SMC and DAL-SMC opt, we plot the probability of each sub-space as shown in Figure \ref{BIE-pro}. Figure \ref{pronor} and Figure \ref{proopt} are the probability of each sub-space in DAL-SMC and DAL-SMC opt. respectively. We find that the probability distribution of DAL-SMC opt. is more evenly than that of DAL-SMC, therefore, the parameter optimization is effective. In the next subsections, we will use two complex CPS benchmarks to compare the performance of algorithms.
 \begin{figure*}[htbp]
 \centering{
-		\subfigure[DAL-SMC]{\includegraphics[width=2.0in,height=1.4in]{fig/pro.png}
+		\subfigure[DAL-SMC]{\includegraphics[width=3.0in,height=1.4in]{fig/pro.png}
 			\label{pronor}}
 		\hfil
-		\subfigure[DAL-SMC opt]{\includegraphics[width=2.0in,height=1.4in]{fig/pro-opt.png}
+		\subfigure[DAL-SMC opt]{\includegraphics[width=3.0in,height=1.4in]{fig/pro-opt.png}
 			\label{proopt}}
 	\caption{Probability of each sub-space.}
 	\label{BIE-pro}

@@ -1,0 +1,22 @@
+\section{Related Work}
+\label{sec:relateworks}
+For simulating CPSs \cite{GeorgMRW14}, distinct
+simulation domains need to be integrated for a comprehensive
+analysis of the interdependent subsystems. Co-simulation \cite{Bogomolov2015Co} can maintain all system models within their specialized simulators
+and synchronizes them in order to coherently integrate the simulation domains. FMI \cite{Blochwitz2011The}\cite{FMI2INTRO} is an industry standard which enables co-simulation of complex heterogeneous systems using multiple simulation engines. 
+
+Jens Bastian et al. adopts fixed step size master algorithm to simulate heterogeneous
+systems in \cite{Bastian2011Master}.
+David Broman et al. discussed the determinate composition of FMUs for co-simulation. To do that, they extended the FMI standard to designs FMUs that enables deterministic execution for a broader class of models. Besides, rollback and predictable step size master algorithms are proposed in their work. In \cite{CremonaLTBL16}, Fabio Cremona et al. presents FIDE, an Integrated Development Environment
+(IDE) for building applications using FMUs. We also implemented the prototype \textit{co-simulator} between continuous-time Markov chains (CTMCs) \cite{DanosHGS17}, discrete-time Markov chains (DTMCs) \cite{Guerry13} and Modelica in \cite{LiuJWCD16}. We also have presented an improved co-simulation framework that focuses on the capture of nearest future event to reduce the number of running steps and the frequency of data exchange between models. 
+In short, the existing work focus on how to achieve deterministic execution of FMUs and improve the efficiency of the master algorithms, however, there is few work to analysis the correctness of master algorithms. In this paper, our work focuses on the model and analyse I/O dependency information and master algorithms for FMI co-simulation.
+PG Larsen et al. \cite{Larsen2016Integrated} presented formal semantics of the FMI described in the formal specification language CSP. They 
+formally analyse the CSP model with the FDR3 refinement checker. Nuno Amalio et al. \cite{AmalioPCW16} presented an approach to verify both healthiness and well-formedness of an architecture design modeled with SysML. They attempt to check the conformity of component connectors and the absence of algebraic loops to ensure the co-simulation convergence.
+
+In \cite{SkelinWOHL15}, Mladen Skelin et al. reports on the translation of the FSM-SADF formalism to UPPAAL timed automata that enables a more general
+verification than currently supported by existing tools. Stavros Tripakis \cite{Tripakis15} discussed the principles for encoding different modeling formalisms, including state machines (both untimed and timed), discrete-event systems, and synchronous dataflow, as FMUs.
+
+Compared with the existing work, the main advantage of our approach proposed in this paper is that it formally model the FMI co-simulation with timed automata. The correctness of the co-simulation between FMUs can be verified with the model checker. Moreover, our approach facilitates the detection the algebraic loop of CPSs architecture. These features make the proposed timed automata-based approach complementary to existing
+approaches to the formal analysis of the co-simulation.
+
+

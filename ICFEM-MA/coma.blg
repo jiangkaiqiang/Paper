@@ -1,0 +1,42 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: coma.aux
+The style file: splncs03.bst
+Database file #1: refcoma.bib
+Repeated entry---line 105 of file refcoma.bib
+ : @inproceedings{BromanBGLMTW13
+ :                              ,
+I'm skipping whatever remains of this entry
+A bad cross reference---entry "AckerDVM15"
+refers to entry "DBLP:conf/springsim/2015-4", which doesn't exist
+A bad cross reference---entry "BehrmannDLHPYH06"
+refers to entry "DBLP:conf/qest/2006", which doesn't exist
+A bad cross reference---entry "BromanBGLMTW13"
+refers to entry "DBLP:conf/emsoft/2013", which doesn't exist
+A bad cross reference---entry "Tripakis15"
+refers to entry "DBLP:conf/samos/2015", which doesn't exist
+A bad cross reference---entry "CremonaLBNLT16"
+refers to entry "DBLP:conf/memocode/2016", which doesn't exist
+A bad cross reference---entry "CremonaLTBL16"
+refers to entry "DBLP:conf/sac/2016", which doesn't exist
+A bad cross reference---entry "DanosHGS17"
+refers to entry "DBLP:conf/fossacs/2017", which doesn't exist
+A bad cross reference---entry "LiuJWCD16"
+refers to entry "DBLP:conf/compsac/2016", which doesn't exist
+A bad cross reference---entry "AmalioPCW16"
+refers to entry "DBLP:conf/icfem/2016", which doesn't exist
+A bad cross reference---entry "SkelinWOHL15"
+refers to entry "DBLP:conf/sies/2015", which doesn't exist
+Warning--I didn't find a database entry for "DBLP:conf/memocode/2016"
+Warning--I didn't find a database entry for "DBLP:conf/emsoft/2013"
+Warning--I didn't find a database entry for "DBLP:conf/qest/2006"
+Warning--I didn't find a database entry for "DBLP:conf/icfem/2016"
+Warning--I didn't find a database entry for "DBLP:conf/sac/2016"
+Warning--I didn't find a database entry for "DBLP:conf/compsac/2016"
+Warning--I didn't find a database entry for "DBLP:conf/sies/2015"
+Warning--I didn't find a database entry for "DBLP:conf/samos/2015"
+Warning--I didn't find a database entry for "DBLP:conf/springsim/2015-4"
+Warning--I didn't find a database entry for "DBLP:conf/fossacs/2017"
+Warning--empty booktitle in Bastian2011Master
+Warning--empty journal in Blochwitz2011The
+Warning--there's a number but no volume in Blochwitz2011The
+Warning--empty journal in Bogomolov2015Co
+(There were 11 error messages)
