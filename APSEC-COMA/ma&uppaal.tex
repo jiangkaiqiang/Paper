@@ -7,16 +7,16 @@ UPPAAL \cite{BehrmannDLHPYH06} is a toolset for verification of real-time system
 
 \begin{figure}[htbp]
 \centering{
-		\subfigure[Timed automata template for FMU controller]{\includegraphics[width=1.3in,height=0.8in]{fig/2signal_controller.png}
+		\subfigure[Timed automata template for FMU controller]{\includegraphics[width=1.6in,height=1.2in]{fig/2signal_controller.png}
 			\label{tk_controller}}
 		\hfil
-		\subfigure[Timed automata for FMU valve]{\includegraphics[width=1.3in,height=0.8in]{fig/2signal_v.png}
+		\subfigure[Timed automata for FMU valve]{\includegraphics[width=1.6in,height=1.2in]{fig/2signal_v.png}
 			\label{tk_v}}
 			
-	    \subfigure[Timed automata for FMU tank1]{\includegraphics[width=1.2in,height=0.8in]{fig/2signal_wt1.png}
+	    \subfigure[Timed automata for FMU tank1]{\includegraphics[width=1.5in,height=1.2in]{fig/2signal_wt1.png}
 			\label{tk_wt1}}
 		\hfil
-		 \subfigure[Timed automata for master algorithm]{\includegraphics[width=1.4in,height=0.8in]{fig/2signal_master.png}
+		 \subfigure[Timed automata for master algorithm]{\includegraphics[width=1.7in,height=1.2in]{fig/2signal_master.png}
 			\label{tk_ma}}		
 	\caption{Timed automata templates for connection case 1.}
 	\label{tk-arch1}
@@ -25,10 +25,10 @@ UPPAAL \cite{BehrmannDLHPYH06} is a toolset for verification of real-time system
 
 \begin{figure}[htbp]
 \centering{
-		\subfigure[Execution trace]{\includegraphics[width=1.3in,height=1.4in]{fig/trs.jpg}
+		\subfigure[Execution trace]{\includegraphics[width=1.6in,height=1.8in]{fig/trs.jpg}
 			\label{trs}}
 		\hfil
-		\subfigure[Execution sequence diagram]{\includegraphics[width=1.3in,height=1.4in]{fig/seq.jpg}
+		\subfigure[Execution sequence diagram]{\includegraphics[width=1.6in,height=1.8in]{fig/seq.jpg}
 			\label{seq}}
 	\caption{The execution fragment of the co-simulation.}
 	\label{trs-seq}
@@ -42,17 +42,17 @@ Figure~\ref{trs-seq} is the execution fragment of the co-simulation, we can find
 In order to compare the behavior of three connection cases of water tank presented in Section 4.2, we also model the other two connection cases in UPPAAL. We add a channel $s$ to the templates for controller and tank1, which is the model of connection case 2 as shown in Fig.\ref{tk-arch2}. We add a template (tank2) and channel $w2$, which is the model of connection case 3 shown in Fig.\ref{arc3}. In next subsection, we verify some properties of various connection cases to analyse the correctness of the architecture.
 \begin{figure}[htbp]
 \centering{
-		\subfigure[Timed automata for FMU controller]{\includegraphics[width=1.4in,height=0.8in]{fig/2signal_cycle_controller.png}
+		\subfigure[Timed automata for FMU controller]{\includegraphics[width=1.8in,height=1.2in]{fig/2signal_cycle_controller.png}
 			\label{tk2_controller}}
 		\hfil
-		\subfigure[Timed automata for FMU tank1]{\includegraphics[width=1.2in,height=0.8in]{fig/2signal_cycle_wt1.png}
+		\subfigure[Timed automata for FMU tank1]{\includegraphics[width=1.5in,height=1.2in]{fig/2signal_cycle_wt1.png}
 			\label{tk2_v}}		
 	\caption{Timed automata for connection case 2.}
 	\label{tk-arch2}
 	}
 \end{figure}
 \begin{figure}[htbp]
-	\centering	{\includegraphics[width=2.5in,height=0.7in]{fig/4signal_wt2.png}}
+	\centering	{\includegraphics[width=3.0in,height=0.8in]{fig/4signal_wt2.png}}
 	\caption{Timed automata for connection case 3.}\label{arc3}
 \end{figure}
 \subsection{Verification and Analysis}
