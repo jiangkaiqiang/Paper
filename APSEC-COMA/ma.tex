@@ -1,6 +1,6 @@
 \section{Co-simulation Execution}
 \label{sec:ma}
-In this section, we use timed automata to encode three master algorithms and verify some expected properties of co-simulation such as deadlock, liveness and reachability with UPPAAL.
+In this section, we model three master algorithms with timed automata  and verify some expected properties of co-simulation such as deadlock, liveness and reachability with UPPAAL.
 \subsection{I/O Dependency Information}
 When it comes to co-simulation, I/O dependency information \cite{BromanBGLMTW13} is inevitably required to be well considered. The master algorithm calls function $Set$ to provide input value to an FMU and function $Get$ to retrieve an output value. So it is essential to know which outputs of an FMU depend immediately on which inputs. In the design of a MA, the direct dependency information can be used to call the function $Set$ and $Get$ in a well-defined order. In FMI 2.0 this information can be provided using the element $ModelStructure$ \cite{FMI2INTRO}. However, sometime there may be an algebraic loop in the dependency information, which may not converge. Since we are interested in non-diverging and deterministic composition of FMUs, we need to distinguish these two cases. 
 \subsection{Master Algorithm (MA)}
@@ -22,7 +22,7 @@ The rollback algorithm require all FMUs support rollback. However, this approach
 First off, the master algorithm get the maximum step of all predictable FMUs and find the smallest communication step size $h$ that all predictable can accept. Then, we save the states of all FMUs supporting rollback. MA calls $doStep(h)$ on FMUs supporting rollback. The function $doStep()$ will return the real performed step size. If all performed step sizes are equal to $h$, MA will call $doStep(h)$ on FMUs supporting predictable. Otherwise, MA will find the smallest performed step $h_{min}$, then all rollback FMUs will restore the state saved before the simulation step. Finally, MA will call $doStep(h_{min})$ on all FMUs. The control flow of predictable step size algorithm is shown in Fig.\ref{ad-fixedstep}. For example, $getMinStepFromCP$ is an activity that MA will call $GetMaxStepSize$ on all predictable FMUs to find their maximum simulation steps and then return the smallest one of them. 
 
 \subsection{Modelling and Analysis of MA} 
-We model three master algorithms using timed automata in UPPAAL. The following Fig.\ref{ta-rollfix} and Fig.\ref{ta-pre} show the execution of three master algorithms in the form of timed automata respectively. Fixed step algorithm has $Init$, $doStep$ states and synchronize with FMU by channel $continue$. Rollback algorithm has $Init$, $isEqual$, and $con$ states. If all FMUs don't have the same step size, rollback algorithm will communicate with FMUs by $rollback$ signal, otherwise, it will send $continue$ signal and move to $con$ state. Predictable step size algorithm has $Init$, $findCP5$, $getCRh$, $writecp$ states. It obtains the minimal step size ($step2$) of FMUs supporting $GetMaxStepSize$ function and the maximal step size ($step1$) of FMUs supporting rollback function. If $step1$ is greater than $step2$, FMUs receive $rollback$ signal and return to $getCRh$ state. Otherwise, FMUs receive $continue$ signal and do next step.  
+We model three master algorithms using timed automata in UPPAAL. The following Fig.\ref{ta-master} shows the execution of three master algorithms in the form of timed automata respectively. Fixed step algorithm has $Init$, $doStep$ states and synchronize with FMU by channel $continue$. Rollback algorithm has $Init$, $isEqual$, and $con$ states. If all FMUs don't have the same step size, rollback algorithm will communicate with FMUs by $rollback$ signal, otherwise, it will send $continue$ signal and move to $con$ state. Predictable step size algorithm has $Init$, $findCP5$, $getCRh$, $writecp$ states. It obtains the minimal step size ($step2$) of FMUs supporting $GetMaxStepSize$ function and the maximal step size ($step1$) of FMUs supporting rollback function. If $step1$ is greater than $step2$, FMUs receive $rollback$ signal and return to $getCRh$ state. Otherwise, FMUs receive $continue$ signal and do next step.  
 \begin{figure}[htbp]
 \centering{
 		\subfigure[Timed automata for fixed step algorithm]{\includegraphics[width=1.0in,height=0.8in]{fig/fixedstep_master.png}
@@ -30,7 +30,7 @@ We model three master algorithms using timed automata in UPPAAL. The following F
 		\hfil
 		\subfigure[Timed automata for rollback algorithm]{\includegraphics[width=2.0in,height=1.2in]{fig/rollback_master.png}
 			\label{ta-rollback}}	
-		\subfigure[Timed automata for predictable step sizes algorithm]{\includegraphics[width=3.5in,height=1.8in]{fig/rollback_master.png}
+		\subfigure[Timed automata for predictable step sizes algorithm]{\includegraphics[width=3.5in,height=1.6in]{fig/pma_master.png}
 			\label{ta-pre}}		
 	\caption{Timed automata for master algorithms.}
 	\label{ta-master}
@@ -40,9 +40,9 @@ We check the properties of master algorithms including reachability , liveness a
 
 \begin{itemize}
 \item
-$E\langle\rangle~master.dostep$, $E\langle\rangle~master.con$ and $E\langle\rangle~master.writecp$ are reachability properties checking whether the model can reach these states;
+$E\langle\rangle~master.dostep$, $E\langle\rangle~master.continue$ and $E\langle\rangle~master.writecp$ are reachability properties checking whether the model can reach these states;
 \item
-$master.Init \rightarrow master.dostep$, $master.Init \rightarrow master.con$ and $master.Init \rightarrow master.con$ are liveness property. If the master algorithm arrives at former state, it eventually reaches the latter state;
+$master.Init \rightarrow master.dostep$, $master.Init \rightarrow master.continue$ and $master.Init \rightarrow master.writecp$ are liveness property. If the master algorithm arrives at former state, it eventually reaches the latter state;
 \item
 $A[]~not~deadlock$ is safety property checking whether the model will be deadlock.
 \end{itemize}
@@ -64,8 +64,8 @@ In Table \ref{rs}, we can find that the properties such as deadlock, liveness an
         \hline
         \multirow{2}{2.0cm}{Rollback}
                 & $A[]~not~deadlock$ & True\\
-                & $master.Init \rightarrow master.con$ & True\\
-                & $E\langle\rangle~master.coninue$ & True\\
+                & $master.Init \rightarrow master.continue$ & True\\
+                & $E\langle\rangle~master.continue$ & True\\
 
         \hline
         \multirow{2}{2.0cm}{Predictable}
