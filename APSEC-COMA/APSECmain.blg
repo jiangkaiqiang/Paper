@@ -1,6 +1,7 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: coma.aux
-The style file: splncs03.bst
-Database file #1: refcoma.bib
+This is BibTeX, Version 0.99dThe top-level auxiliary file: APSECmain.aux
+The style file: IEEEtran.bst
+Database file #1: IEEEabrv.bib
+Database file #2: refcoma.bib
 Repeated entry---line 105 of file refcoma.bib
  : @inproceedings{BromanBGLMTW13
  :                              ,
@@ -13,19 +14,16 @@ A bad cross reference---entry "BromanBGLMTW13"
 refers to entry "DBLP:conf/emsoft/2013", which doesn't exist
 A bad cross reference---entry "Tripakis15"
 refers to entry "DBLP:conf/samos/2015", which doesn't exist
-A bad cross reference---entry "CremonaLBNLT16"
-refers to entry "DBLP:conf/memocode/2016", which doesn't exist
+A bad cross reference---entry "AmalioPCW16"
+refers to entry "DBLP:conf/icfem/2016", which doesn't exist
 A bad cross reference---entry "CremonaLTBL16"
 refers to entry "DBLP:conf/sac/2016", which doesn't exist
 A bad cross reference---entry "DanosHGS17"
 refers to entry "DBLP:conf/fossacs/2017", which doesn't exist
 A bad cross reference---entry "LiuJWCD16"
 refers to entry "DBLP:conf/compsac/2016", which doesn't exist
-A bad cross reference---entry "AmalioPCW16"
-refers to entry "DBLP:conf/icfem/2016", which doesn't exist
 A bad cross reference---entry "SkelinWOHL15"
 refers to entry "DBLP:conf/sies/2015", which doesn't exist
-Warning--I didn't find a database entry for "DBLP:conf/memocode/2016"
 Warning--I didn't find a database entry for "DBLP:conf/emsoft/2013"
 Warning--I didn't find a database entry for "DBLP:conf/qest/2006"
 Warning--I didn't find a database entry for "DBLP:conf/icfem/2016"
@@ -35,8 +33,12 @@ Warning--I didn't find a database entry for "DBLP:conf/sies/2015"
 Warning--I didn't find a database entry for "DBLP:conf/samos/2015"
 Warning--I didn't find a database entry for "DBLP:conf/springsim/2015-4"
 Warning--I didn't find a database entry for "DBLP:conf/fossacs/2017"
-Warning--empty booktitle in Bastian2011Master
+-- IEEEtran.bst version 1.12 (2007/01/11) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 Warning--empty journal in Blochwitz2011The
-Warning--there's a number but no volume in Blochwitz2011The
 Warning--empty journal in Bogomolov2015Co
-(There were 11 error messages)
+Warning--empty booktitle in Bastian2011Master
+
+Done.
+(There were 10 error messages)

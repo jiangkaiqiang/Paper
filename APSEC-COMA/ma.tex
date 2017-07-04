@@ -7,7 +7,7 @@ When it comes to co-simulation, I/O dependency information \cite{BromanBGLMTW13}
 The master algorithm is to orchestrate the execution of different subsystems. Each subsystems serves as an FMU block whose simulation is triggered by a particular MA. FMUs can be seen as black boxes comprising input. The process of simulation is divided into several steps where each FMU can be simulated independently until it needs to exchange data or implement synchronization. Master algorithms commonly are illustrated as following.
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=5.0in,height=2.5in]{fig/MA.jpg}
+\includegraphics[width=3.0in,height=1.5in]{fig/MA.jpg}
 \caption{Activity diagrams for three master algorithms}
 \label{ad-fixedstep}
 \end{center}
@@ -59,21 +59,21 @@ In Table \ref{rs}, we can find that the properties such as deadlock, liveness an
 \centering
 \begin{tabular}{c c c}
         \hline
-        Master Algorithm & Property & Verification Result\\
+        MA & Property & Result\\
         \hline
-        \multirow{4}{5.0cm}{Fixed Step Algorithm}
+        \multirow{2}{2.0cm}{Fixed Step}
                 & $A[]~not~deadlock$ & True\\
                 & $master.Init \rightarrow master.dostep$ & True\\
                 & $E\langle\rangle~master.dostep$ & True\\
 
         \hline
-        \multirow{4}{5.0cm}{Rollback Algorithm}
+        \multirow{2}{2.0cm}{Rollback}
                 & $A[]~not~deadlock$ & True\\
                 & $master.Init \rightarrow master.con$ & True\\
                 & $E\langle\rangle~master.coninue$ & True\\
 
         \hline
-        \multirow{4}{5.0cm}{Predictable Step Size Algorithm}
+        \multirow{2}{2.0cm}{Predictable}
                 & $A[]~not~deadlock$ & True\\
                 & $master.Init \rightarrow  master.writecp$ & True\\
                 & $E\langle\rangle~master.writecp$ & True\\
