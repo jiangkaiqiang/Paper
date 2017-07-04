@@ -7,7 +7,7 @@ When it comes to co-simulation, I/O dependency information \cite{BromanBGLMTW13}
 The master algorithm is to orchestrate the execution of different subsystems. Each subsystems serves as an FMU block whose simulation is triggered by a particular MA. FMUs can be seen as black boxes comprising input. The process of simulation is divided into several steps where each FMU can be simulated independently until it needs to exchange data or implement synchronization. Master algorithms commonly are illustrated as following.
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=3.0in,height=1.5in]{fig/MA.jpg}
+\includegraphics[width=3.5in,height=1.75in]{fig/MA.jpg}
 \caption{Activity diagrams for three master algorithms}
 \label{ad-fixedstep}
 \end{center}
@@ -25,12 +25,12 @@ First off, the master algorithm get the maximum step of all predictable FMUs and
 We model three master algorithms using timed automata in UPPAAL. The following Fig.\ref{ta-rollfix} and Fig.\ref{ta-pre} show the execution of three master algorithms in the form of timed automata respectively. Fixed step algorithm has $Init$, $doStep$ states and synchronize with FMU by channel $continue$. Rollback algorithm has $Init$, $isEqual$, and $con$ states. If all FMUs don't have the same step size, rollback algorithm will communicate with FMUs by $rollback$ signal, otherwise, it will send $continue$ signal and move to $con$ state. Predictable step size algorithm has $Init$, $findCP5$, $getCRh$, $writecp$ states. It obtains the minimal step size ($step2$) of FMUs supporting $GetMaxStepSize$ function and the maximal step size ($step1$) of FMUs supporting rollback function. If $step1$ is greater than $step2$, FMUs receive $rollback$ signal and return to $getCRh$ state. Otherwise, FMUs receive $continue$ signal and do next step.  
 \begin{figure}[htbp]
 \centering{
-		\subfigure[Timed automata for fixed step algorithm]{\includegraphics[width=0.8in,height=0.6in]{fig/fixedstep_master.png}
+		\subfigure[Timed automata for fixed step algorithm]{\includegraphics[width=1.0in,height=0.8in]{fig/fixedstep_master.png}
 			\label{ta_fixedstep}}
 		\hfil
-		\subfigure[Timed automata for rollback algorithm]{\includegraphics[width=1.8in,height=1.0in]{fig/rollback_master.png}
+		\subfigure[Timed automata for rollback algorithm]{\includegraphics[width=2.0in,height=1.2in]{fig/rollback_master.png}
 			\label{ta-rollback}}	
-		\subfigure[Timed automata for predictable step sizes algorithm]{\includegraphics[width=2.8in,height=1.4in]{fig/rollback_master.png}
+		\subfigure[Timed automata for predictable step sizes algorithm]{\includegraphics[width=3.5in,height=1.8in]{fig/rollback_master.png}
 			\label{ta-pre}}		
 	\caption{Timed automata for master algorithms.}
 	\label{ta-master}

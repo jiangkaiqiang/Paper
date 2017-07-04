@@ -7,7 +7,7 @@ comprising heterogeneous components, by coupling the different models with their
 To achieve the goal, we present a novel approach to model and check the properties of co-simulation with timed automata \cite{AlurD94}. The schematic view of our approach is shown in Fig.\ref{paperarc}.
 At the design phase, we construct the architecture of CPSs with SysML block diagrams \cite{RahimHI17}. Each block represents a component and the communication between components is modeled with SysML connector. To simulate the whole system with co-simulation techniques, the block can be modeled with a Functional Mock-up  (FMU) and the connector can be modeled with a master algorithm. The MA orchestrate FMUs to accomplish the communication between FMUs. To verify the correctness of the architecture, we encode the FMU and the master algorithm by timed automata, which facilitates the verification livelock or deadlock with the UPPAAL model checker  \cite{BehrmannDLHPYH06}.
 \begin{figure}[htbp]
-	\centering	{\includegraphics[width=2.8in,height=1.4in]{fig/approach.pdf}}
+	\centering	{\includegraphics[width=3.5in,height=1.6in]{fig/approach.pdf}}
 	\begin{center}
 	\caption{A schematic view of our approach.}
 	\end{center}\label{paperarc}
