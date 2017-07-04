@@ -25,21 +25,16 @@ First off, the master algorithm get the maximum step of all predictable FMUs and
 We model three master algorithms using timed automata in UPPAAL. The following Fig.\ref{ta-rollfix} and Fig.\ref{ta-pre} show the execution of three master algorithms in the form of timed automata respectively. Fixed step algorithm has $Init$, $doStep$ states and synchronize with FMU by channel $continue$. Rollback algorithm has $Init$, $isEqual$, and $con$ states. If all FMUs don't have the same step size, rollback algorithm will communicate with FMUs by $rollback$ signal, otherwise, it will send $continue$ signal and move to $con$ state. Predictable step size algorithm has $Init$, $findCP5$, $getCRh$, $writecp$ states. It obtains the minimal step size ($step2$) of FMUs supporting $GetMaxStepSize$ function and the maximal step size ($step1$) of FMUs supporting rollback function. If $step1$ is greater than $step2$, FMUs receive $rollback$ signal and return to $getCRh$ state. Otherwise, FMUs receive $continue$ signal and do next step.  
 \begin{figure}[htbp]
 \centering{
-		\subfigure[Timed automata for fixed step algorithm]{\includegraphics[width=1.5in,height=1.0in]{fig/fixedstep_master.png}
+		\subfigure[Timed automata for fixed step algorithm]{\includegraphics[width=0.8in,height=0.6in]{fig/fixedstep_master.png}
 			\label{ta_fixedstep}}
 		\hfil
-		\subfigure[Timed automata for rollback algorithm]{\includegraphics[width=3.0in,height=1.5in]{fig/rollback_master.png}
-			\label{ta-rollback}}		
-	\caption{Timed automata for fixed step algorithm and rollback algorithm.}
-	\label{ta-rollfix}
+		\subfigure[Timed automata for rollback algorithm]{\includegraphics[width=1.8in,height=1.0in]{fig/rollback_master.png}
+			\label{ta-rollback}}	
+		\subfigure[Timed automata for predictable step sizes algorithm]{\includegraphics[width=2.8in,height=1.4in]{fig/rollback_master.png}
+			\label{ta-pre}}		
+	\caption{Timed automata for master algorithms.}
+	\label{ta-master}
 	}
-\end{figure}
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[width=4.8in,height=2.0in]{fig/pma_master.png}
-\caption{Timed automata for predictable step sizes algorithm}
-\label{ta-pre}
-\end{center}
 \end{figure}
 We check the properties of master algorithms including reachability , liveness and deadlock. Experimental results are shown in Table \ref{rs}.
 
@@ -59,7 +54,7 @@ In Table \ref{rs}, we can find that the properties such as deadlock, liveness an
 \centering
 \begin{tabular}{c c c}
         \hline
-        MA & Property & Result\\
+        Master algorithm & Property & Result\\
         \hline
         \multirow{2}{2.0cm}{Fixed Step}
                 & $A[]~not~deadlock$ & True\\
