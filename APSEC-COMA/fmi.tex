@@ -106,8 +106,14 @@ An output event in $e \in E_{I}$ indicates that the function $get$ of $F$ gets t
 The communication with input and output events in TA is the same as the I/O dependencies information in FMU. $(u,y) \in D$ denotes that output y depend on input u. The output events also depend on the input events.
 \item
 For any $e \in E$ of A, there is a transition $s \xrightarrow{e} s^{\prime}$, which may be found after the function $doStep$ is executing. For instance, if there is a transition $l \xrightarrow{e} l^{\prime}$, at the same time $doStep(l,h)$ may be called which indicates that $F$ accepts the time step $h$ and reaches the new location $l^{\prime}$. However, $F$ maybe rejects the time step for the reason which we have discussed above and this process can also be described in the TA. If there is a rollback behavior happens after the $F$ rejects the time step $h$, the transition in TA could be a edge $s \xrightarrow{e} s$, which denotes that a state travels to itself.
-\end{itemize}
 
+\end{itemize}
+\begin{figure}[htbp]
+	\centering	{\includegraphics[width=3.5in,height=2.5in]{fig/abstractRole.png}}
+	\begin{center}
+	\caption{Abstraction rules from FMU to TA.}
+	\end{center}\label{paperarc}
+\end{figure}
 %\begin{algorithm}
 %\caption{Encoding FMUs by timed automata}
 %\label{alg:stuff}

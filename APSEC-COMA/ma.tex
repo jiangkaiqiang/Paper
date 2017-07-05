@@ -1,9 +1,9 @@
-\section{Modelling and Analysis of MA}
+\section{Modelling and Analysis of Master Algorithm}
 \label{sec:ma}
-The master algorithm provides the orchestration of FMUs, which denotes the co-simulation of various FMUs. To ensure the correctness of co-simulation execution process, it is necessary to verify certain properties of the master algorithm. In this section, we use timed automata to encode three versions of master algorithm and verify some expected properties of master algorithm such as deadlock, liveness and reachability with UPPAAL.
+The master algorithm (MA) provides the orchestration of FMUs, which denotes the co-simulation of various FMUs. To ensure the correctness of co-simulation execution process, it is necessary to verify certain properties of the master algorithm. In this section, we use timed automata to model three versions of master algorithms and verify some expected properties of master algorithm such as deadlock, liveness and reachability with UPPAAL.
 \subsection{I/O Dependency Information}
-When it comes to co-simulation, I/O dependency information \cite{BromanBGLMTW13} is inevitably required to be well considered. The master algorithm calls function \emph{Set} to provide input value to an FMU and function \emph{Get} to retrieve an output value. So it is essential to know which outputs of an FMU depend immediately on which inputs. In the design of a MA, the direct dependency information can be used to call the function \emph{Set} and \emph{Get} in a well-defined order. In FMI 2.0 this information can be provided using the element \emph{ModelStructure} \cite{FMI2INTRO}. However, sometime there may be an algebraic loop in the dependency information, which may not converge. Since we are interested in non-diverging and deterministic composition of FMUs, we need to distinguish these two cases. 
-\subsection{Master Algorithm (MA)}
+When it comes to co-simulation, I/O dependency information \cite{BromanBGLMTW13} is inevitably required to be well considered. The master algorithm calls function \emph{Set} to provide input value to an FMU and function \emph{Get} to retrieve an output value. So it is essential to know which outputs of an FMU depend immediately on which inputs. In the design of a MA, the direct dependency information can be used to call the function \emph{Set} and \emph{Get} in a well-defined order. In FMI 2.0, this information can be provided using the element \emph{ModelStructure} \cite{FMI2INTRO}. However, sometime there may be an algebraic loop in the dependency information, which may not converge. Since we are interested in non-diverging and deterministic composition of FMUs, we need to distinguish these two cases. 
+\subsection{Master Algorithm}
 The master algorithm is to orchestrate the execution of different subsystems. Each subsystems serves as an FMU block whose simulation is triggered by a particular MA. FMUs can be seen as black boxes comprising input. The process of simulation is divided into several steps where each FMU can be simulated independently until it needs to exchange data or implement synchronization. There are three versions of master algorithm,which is shown in Fig.\ref{ad-fixedstep}.
 \begin{figure}[htbp]
 \centering{
@@ -14,7 +14,7 @@ The master algorithm is to orchestrate the execution of different subsystems. Ea
 			\label{sd-rollback}}	
 		\subfigure[Predictable step sizes algorithm]{\includegraphics[width=3.5in,height=1.1in]{fig/MA3.png}
 			\label{sd-pre}}		
-	\caption{Activity diagrams for three version of master algorithms.}
+	\caption{Activity diagrams for three versions of master algorithms.}
 	\label{ad-fixedstep}
 	}
 \end{figure}
@@ -28,7 +28,7 @@ To improve the efficiency of MA, it is important to predict step size. So predic
 First, the master algorithm chooses the maximum step size of all predictable FMUs and find the smallest communication step size \emph{h} that all predictable step size can be accepted. Then, we save the states of all FMUs. MA calls \emph{doStep(h)} on FMUs supporting rollback. The function \emph{doStep()} will return the real performed step size. If all performed step sizes are equal to \emph{h}, MA will call \emph{doStep(h)} on FMUs. Otherwise, MA will find the smallest performed step $h_{min}$, then all FMUs will restore the state saved before the co-simulation. Finally, MA will invoke $doStep(h_{min})$ on all FMUs. The control flow of predictable step size algorithm is shown in Fig.\ref{sd-pre}. For example, \emph{getMinStepFromCP} is an activity that MA will call \emph{GetMaxStepSize} on all predictable FMUs to find their maximum simulation step size and then return the smallest one of them. 
 
 \subsection{Modelling and Analysis of MA} 
-To verify the correctness of master algorithms, we model three master algorithms using timed automata in UPPAAL. The following Fig.\ref{ta-master} shows the execution of three master algorithms in the form of timed automata respectively. Fixed step algorithm has \emph{Init}, \emph{doStep} states and synchronize with FMU by channel \emph{continue}. Rollback algorithm has \emph{Init}, \emph{DoStep}, and \emph{continue} states. If all FMUs don't have the same step size, rollback algorithm will communicate with FMUs by \emph{rollback} signal, otherwise, it will send \emph{continue} signal and move to \emph{continue} state. Predictable step size algorithm has \emph{Init}, $find \_ CP \_ MIN$, \emph{DoStep}, \emph{writeCP} states. It obtains the minimal step size (i.e., \emph{step2}) of FMUs supporting \emph{GetMaxStepSize} function and the maximal step size (i.e., \emph{step1}) of FMUs supporting rollback function. If \emph{step1} is greater than \emph{step2}, FMUs receive \emph{rollback} signal and return to \emph{DoStep} state. Otherwise, FMUs receive \emph{continue} signal and do the next step.  
+To verify the correctness of three versions of master algorithms, we model the master algorithms using timed automata in UPPAAL. The following Fig.\ref{ta-master} shows the execution of three master algorithms in the form of timed automata respectively. Fixed step algorithm has \emph{Init}, \emph{doStep} states and synchronize with FMU by channel \emph{continue}. Rollback algorithm has \emph{Init}, \emph{DoStep}, and \emph{Continue} states. If all FMUs don't have the same step size, rollback algorithm will communicate with FMUs by \emph{rollback} signal, otherwise, it will send \emph{continue} signal and move to \emph{Continue} state. Predictable step size algorithm has \emph{Init}, $find \_ CP \_ MIN$, \emph{DoStep}, \emph{writeCP} states. It obtains the minimal step size (i.e., \emph{step2}) of FMUs supporting \emph{GetMaxStepSize} function and the maximal step size (i.e., \emph{step1}) of FMUs supporting rollback function. If \emph{step1} is greater than \emph{step2}, FMUs receive \emph{rollback} signal and return to \emph{DoStep} state. Otherwise, FMUs receive \emph{continue} signal and do the next step.  
 
 
 
@@ -52,9 +52,9 @@ We verify the properties of master algorithms including reachability, liveness a
 
 \begin{itemize}
 \item
-$E\langle\rangle~master.dostep$, $E\langle\rangle~master.con$ and $E\langle\rangle~master.writecp$ are reachability properties checking whether the model can reach these states;
+$E \langle\rangle ~master.dostep$, $E\langle\rangle~master.Continue$ and $E\langle\rangle~master.writecp$ are reachability properties checking whether the model can reach these states;
 \item
-$master.Init \rightarrow master.dostep$, $master.Init \rightarrow master.con$ and $master.Init \rightarrow master.con$ are liveness property. If the master algorithm arrives at former state, it eventually reaches the latter state;
+$master.Init \rightarrow master.dostep$, $master.Init \rightarrow master.Continue$ and $master.Init \rightarrow master.Continue$ are liveness property. If the master algorithm arrives at former state, it eventually reaches the latter state;
 \item
 $A[]~not~deadlock$ is safety property, it means whether the model will be deadlock.
 \end{itemize}
@@ -76,8 +76,8 @@ In Table \ref{rs}, we can find that the properties such as deadlock, liveness an
         \hline
         \multirow{2}{2.0cm}{Rollback}
                 & $A[]~not~deadlock$ & True\\
-                & $master.Init \rightarrow master.continue$ & True\\
-                & $E\langle\rangle~master.continue$ & True\\
+                & $master.Init \rightarrow master.Continue$ & True\\
+                & $E\langle\rangle~master.Continue$ & True\\
 
         \hline
         \multirow{2}{2.0cm}{Predictable}
