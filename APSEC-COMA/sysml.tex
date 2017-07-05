@@ -1,11 +1,13 @@
+
 \section{Architectural Modelling in SysML}
 \label{sec:sysml}
-To illustrate the approach, we take an example (water tank) inspired by \cite{AmalioPCW16}. According to the I/O dependency information between the FMUs, the architectural model for water tank is constructed using SysML.
+To illustrate our approach, we take an example (water tank) inspired by \cite{AmalioPCW16}. According to the I/O dependency information between the FMUs, the architectural model for water tank is constructed using SysML. The aim of using SysML is to design the architecture of the system with a more high-level modeling language. It helps to show the components and their connection.
 \subsection{Case Study: Water Tank}
 
 The water tank system, as shown in Fig.\ref{wts-sm}, is our running example. A source of water flows into the water tank whose water flows into the drain, and the source is controlled by a valve; when the valve is open the water flows into the water tank. The valve, managed by a software controller, is opened or closed stochastically or depending on the water level. There are two variants of water tank system depending on the various connections between controller, valve and tank. 
 
 Figure~\ref{wts-fc} is the architecture connection of water tank. There are three connection cases between the FMUs. The first case contains three FMU components (\emph{Controller}, \emph{Valve} and \emph{ Tank1}) and two channels($v \_ vin$, $w \_ win$). The controller and valve are connected with channel $v \_ vin$. The valve and tank1 are connected with channel $w \_ win$. For the second case, there could be a channel $sout \_ s$ between tank1 and controller, which means the water level of tank1 affecting the control strategy of the controller. It is denoted with the gray line. Besides, there could be another tank2 (the gray box). The tank1 and tank2 are connected by the channel $w \_ out$. The orchestration of FMUs for water tank is modeled with SysML block diagram in the next subsection.
+
 \begin{figure}[htbp]
 \centering{
 		\subfigure[Sketch map of water tank system]{\includegraphics[width=1.2in,height=1.0in]{fig/tank-fig.pdf}
@@ -19,7 +21,7 @@ Figure~\ref{wts-fc} is the architecture connection of water tank. There are thre
 \end{figure}
 \subsection{Architecture Modelling in SysML}
 
-\begin{figure*}[htbp]
+\begin{figure}[htbp]
 \centering{
 		\subfigure[SysML BDD]{\includegraphics[width=3.2in,height=2.3in]{fig/AD.jpg}
 			\label{trs}}
@@ -29,7 +31,8 @@ Figure~\ref{wts-fc} is the architecture connection of water tank. There are thre
 	\caption{The SysML block diagrams for water tank system.}
 	\label{trs-seq}
 	}
-\end{figure*}
+\end{figure}
+
 
 SysML is a general purpose domain-specific language (DSL) \cite{SemerathBHSV17} for model-based systems engineering (MBSE) \cite{Dori16}, which is originated as an initiative of the International Council on Systems Engineering (INCOSE) \cite{Pepper2015International} in January 2001. SysML is implemented as a UML profile. The \textit{Block Definition Diagram }(BDD) describes the system blocks and their features (structural and behavioural). The\textit{ Connection Diagram} (CD) describes the internal structure of blocks. The ports of blocks are connected by the connector. The I/O dependence of blocks describes the communication between blocks. SysML block diagrams are usually used to describe the architecture of systems.
 
