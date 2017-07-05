@@ -1,7 +1,7 @@
 
 \section{Encoding FMUs by timed automata}
 \label{sec:fmi}
-We give the syntax and semantics of FMU and timed automata. In order to verify the  execution of FMUs. We propose to encode FMUs by timed automata. In next section, we verify the network of timed automata in UPPAAL.
+We give the syntax and semantics of FMU and timed automata. In order to verify the  execution of FMUs. We propose to encode FMUs by timed automata. In section \ref{sec:ma&uppaal}, we verify the network of timed automata in UPPAAL.
 \subsection{FMU}
 FMU is the model component which implements the methods defined in the FMI API \cite{Tripakis15}. Here, we present the syntax and semantics of FMU. The aim is to encode FMU into timed automata based on their semantics. 
 \begin{definition}
@@ -49,10 +49,10 @@ For each $i \geqslant 1$, $t_{i} = t_{0} + \sum_{k = 1}^i h_{k}$
 \item
 Given the current location $l_{i}$, the function $set$ is used to set all input variables to the values specified by $v$. Then $F$ reaches a new location $l_{i}^{\prime}$. The function $get$ is used to get the values of all output variables $v_{i}^{\prime}$.
 \item 
-We assume that $doStep(l_{i}^{\prime}, h_{i+1}) = (l_{i+1},h_{i+1})$ based on the assumption that every $h_{i}$ is accepted by $F$, $F$ will reach the next location $l_{i+1}$.
+We assume that $doStep(l_{i}, h_{i+1}) = (l_{i+1},h_{i+1})$ based on the assumption that every $h_{i}$ is accepted by $F$, $F$ will reach the next location $l_{i+1}$.
 \end{itemize}
 \subsection{Timed Automata}
-Timed automata (TA) \cite{BehrmannDLHPYH06} is a theory to model the behavior of real-time systems. Its definition provides a powerful way to annotate state-transition graphs with many real-valued clocks. In this section, we introduce the syntax and semantics of timed automata. In section \ref{sec:ma&uppaal}, we will model our case study with TA, so that we can use the model checker UPPAAL to analyse models.
+Timed automata (TA) \cite{BehrmannDLHPYH06} is a theory to model the behavior of real-time systems. Its definition provides a powerful way to annotate state-transition graphs with many real-valued clocks. In this section, we introduce the syntax and semantics of timed automata. In section \ref{sec:ma&uppaal}, we will model the master algorithm and encode the FMUs of our case study with the network of TA, so that we can use the model checker UPPAAL to analyse models.
 \begin{definition}
 \textbf{Timed automata syntax}
 A timed automaton is a tuple $\textit{A}=(S,X,s_{0},E,E_{O},E_{I},I)$, where:
@@ -77,23 +77,23 @@ A clock valuation is a function $v : X \rightarrow \mathbb{R}_{\geqslant{0}}$. I
 \begin{definition}
 \textbf{Timed automata semantics} 
 The semantics of a timed automaton $\textit{A} = (S,X,s_{0},E, \\E_{O},E_{I},I)$ is defined by a transition system $S_{\textit{A}} = (S,s_{0},\rightarrow)$, \end{definition}
-where $S = L \times \mathbb{R}_{\geqslant{0}}^X$ is the set of states, $s_{0} = (l_{0},v_{0})$ is the initial state, $v_{0}(x) = 0$ for all $x \in X$, and $\rightarrow \subseteq S \times S$ is the set of transitions defined by :
+where $S = S \times \mathbb{R}_{\geqslant{0}}^X$ is the set of states, $s_{0} = (s_{0},v_{0})$ is the initial state, $v_{0}(x) = 0$ for all $x \in X$, and $\rightarrow \subseteq S \times S$ is the set of transitions defined by :
 \begin{itemize}
 \item
-$(l,v) \xrightarrow{\in(\delta)} (l,v+\delta)$ if $\forall0 \leqslant \delta^{\prime} \leqslant \delta : (v + \delta^{\prime}) \models I(l)$;
+$(s,v) \xrightarrow{\in(\delta)} (s,v+\delta)$ if $\forall0 \leqslant \delta^{\prime} \leqslant \delta : (v + \delta^{\prime}) \models I(s)$;
 \item
-$(l,v) \rightarrow(l^{\prime},v[Y := 0])$ if there exists $(l,g,Y,l^{\prime}) \in E$ such that $v \models g$ and $v[Y := 0 ] \models I(l^{\prime})$.
+$(s,v) \rightarrow(s^{\prime},v[Y := 0])$ if there exists $(s,g,Y,s^{\prime}) \in E$ such that $v \models g$ and $v[Y := 0 ] \models I(s^{\prime})$.
 \end{itemize}
-The reachability problem for an automaton $A$ and a location $l$ is to decide whether there is a state $(l,v)$ reachable from $(l_{0},v_{0})$ in the transition system $S_{A}$. As usual, for verification purposes, we define a symbolic semantics for timed automata. For universality, the definition uses arbitrary sets of clock valuations.
+The reachability problem for an automaton $A$ and a location $s$ is to decide whether there is a state $(s,v)$ reachable from $(s_{0},v_{0})$ in the transition system $S_{A}$. As usual, for verification purposes, we define a symbolic semantics for timed automata. For universality, the definition uses arbitrary sets of clock valuations.
 \subsection{Encoding FMUs by timed automata}
 As we can see, there is a semantic gap between FMU and TA. The former focus on the execution sequence of FMU, which specifies the state change process with time passing. The simulation trace of TA is similar as the execution sequence of FMU. Therefore, we can encode FMU with TA to analyse the behavior of FMU component without explore its internal structure.
 
 Given an FMU $F=(L,U,Y,D,l_{0},set,get,doStep)$, we model this FMU by a timed automaton $A = (S,X,s_{0},E,E_{O},E_{I},I)$, where:
 \begin{itemize}
 \item
-$S$ is a set of finite locations. Note that a state of TA has the same form as a location of the $F$.
+$S$ is a set of finite locations. Note that a state of TA is the abstraction of a location in $F$.
 \item
-The initial state $s_{0}$ is such that $l$ is set to $l_{0}$. 
+The initial state $s_{0}$ which $t:=0 \vert t \in X$ is such that $l$ is set to $l_{0}$. 
 \item
 Each input variable $u \in U$ ranges over $E_{I} \cup \{absent\}$.
 \item
@@ -105,7 +105,7 @@ An output event in $e \in E_{I}$ indicates that the function $get$ of $F$ gets t
 \item
 The communication with input and output events in TA is the same as the I/O dependencies information in FMU. $(u,y) \in D$ denotes that output y depend on input u. The output events also depend on the input events.
 \item
-For any $e \in E$ of A, there is a transition $l \xrightarrow{e} l^{\prime}$, which may be found after the function $doStep$ is executing. For instance, if there is a transition $s \xrightarrow{e} s^{\prime}$, at the same time $doStep(l,h)$ may be called which indicates that $F$ accepts the time step $h$ and reaches the new location $l^{\prime}$. However, $F$ maybe rejects the time step for the reason which we have discussed above and this process can also be described in the TA. If there is a rollback behavior happens after the $F$ rejects the time step $h$, the transition in TA could be a edge $s \xrightarrow{e} s$, which denotes that a location travels to itself.
+For any $e \in E$ of A, there is a transition $s \xrightarrow{e} s^{\prime}$, which may be found after the function $doStep$ is executing. For instance, if there is a transition $l \xrightarrow{e} l^{\prime}$, at the same time $doStep(l,h)$ may be called which indicates that $F$ accepts the time step $h$ and reaches the new location $l^{\prime}$. However, $F$ maybe rejects the time step for the reason which we have discussed above and this process can also be described in the TA. If there is a rollback behavior happens after the $F$ rejects the time step $h$, the transition in TA could be a edge $s \xrightarrow{e} s$, which denotes that a state travels to itself.
 \end{itemize}
 
 %\begin{algorithm}

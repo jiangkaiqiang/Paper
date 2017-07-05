@@ -3,6 +3,13 @@
 This section performs a formal analysis of the SysML architectures of water tank shown in Fig.\ref{trs-seq}. First off, we model FMUs which are the components of the SysML architectures and the master algorithm which is the director of FMUs using timed automata in UPPAAL. Next, the verification and analysis checks whether the model is accurate and satisfies certain desired properties. 
 
 \subsection{Modelling FMU component in UPPAAL}
+\begin{figure}[htbp]
+	\centering	{\includegraphics[width=3.5in,height=2.5in]{fig/abstractRole.png}}
+	\begin{center}
+	\caption{Abstraction rules from FMU to TA.}
+	\end{center}\label{paperarc}
+\end{figure}
+
 UPPAAL \cite{BehrmannDLHPYH06} is a toolset for verification of real-time systems represented by (a network of) timed automata which is extended with integer variables, structured data types, and channel synchronization. The execution of FMU component and co-simulation is time-related, therefore it is convenient to model the FMU with timed automata in UPPAAL. In this subsection, we abstract the execution of FMU, and encode it with the states and transitions in timed automata. Besides, we also model the master algorithm as a timed automata to coordinate the execution between several FMU components. The timed automata template for FMU components and master algorithm are shown in Fig.\ref{tk-arch1}. Here, we choose rollback algorithm as the master algorithm to coordinate the FMU components. The other two master algorithms can be analyzed with the similar way.
 
 \begin{figure}[htbp]
@@ -25,10 +32,10 @@ UPPAAL \cite{BehrmannDLHPYH06} is a toolset for verification of real-time system
 
 \begin{figure}[htbp]
 \centering{
-		\subfigure[Execution trace]{\includegraphics[width=1.6in,height=1.8in]{fig/trs.jpg}
+		\subfigure[Execution trace]{\includegraphics[width=1.6in,height=1.8in]{fig/trs.png}
 			\label{trs}}
 		\hfil
-		\subfigure[Execution sequence diagram]{\includegraphics[width=1.6in,height=1.8in]{fig/seq.jpg}
+		\subfigure[Execution sequence diagram]{\includegraphics[width=1.6in,height=1.8in]{fig/seq.png}
 			\label{seq}}
 	\caption{The execution fragment of the co-simulation in UPPAAL.}
 	\label{trs-seq}
@@ -52,14 +59,14 @@ In order to compare the behavior of three connection cases of water tank present
 	}
 \end{figure}
 \begin{figure}[htbp]
-	\centering	{\includegraphics[width=3.0in,height=0.8in]{fig/4signal_wt2.png}}
+	\centering	{\includegraphics[width=3.5in,height=1.2in]{fig/4signal_wt2.png}}
 	\caption{Timed automata for connection case 3.}\label{arc3}
 \end{figure}
 \subsection{Verification and Analysis}
 UPPAAL uses a simplified version of TCTL \cite{BouchenebGR09} to express the requirement specification. We verify the following TCTL properties of each connection case:
 \begin{itemize}
 \item
-$E\langle\rangle~WT1.isrollback$ and $E\langle\rangle~master.continue$ are reachability properties checking whether FMU tank1 can reach $isrollback$ state and whether the master algorithm can reach $continue$ state respectively.
+$E\langle\rangle~WT1.Rollback$ and $E\langle\rangle~master.continue$ are reachability properties checking whether FMU tank1 can reach $Rollback$ state and whether the master algorithm can reach $continue$ state respectively.
 \item
 $master.start \rightarrow master.continue$ are liveness property. If the master algorithm arrive at $start$ state, it eventually reaches $continue$ state.
 \item 
@@ -75,19 +82,19 @@ The verification results are shown in Table\ref{rs}. We can find that all proper
         Connection case & Property & Result\\
         \hline
         \multirow{2}{2.0cm}{Case 1}  
-                & $E\langle\rangle~WT1.isrollback$ & True\\ 
+                & $E\langle\rangle~WT1.Rollback$ & True\\ 
                 & $E\langle\rangle~master.continue$ & True\\ 
                 & $master.start\rightarrow master.continue$ & True\\ 
                 & $A[]~not~deadlock$ & True\\   
         \hline 
         \multirow{2}{2.0cm}{Case 2}  
-                & $E\langle\rangle~WT1.isrollback$ & True\\ 
+                & $E\langle\rangle~WT1.Rollback$ & True\\ 
                 & $E\langle\rangle~master.continue$ & False\\ 
                 & $master.start\rightarrow master.continue$ & False\\ 
                 & $A[]~not~deadlock$ & True\\   
         \hline 
         \multirow{2}{2.0cm}{Case 3}  
-                & $E\langle\rangle~WT1.isrollback$ & True\\ 
+                & $E\langle\rangle~WT1.Rollback$ & True\\ 
                 & $E\langle\rangle~master.continue$ & True\\ 
                 & $master.start \rightarrow master.continue$ & True\\ 
                 & $A[]~not~deadlock$ & True\\   
