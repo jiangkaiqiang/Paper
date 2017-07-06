@@ -1,4 +1,3 @@
-
 \section{Encoding FMUs by timed automata}
 \label{sec:fmi}
 We give the syntax and semantics of FMU and timed automata. In order to verify the  execution of FMUs. We propose to encode FMUs by timed automata. In section \ref{sec:ma&uppaal}, we verify the network of timed automata in UPPAAL.
@@ -110,9 +109,8 @@ For any $e \in E$ of A, there is a transition $s \xrightarrow{e} s^{\prime}$, wh
 \end{itemize}
 \begin{figure}[htbp]
 	\centering	{\includegraphics[width=3.5in,height=2.5in]{fig/abstractRole.png}}
-	\begin{center}
 	\caption{Abstraction rules from FMU to TA.}
-	\end{center}\label{paperarc}
+	\label{fmutota}
 \end{figure}
 %\begin{algorithm}
 %\caption{Encoding FMUs by timed automata}
@@ -125,6 +123,7 @@ For any $e \in E$ of A, there is a transition $s \xrightarrow{e} s^{\prime}$, wh
 %\end{algorithmic}
 %%\end{algorithm}
 %\end{algorithm}
+As we can see from the Fig.\ref{fmutota}, given the current location $L_{i}$ at $t_{1}$, the operation $dostep$ make $fmu$ reach a new location $L_{i+1}$ at $t_{1}+step$. The fmu can be transferred to a timed automata. A state $S_{i}$ goes to a new state $S_{i}^{\prime}$ after the step.In the operation Rollback, given the current location $L{i}$, the fmu will do a step to $L_{i+1}$, and then, the operation $rollback$ make $fmu$ reach the former location $L_{i}$. In TA, a state $S_{i}$ goes to a new state $S_{i}^{\prime}$ after a step, next return to the former state $S_{i}$. In the operation prediction, when at the current location $L_{i}$, fmu can get Max step size, and reach a new location $L_{i+1}$. In TA, the state $S_{i}$ goes to a new state $S_{i}^{\prime}$ by the max step size. There is a data exchange between two fmu at $t_{1}$, then they do the same step to $L_{i+1}$. In TA, there will be a signal to make the two fmu do the same step from $S_{i}$ to $S_{i+1}$.
 Although there are semantic gaps between FMUs and timed automata, we provide a  appropriate transformation above to solve the problem. So, we believe that it's feasible to encode the FMUs by timed automata. In the following sections, we will model the FMUs with the timed automata in UPPAAL.
 
 
