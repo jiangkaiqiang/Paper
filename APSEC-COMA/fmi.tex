@@ -1,6 +1,6 @@
 \section{Encoding FMUs by timed automata}
 \label{sec:fmi}
-We give the syntax and semantics of FMU and timed automata. In order to verify the  execution of FMUs. We propose to encode FMUs by timed automata. In section \ref{sec:ma&uppaal}, we verify the network of timed automata in UPPAAL.
+We give the syntax and semantics of FMU and timed automata. In order to verify the  execution of FMUs. We propose to encode FMUs by timed automata. In section \ref{sec:sysml}, we verify the network of timed automata in UPPAAL.
 \subsection{FMU}
 FMU is the model component which implements the methods defined in the FMI API \cite{Tripakis15}. Here, we present the syntax and semantics of FMU. The aim is to encode FMU into timed automata based on their semantics. 
 \begin{definition}
@@ -51,7 +51,7 @@ Given the current location $l_{i}$, the function $set$ is used to set all input 
 We assume that $doStep(l_{i}, h_{i+1}) = (l_{i+1},h_{i+1})$ based on the assumption that every $h_{i}$ is accepted by $F$, $F$ will reach the next location $l_{i+1}$.
 \end{itemize}
 \subsection{Timed Automata}
-Timed automata (TA) \cite{BehrmannDLHPYH06} is a theory to model the behavior of real-time systems. Its definition provides a powerful way to annotate state-transition graphs with many real-valued clocks. In this section, we introduce the syntax and semantics of timed automata. In section \ref{sec:ma&uppaal}, we will model the master algorithm and encode the FMUs of our case study with the network of TA, so that we can use the model checker UPPAAL to analyse models.
+Timed automata (TA) \cite{BehrmannDLHPYH06} is a theory to model the behavior of real-time systems. Its definition provides a powerful way to annotate state-transition graphs with many real-valued clocks. In this section, we introduce the syntax and semantics of timed automata. In section \ref{sec:sysml}, we will model the master algorithm and encode the FMUs of our case study with the network of TA, so that we can use the model checker UPPAAL to analyse models.
 \begin{definition}
 \textbf{Timed automata syntax}
 A timed automaton is a tuple $\textit{A}=(S,X,s_{0},E,E_{O},E_{I},I)$, where:
@@ -85,7 +85,8 @@ $(s,v) \rightarrow(s^{\prime},v[Y := 0])$ if there exists $(s,g,Y,s^{\prime}) \i
 \end{itemize}
 The reachability problem for an automaton $A$ and a location $s$ is to decide whether there is a state $(s,v)$ reachable from $(s_{0},v_{0})$ in the transition system $S_{A}$. As usual, for verification purposes, we define a symbolic semantics for timed automata. For universality, the definition uses arbitrary sets of clock valuations.
 \subsection{Encoding FMUs by timed automata}
-As we can see, there is a semantic gap between FMU and TA. The former focus on the execution sequence of FMU, which specifies the state change process with time passing. The simulation trace of TA is similar as the execution sequence of FMU. Therefore, we can encode FMU with TA to analyse the behavior of FMU component without explore its internal structure.
+As we can see, there is a semantic gap between FMU and TA. The former focus on the execution sequence of FMU, which specifies the state change process with time passing. The simulation trace of TA is similar as the execution sequence of FMU. Therefore, we can encode FMU with TA to analyse the behavior of FMU component without 
+exploring its internal structure.
 
 Given an FMU $F=(L,U,Y,D,l_{0},set,get,doStep)$, we model this FMU by a timed automaton $A = (S,X,s_{0},E,E_{O},E_{I},I)$, where:
 \begin{itemize}
@@ -123,7 +124,7 @@ For any $e \in E$ of A, there is a transition $s \xrightarrow{e} s^{\prime}$, wh
 %\end{algorithmic}
 %%\end{algorithm}
 %\end{algorithm}
-As we can see from the Fig.\ref{fmutota}, given the current location $L_{i}$ at $t_{1}$, the operation $dostep$ make $fmu$ reach a new location $L_{i+1}$ at $t_{1}+step$. The fmu can be transferred to a timed automata. A state $S_{i}$ goes to a new state $S_{i}^{\prime}$ after the step.In the operation Rollback, given the current location $L{i}$, the fmu will do a step to $L_{i+1}$, and then, the operation $rollback$ make $fmu$ reach the former location $L_{i}$. In TA, a state $S_{i}$ goes to a new state $S_{i}^{\prime}$ after a step, next return to the former state $S_{i}$. In the operation prediction, when at the current location $L_{i}$, fmu can get Max step size, and reach a new location $L_{i+1}$. In TA, the state $S_{i}$ goes to a new state $S_{i}^{\prime}$ by the max step size. There is a data exchange between two fmu at $t_{1}$, then they do the same step to $L_{i+1}$. In TA, there will be a signal to make the two fmu do the same step from $S_{i}$ to $S_{i+1}$.
-Although there are semantic gaps between FMUs and timed automata, we provide a  appropriate transformation above to solve the problem. So, we believe that it's feasible to encode the FMUs by timed automata. In the following sections, we will model the FMUs with the timed automata in UPPAAL.
+As we can see from the Fig.\ref{fmutota}, given the current location $L_{i}$ at $t_{1}$, the operation $Dostep$ makes FMU reach a new location $L_{i+1}$ at $t_{1}+step$. The FMU can be transferred to a timed automata. A state $S_{i}$ goes to a new state $S_{i}^{\prime}$ after the step. In the operation $Rollback$, given the current location $L{i}$, the FMU will do a step to $L_{i+1}$, and then, the operation $rollback$ makes FMU reach the former location $L_{i}$. In TA, a state $S_{i}$ goes to a new state $S_{i}^{\prime}$ after a step, next returns to the former state $S_{i}$. In the operation prediction, when at the current location $L_{i}$, FMU can get Max step size, and reach a new location $L_{i+1}$. In TA, the state $S_{i}$ goes to a new state $S_{i}^{\prime}$ by the max step size. There is a data exchange between two FMUs at $t_{1}$, then they do the same step to $L_{i+1}$. In TA, there will be a signal to make the two FMUs do the same step from $S_{i}$ to $S_{i+1}$.
+Although there are semantic gaps between FMUs and timed automata, we provide an appropriate transformation above to solve the problem. So, we believe that it's feasible to encode the FMUs by timed automata. In the following sections, we will model the FMUs with the timed automata in UPPAAL.
 
 

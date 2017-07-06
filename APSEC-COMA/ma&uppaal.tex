@@ -2,7 +2,7 @@
 \label{sec:mauppaal}
 This section performs a formal analysis of the architectures of water tank. First off, we encode FMUs which are the blocks in SysML BDD using timed automata and model the master algorithm which is the director of FMUs in UPPAAL. Next, the verification and analysis checks whether the model is accurate and satisfies certain desired properties. 
 
-UPPAAL \cite{BehrmannDLHPYH06} is a toolset for verification of real-time systems represented by (a network of) timed automata which is extended with integer variables, structured data types, and channel synchronization. The execution of FMU component and co-simulation is time-related, we have propose the method to encode FMU with timed automata in Section \ref{sec:fmi}. In this subsection, we abstract the execution of FMU of water tank system, and encode it with the states and transitions in timed automata. Besides, we also model the master algorithm as a timed automata to coordinate the execution between several FMU components. Therefore the FMUs of water tank system and master algorithm can be modelled with a network of timed automata. The timed automata template for FMU components and master algorithm are shown in Fig.\ref{tk-arch1}. In Section \ref{sec:ma}, we verify the correctness of three master algorithms. Here, we choose rollback algorithm as the master algorithm to coordinate the FMU components. The other two master algorithms can be analyzed with the similar way. 
+UPPAAL \cite{BehrmannDLHPYH06} is a toolset for verification of real-time systems represented by (a network of) timed automata which is extended with integer variables, structured data types, and channel synchronization. The execution of FMU component and co-simulation is time-related, we have proposed the method to encode FMU with timed automata in Section \ref{sec:fmi}. In this subsection, we abstract the execution of FMU of water tank system, and encode it with the states and transitions in timed automata. Besides, we also model the master algorithm as a timed automata to coordinate the execution between several FMU components. Therefore the FMUs of water tank system and master algorithm can be modelled with a network of timed automata. The timed automata template for FMU components and master algorithm are shown in Fig.\ref{tk-arch1}. In Section \ref{sec:ma}, we verify the correctness of three master algorithms. Here, we choose rollback algorithm as the master algorithm to coordinate the FMU components. The other two master algorithms can be analyzed with the similar way. 
 
 \begin{figure}[htbp]
 \centering{
@@ -17,7 +17,7 @@ UPPAAL \cite{BehrmannDLHPYH06} is a toolset for verification of real-time system
 		\hfil
 		 \subfigure[Timed automata for master algorithm]{\includegraphics[width=1.7in,height=1.2in]{fig/2signal_master.png}
 			\label{tk_ma}}		
-	\caption{Network of TA for connection case 1: $TA_{controller} || TA_{valve} || TA_{tank1} || TA_{ma}$.}
+	\caption{Network of TA for connection case 1: \emph{TA \_{controller}} $\vert\vert$ \emph{TA \_{valve}} $\vert\vert$ \emph{TA \_{tank1}} $\vert\vert$ \emph{TA \_{ma}}.}
 	\label{tk-arch1}
 	}
 \end{figure}
@@ -34,9 +34,9 @@ UPPAAL \cite{BehrmannDLHPYH06} is a toolset for verification of real-time system
 	}
 \end{figure}
 
-Figure~\ref{tk_controller}, \ref{tk_v}, \ref{tk_wt1} are the templates for controller, valve and tank1 respectively, they model FMU components which supports rollback function. These FMU components contain four main states, e.g., $start$, $dostep$, $isrollback$ and $reset$. Figure~ \ref{tk_controller} shows the template for controller which supports a random step size. It synchronizes with valve by signal $v$ and jump to $isrollback$ state, and then waits for a signal from the timed automata for the master algorithm. Until the controller receives the $continue$ signal, it does data exchange, and return to $start$ state. Otherwise it receives $rollback$ signal, once it obtains the minimize step size of all FMU components, it travels to $isrollback$ state. The states and transitions of valve and tank1 template are similar with the template of controller. Figure~\ref{tk_ma} shows the template for the master algorithm. Firstly, the master algorithm initialize the parameters, and then it get minimize step size of FMU components until all FMU components visit $dostep$. Next, the master algorithm decides which signal should be sent according to the guard. If the step sizes of all FMU components are equal, the master algorithm will send $continue$ signal, otherwise, send $rollback$ signal.
+Figure~\ref{tk_controller}, \ref{tk_v}, \ref{tk_wt1} are the templates for controller, valve and tank1 respectively, they model FMU components which support rollback function. These FMU components contain four main states, e.g., $start$, $dostep$, $isrollback$ and $reset$. Figure~ \ref{tk_controller} shows the template for controller which supports a random step size. It synchronizes with valve by signal $v$ and jumps to $isrollback$ state, and then waits for a signal from the timed automata for the master algorithm. Until the controller receives the $continue$ signal, it does data exchange, and return to $start$ state. Otherwise it receives $rollback$ signal, once it obtains the minimize step size of all FMU components, it travels to $isrollback$ state. The states and transitions of valve and tank1 template are similar with the template of controller. Figure~\ref{tk_ma} shows the template for the master algorithm. Firstly, the master algorithm initializes the parameters, and then it gets minimize step size of FMU components until all FMU components visit $dostep$. Next, the master algorithm decides which signal should be sent according to the guard. If the step sizes of all FMU components are equal, the master algorithm will send $continue$ signal, otherwise, send $rollback$ signal.
 
-Figure~\ref{trs-seq} is the execution fragment of the co-simulation in UPPAAL, we can find that valve send a $w$ signal to perform data exchange with tank1. After that tank1 move to $dostep$ state. The master algorithm send a $rollback$ signal to all templates, which leads to all of them arrive at $reset$ state. Finally, the master algorithm send a $continue$ signal to others. All templates return to $start$ state, and then do next step. The execution process shows that our model performs correctly.
+Figure~\ref{trs-seq} is the execution fragment of the co-simulation in UPPAAL, we can find that valve send a $w$ signal to perform data exchange with tank1. After that tank1 moves to $dostep$ state. The master algorithm sends a $rollback$ signal to all templates, which leads to all of them arrive at $reset$ state. Finally, the master algorithm sends a $continue$ signal to others. All templates return to $start$ state, and then do next step. The execution process shows that our model performs correctly.
 
 In order to compare the behavior of three connection cases of water tank presented in Section 4.2, we also model the other two connection cases in UPPAAL. We add a channel $s$ to the templates for controller and tank1, which is the model of connection case 2 as shown in Fig.\ref{tk-arch2}. We add a template (tank2) and channel $w2$, which is the model of connection case 3 shown in Fig.\ref{arc3}. In next subsection, we verify some properties of various connection cases to analyse the correctness of the architecture.
 \begin{figure}[htbp]
@@ -46,13 +46,13 @@ In order to compare the behavior of three connection cases of water tank present
 		\hfil
 		\subfigure[Timed automata for FMU tank1]{\includegraphics[width=1.5in,height=1.2in]{fig/2signal_cycle_wt1.png}
 			\label{tk2_v}}		
-	\caption{Network of TA for connection case 2: $TA_{controller} || TA_{valve} || TA_{tank1} || TA_{ma}$.}
+	\caption{Network of TA for connection case 2: \emph{TA \_{controller}} $\vert\vert$ \emph{TA \_{valve}} $\vert\vert$ \emph{TA \_{tank1}} $\vert\vert$ \emph{TA \_{ma}}.}
 	\label{tk-arch2}
 	}
 \end{figure}
 \begin{figure}[htbp]
 	\centering	{\includegraphics[width=3.5in,height=1.2in]{fig/4signal_wt2.png}}
-	\caption{Network of TA for connection case 3: $TA_{controller} || TA_{valve} || TA_{tank1} || TA_{ma} || TA_{tank2} $.}\label{arc3}
+	\caption{Network of TA for connection case 3: \emph{TA \_{controller}} $\vert\vert$ \emph{TA \_{valve}} $\vert\vert$ \emph{TA \_{tank1}} $\vert\vert$ \emph{TA \_{ma}}$\vert\vert$ \emph{TA \_{tank2}}.}\label{arc3}
 \end{figure}
 
 UPPAAL uses a simplified version of TCTL \cite{BouchenebGR09} to express the requirement specification. We verify the following TCTL properties of each connection case:
