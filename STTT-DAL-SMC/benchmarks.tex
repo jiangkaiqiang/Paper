@@ -2,14 +2,13 @@
 The distributed SMC framework has been implemented in our ModanaOnline platform which is an online platform for modeling and analysis CPS. We have implemented the core algorithms of distributed BIE and DAL-SMC in this platform. To illustrate the feasibility of our approach, we explore some experiments with three benchmarks: train-gate \cite{David2015Uppaal}, energy-aware building \cite{david2012evaluation} and robots path planning \cite{Miura2000Modeling}.
 
 \subsection{DAL-SMC implementation}
-In our previous work, we have implemented Modana platform which is an integrated modeling and verification environment for CPS \cite{Cheng2015Modana}. Further, we implement the online version of modana, called ModanaOnline, in which the distributed BIE and DAL-SMC are implemented. ModanaOnline is a web project, whose back end is implemented in Java based on SpringMVC, Spring and Mybatis. The front end is implemented in JavaSc
-ript based on AngularJS which supports information transmission of distributed framework with web service. Figure \ref{ui_dsmc} is the user interface of DAL-SMC in ModanaOnline. Users can import the model files(such as uppaal \cite{Behrmann2006UPPAAL} and prism \cite{Kwiatkowska2002PRISM}) and the property to verify the model. Besides, there are several parameters ($v,t,s,n,\eta,c$) should be customized, in which ($v,t,s$) are used in abstraction and leaning phase, ($n,\eta,c$) are used in probability evaluation where,
+In our previous work, we have implemented Modana platform which is an integrated modeling and verification environment for CPS \cite{Cheng2015Modana}. Recently, we implement the online version of Modana, called ModanaOnline, in which the distributed BIE and DAL-SMC are implemented. ModanaOnline is a web project, whose back end is implemented in Java based on SpringMVC, Spring and Mybatis. The front end is implemented in JavaScript based on AngularJS which supports information transmission of distributed framework with web service. Figure \ref{ui_dsmc} is the user interface of DAL-SMC in ModanaOnline. Users can import the model files(such as uppaal \cite{Behrmann2006UPPAAL} and prism \cite{Kwiatkowska2002PRISM}) and the property to verify the model. Besides, there are several parameters ($v,t,s,n,\eta,c$) should be customized, in which ($v,t,s$) are used in abstraction and leaning phase, ($n,\eta,c$) are used in probability evaluation phase where,
 
 (i)$v$ denotes the number of sample traces in abstract process, $t$ denotes the threshold in PCA-based dimension reduction and $s$ denotes the number of extracted states during the key states extraction.
 
 (ii)$n$ denotes the number of slaves, $\eta$ denotes the half-interval rate in Section 2.4, and $c$ denotes the interval coverage coefficient of BIE algorithm.
 
-Then users can verify the property with DAL-SMC and generate a bar graph as shown in Figure \ref{ui_dsmc}. Users can observe the distribution of traces more obviously with the bar graph.
+Users can verify the property with DAL-SMC and generate a bar graph as shown in Figure \ref{ui_dsmc}. It shows the distribution of traces more obviously with the bar graph.
 \begin{figure}[htbp]
 	\centering
 	{\includegraphics[width=3.2in,height=2.1in]{fig/system.png}}
@@ -18,11 +17,11 @@ Then users can verify the property with DAL-SMC and generate a bar graph as show
 \end{figure}
 
 \subsection{Benchmark experiments}
-Uppaal-SMC \cite{Bulychev2012UPPAAL} is a new version of UPPAAL which supports SMC and adopts many SMC algorithms (BHT \cite{jha2009bayesian},SPRT \cite{younes2006statistical}, BIE \cite{zuliani2013bayesian}, APMC \cite{herault2004approximate} etc.). In this paper, we model the benchmark with Uppaal-SMC, and then import the model (.xml) into our platform to verify the properties. Here, we use a simple benchmark to exhibit the distribution of traces in each slave and compare the probability partition between DAL-SMC with parameter optimization (DAL-SMC opt.) and DAL-SMC. Finally, two complex benchmarks are introduced to compare the efficiency and accuracy among distributed BIE, DAL-SMC, DAL-SMC opt. and distributed APMC (DAPMC) which is a classical quantitative SMC algorithm.
+Uppaal-SMC \cite{Bulychev2012UPPAAL} is a new version of UPPAAL which supports SMC and adopts many SMC algorithms (BHT \cite{jha2009bayesian},SPRT \cite{younes2006statistical}, BIE \cite{zuliani2013bayesian}, APMC \cite{herault2004approximate} etc.). In this paper, we model the benchmark with Uppaal-SMC, and then import the model (.xml) into our platform to verify the properties. Here, we use a simple benchmark to exhibit the distribution of traces in each slave and compare the probability partition between DAL-SMC with parameter optimization (DAL-SMC opt.) and DAL-SMC. Besides, two complex benchmarks are also introduced to compare the efficiency and accuracy among distributed BIE, DAL-SMC, DAL-SMC opt. and distributed APMC (DAPMC) which is a classical quantitative SMC algorithm.
 
 \subsubsection{Train-gate}
 
-A number of trains are approaching a gate on which there is only one track, gate controls the trains to avoid collisions, and restarts them when it is possible to make sure that trains will eventually cross the gate. Figure \ref{train} is the template of the train. Trains delay according to an exponential distribution and synchronize with the gate. The gate keeps track of the trains with an internal queue data structure as show in Figure \ref{gate}.
+A number of trains are approaching a gate on which there is only one track, gate controls the trains to avoid collisions, and restarts them when it is possible to make sure that trains will eventually cross the gate. Figure \ref{train} is the template of the train. Trains delay according to an exponential distribution and synchronize with the gate. The gate keeps track of the trains with an internal queue data structure as shown in Figure \ref{gate}.
 \begin{figure*}[htbp]
 \centering{
 		\subfigure[Train]{\includegraphics[width=2.0in,height=1.8in]{fig/train.png}
@@ -34,7 +33,7 @@ A number of trains are approaching a gate on which there is only one track, gate
 	\label{ui_tg}
 	}
 \end{figure*}
-We use Formula \ref{train-proba} to evaluate the probability of Train(0) crossing the gate with PBLTL property:
+We use Formula \ref{train-proba} to evaluate the probability of Train(0) crossing the gate:
 \begin{equation}
 P_{=?}(F^{\leq100}~Train(0).Cross)
 \label{train-proba}
@@ -46,7 +45,7 @@ P_{=?}(F^{\leq100}~Train(0).Cross)
 	\caption{Trace number of each slave}
    \label{trace-slave}
 \end{figure}
-The evaluation result is in [0.52707,0.626969] with half-interval size of $\pm0.05$ and interval coverage coefficient of 95\%. Further, we plot the number of traces and satisfying traces of each slave in Figure \ref{trace-slave}. It shows that the slaves generate same number of traces, however, the number of satisfying traces are not equal. Besides, in order to compare the probability partition between DAL-SMC and DAL-SMC opt, we plot the probability of each sub-space as shown in Figure \ref{BIE-pro}. Figure \ref{pronor} and Figure \ref{proopt} are the probability of each sub-space in DAL-SMC and DAL-SMC opt. respectively. We find that the probability distribution of DAL-SMC opt. is more evenly than that of DAL-SMC, therefore, the parameter optimization is effective. In the next subsections, we will use two complex CPS benchmarks to compare the performance of algorithms.
+The PBLTL property is used to evaluate the probability interval of Train(0) crossing the gate in 100 time units. The evaluation result is in [0.52707,0.626969] with half-interval size of $\pm0.05$ and interval coverage coefficient of 95\%. We plot the number of traces and satisfying traces of each slave in Figure \ref{trace-slave}. It shows that the slaves generate the same number of traces, however, the number of satisfying traces are not equal. Besides, in order to compare the probability partition between DAL-SMC and DAL-SMC opt, we plot the probability of each sub-space as shown in Figure \ref{BIE-pro}. Figure \ref{pronor} and Figure \ref{proopt} are the probability of each sub-space in DAL-SMC and DAL-SMC opt. respectively. We find that the probability distribution of DAL-SMC opt. is more evenly than that of DAL-SMC, therefore, the parameter optimization is effective. In the next subsections, we will use two complex CPS benchmarks to compare the performance of distributed BIE, DAL-SMC, DAL-SMC opt. and DAPMC.
 \begin{figure*}[htbp]
 \centering{
 		\subfigure[DAL-SMC]{\includegraphics[width=3.0in,height=1.4in]{fig/pro.png}
@@ -113,12 +112,11 @@ We execute each algorithm many times, and compare them in three aspects: the num
 	}
 \end{figure*}
 
-Figure \ref{trace_sb} shows the trace number of energy-aware building benchmark generated by each algorithm. We can find that DAPMC algorithm needs 200000 traces to verify property $\phi_2$, however, distributing BIE (DBIE) algorithm only needs 20000 traces. Further, DAL-SMC and DAL-SMC opt. need less traces (about 10000). The time consumption of each algorithm is shown in Figure \ref{time_sb}. The time consumption for verifying property $\phi_2$ with BIE algorithm is 6000 seconds, while it is around 250 seconds consumed by distributed BIE. DAL-SMC and DAL-SMC opt. consume less time. Figure \ref{error_sb} is the statistical error of each algorithm. The statistical error of DAPMC and distributed BIE are about 0.013 for verifying property $\phi1$. The statistical error of DAL-SMC and DAL-SMC opt are about 0.045 and 0.032 respectively. The detailed experiment results are listed in Table \ref{ta-rs}. 
+Figure \ref{trace_sb} shows the trace number of energy-aware building benchmark generated by each algorithm. We can find that DAPMC algorithm needs 200000 traces to verify property $\phi_2$, however, distributing BIE (DBIE) algorithm only needs 20000 traces. DAL-SMC and DAL-SMC opt. need less traces (about 10000). The time consumption of each algorithm is shown in Figure \ref{time_sb}. The time consumption for verifying property $\phi_2$ with BIE algorithm is 6000 seconds, while it is around 250 seconds consumed by distributed BIE. DAL-SMC and DAL-SMC opt. consume less time. Figure \ref{error_sb} is the statistical error of each algorithm. The statistical error of DAPMC and distributed BIE are about 0.013 for verifying property $\phi1$. The statistical error of DAL-SMC and DAL-SMC opt are about 0.045 and 0.032 respectively. The detailed experiment results are listed in Table \ref{ta-rs}. 
 
 \subsubsection{Robots path planning}
 
-Analysis of robots path planning has attracted public attention these years \cite{LWAB10}. The basic goal of a mobile robot is to avoid collision with the moving obstacles, which conduct irregular
-movement around the environment. As soon as the robot observes the moving obstacle, it will take actions immediately. While different actions will result in different energy cost, we add some variables to monitor the total energy consumption. Figure \ref{robot-ob} shows the main SHA templates for robot path planning.
+Robots path planning has attracted public attention these years \cite{LWAB10}. The basic goal of a mobile robot is to avoid collision with the moving obstacles, which move irregularly around the environment. As soon as the robot observes the moving obstacle, it will take actions immediately. Different actions need different energy cost, so we use some variables to monitor the total energy consumption. Figure \ref{robot-ob} shows the main SHA templates for robot path planning.
 
 \begin{figure*}[htbp]
 \centering{
@@ -170,15 +168,15 @@ movement around the environment. As soon as the robot observes the moving obstac
 
 We also verify three properties ($\phi_4$, $\phi_5$, $\phi_6$) for this benchmark as shown in Table \ref{tb:robot}. The experiment results are shown in Figure \ref{rs_ro}. 
 
-In order to analyse the performance of SMC algorithms, the detailed data is listed in Table \ref{ta-rs}. Property $\phi_2$ is used to illustrate the experimental results, we can conclude that: 
+In order to analyse the performance of SMC algorithms, the detailed data is listed in Table \ref{ta-rs}. Property $\phi_2$ is verified to illustrate the experimental results, we can conclude that: 
 
-(i)DAPMC generates the most traces for verifying the property, while distributed BIE needs less traces compared with DAPMC. Furthermore, DAL-SMC reduces the number of traces (about 50\%) relative to distributed BIE. 
+(i)DAPMC generates the most traces for verifying the property, while distributed BIE needs less traces compared with DAPMC. Furthermore, DAL-SMC reduces the number of traces (about 50\%) relative to distributed BIE.  In short, DAL-SMC is the most effective algorithm to generate traces.
 
-(ii)The main time consumption of verification is generating traces (more than 90\%). DAPMC consumes most time, and DAL-SMC consumes less time compared with distributed BIE profitting from less traces. For the benchmark, we use 40 cores to implement distributed algorithms, and we can find that the time consumption of BIE algorithm is nearly 25 times as much as distributed BIE which shows it is effective to improve the performance of SMC with distributed techniques. 
+(ii)The main time consumption of verification is generating traces (more than 90\%). DAPMC consumes most time, and DAL-SMC consumes less time compared with distributed BIE profitting from less traces. For the benchmark, we use 40 cores to implement distributed algorithms, and we find that the time consumption of BIE algorithm is nearly 25 times as much as distributed BIE which shows it is effective to improve the performance of SMC with distributed techniques. 
 
-(iii)The statistical error of DAPMC and DBIE are similar. The error of DAL-SMC is bigger than that of DAPMC and DBIE due to use multi-BIE. Besides, we can find that the error of DAL-SMC opt. is less than that of DAL-SMC. It proves the parameter optimization method is effective. 
+(iii)The statistical error of DAPMC and DBIE are similar. The error of DAL-SMC is bigger than that of DAPMC and DBIE due to use multi-BIE. Besides, we find that the error of DAL-SMC opt. is less than that of DAL-SMC. It shows that the parameter optimization method is effective. 
 
-In general, DAL-SMC opt. generates less traces and consumes less time for verification with the help of distributed technology and AL-SMC technique. The parameter optimization method reduces the statistical error of DAL-SMC to an acceptable range.
+In general, DAL-SMC opt. generates less traces and consumes less time for verification with the help of distributed technology and AL-SMC technique. Meanwhile, the parameter optimization method reduces the statistical error of DAL-SMC to an acceptable range.
 
 \begin{table*}
 \caption{Experimental results}
