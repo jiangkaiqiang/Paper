@@ -65,7 +65,7 @@ $master.start \rightarrow master.Continue$ are liveness property. If the master 
 $A[]~not~deadlock$ is safety property checking whether the model will be deadlock.
 \end{itemize}
 
-The verification results are shown in Table \ref{rs}. We can find that all properties of connection case 1 and 3 are satisfied. It proves that our master algorithm is correct and the composition of FMUs is determinate. However, the liveness and reachability properties of connection case 2 are not satisfied. We find that there is a algebraic loop which may be introduced with the I/O dependency in this connection case. The experimental results show that our approach is feasible and useful for model checking the FMI co-simulation. The approach facilitates the verification of the CPSs architecture models.
+The verification results are shown in Table \ref{rs}. We can find that all properties of connection case 1 and 3 are satisfied. It proves that our master algorithm is correct and the composition of FMUs is determinate. However, the liveness and reachability properties of connection case 2 are not satisfied. We find that there is a algebraic loop which may be introduced with the I/O dependency in this connection case. Here, we focus on the detection of algebraic loop and the correctness of co-simulation. In the future work, we will consider eliminating the algebraic loop. The experimental results show that our approach is feasible and useful for model checking the FMI co-simulation. The approach facilitates the verification of the CPSs architecture models.
 \begin{table}
 \caption{Experimental results}
 \centering

@@ -1,7 +1,8 @@
 \section{Background}
-We give the syntax and semantics of FMU and timed automata. In order to verify the  execution of FMUs. We propose to encode FMUs by timed automata. In section \ref{sec:sysml}, we verify the network of timed automata with UPPAAL.
+\label{sec:fmi}
+We give the syntax and semantics of FMU and timed automata. In order to verify the execution of FMUs, we propose to encode FMUs by timed automata in section \ref{sec:encoding}. 
 
-%\subsection{FMU}
+\subsection{FMU}
 FMU is the model component which implements the methods defined in the FMI API \cite{Tripakis15}. Here, we present the syntax and semantics of FMU. The aim is to encode FMU into timed automata based on their semantics.
 \begin{definition}
 \textbf{FMU syntax}
@@ -39,7 +40,7 @@ of alternating input assignments $v_{i}$, and time delays $h_{i}$. An input assi
 A TIS denotes a running of $FMU$, which is an infinite sequence of quadruples $(t,s,v,v^{\prime})$, where $t \in \mathbb{R}_{\geqslant{0}}$ is a time instant, $s \in S$ is a state of $F$, $v$ is an input assignment, and $v^{\prime} : Y \rightarrow \mathbb{V}$ is an output assignment
  
 TIS := $(t_{0},s_{0},v_{0},v_{0}^{\prime}), (t_{1},s_{1},v_{1},v_{1}^{\prime}),(t_{2},s_{2},v_{2},v_{2}^{\prime}), ..., (t_{i},$
-$s_{i},v_{i},v_{i}^{\prime}), (t_{i+1},s_{i+1},v_{i+1},v_{i+1}^{\prime})...$ is
+$s_{i},v_{i},v_{i}^{\prime}), (t_{i+1},s_{i+1},v_{i+1},v_{i+1}^{\prime}), ...$ is
 defined as follows:
 \begin{itemize}
 \item
@@ -52,7 +53,7 @@ Given the current state $s_{i}$, the function $set$ is used to set all input var
 We assume that $doStep(s_{i}, h_{i+1}) = (s_{i+1},h_{i+1})$ based on the assumption that every $h_{i}$ is accepted by $F$, $F$ will reach the next state $s_{i+1}$.
 \end{itemize}
 
-%\subsection{Timed Automata}
+\subsection{Timed Automata}
 Timed automata (TA) \cite{BehrmannDLHPYH06} is a theory to model the behavior of real-time systems. Its definition provides a powerful way to annotate state-transition graphs with many real-valued clocks. In this section, we introduce the syntax and semantics of timed automata. In section \ref{sec:sysml}, we will encode the FMUs of our case study with the network of TA, so that we can use the model checker UPPAAL to analyse models.
 \begin{definition}
 \textbf{Timed automata syntax}
