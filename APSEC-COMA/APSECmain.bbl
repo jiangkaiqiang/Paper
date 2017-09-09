@@ -32,6 +32,16 @@ S.~Zanero, ``Cyber-physical systems,'' \emph{{IEEE} Computer}, vol.~50, no.~4,
 T.~Blochwitz, ``The functional mockup interface for tool independent exchange
   of simulation models,'' no. 2011-03-22, pp. 105--114, 2011.
 
+\bibitem{BromanBGLMTW13}
+\BIBentryALTinterwordspacing
+D.~Broman, C.~X. Brooks, L.~Greenberg, E.~A. Lee, M.~Masin, S.~Tripakis, and
+  M.~Wetter, ``Determinate composition of fmus for co-simulation,'' in
+  \emph{Proceedings of the International Conference on Embedded Software,
+  {EMSOFT} 2013, Montreal, QC, Canada, September 29 - Oct. 4, 2013}, 2013, pp.
+  2:1--2:12. [Online]. Available:
+  \url{http://dx.doi.org/10.1109/EMSOFT.2013.6658580}
+\BIBentrySTDinterwordspacing
+
 \bibitem{AckerDVM15}
 \BIBentryALTinterwordspacing
 B.~V. Acker, J.~Denil, H.~Vangheluwe, and P.~D. Meulenaere, ``Generation of an
@@ -42,20 +52,11 @@ B.~V. Acker, J.~Denil, H.~Vangheluwe, and P.~D. Meulenaere, ``Generation of an
   [Online]. Available: \url{http://dl.acm.org/citation.cfm?id=2872993}
 \BIBentrySTDinterwordspacing
 
-\bibitem{AlurD94}
-\BIBentryALTinterwordspacing
-R.~Alur and D.~L. Dill, ``A theory of timed automata,'' \emph{Theor. Comput.
-  Sci.}, vol. 126, no.~2, pp. 183--235, 1994. [Online]. Available:
-  \url{http://dx.doi.org/10.1016/0304-3975(94)90010-8}
-\BIBentrySTDinterwordspacing
-
-\bibitem{RahimHI17}
-\BIBentryALTinterwordspacing
-M.~Rahim, A.~Hammad, and M.~Ioualalen, ``A methodology for verifying sysml
-  requirements using activity diagrams,'' \emph{{ISSE}}, vol.~13, no.~1, pp.
-  19--33, 2017. [Online]. Available:
-  \url{http://dx.doi.org/10.1007/s11334-016-0281-y}
-\BIBentrySTDinterwordspacing
+\bibitem{Larsen2016Integrated}
+P.~G. Larsen, J.~Fitzgerald, J.~Woodcock, and P.~Fritzson, ``Integrated tool
+  chain for model-based design of cyber-physical systems: The into-cps
+  project,'' in \emph{International Workshop on Modelling, Analysis, and
+  Control of Complex Cps}, 2016, pp. 1--6.
 
 \bibitem{BehrmannDLHPYH06}
 \BIBentryALTinterwordspacing
@@ -76,16 +77,6 @@ P.~Fritzson and V.~Engelson, ``Modelica - a unified object-oriented language
   for system modelling and simulation,'' \emph{Lecture Notes in Computer
   Science}, vol. 1445, no. 1445, pp. 67--90, 1998.
 
-\bibitem{BromanBGLMTW13}
-\BIBentryALTinterwordspacing
-D.~Broman, C.~X. Brooks, L.~Greenberg, E.~A. Lee, M.~Masin, S.~Tripakis, and
-  M.~Wetter, ``Determinate composition of fmus for co-simulation,'' in
-  \emph{Proceedings of the International Conference on Embedded Software,
-  {EMSOFT} 2013, Montreal, QC, Canada, September 29 - Oct. 4, 2013}, 2013, pp.
-  2:1--2:12. [Online]. Available:
-  \url{http://dx.doi.org/10.1109/EMSOFT.2013.6658580}
-\BIBentrySTDinterwordspacing
-
 \bibitem{Tripakis15}
 \BIBentryALTinterwordspacing
 S.~Tripakis, ``Bridging the semantic gap between heterogeneous modeling
@@ -93,6 +84,21 @@ S.~Tripakis, ``Bridging the semantic gap between heterogeneous modeling
   Computer Systems: Architectures, Modeling, and Simulation, {SAMOS} 2015,
   Samos, Greece, July 19-23, 2015}, 2015, pp. 60--69. [Online]. Available:
   \url{http://dx.doi.org/10.1109/SAMOS.2015.7363660}
+\BIBentrySTDinterwordspacing
+
+\bibitem{AlurD94}
+\BIBentryALTinterwordspacing
+R.~Alur and D.~L. Dill, ``A theory of timed automata,'' \emph{Theor. Comput.
+  Sci.}, vol. 126, no.~2, pp. 183--235, 1994. [Online]. Available:
+  \url{http://dx.doi.org/10.1016/0304-3975(94)90010-8}
+\BIBentrySTDinterwordspacing
+
+\bibitem{RahimHI17}
+\BIBentryALTinterwordspacing
+M.~Rahim, A.~Hammad, and M.~Ioualalen, ``A methodology for verifying sysml
+  requirements using activity diagrams,'' \emph{{ISSE}}, vol.~13, no.~1, pp.
+  19--33, 2017. [Online]. Available:
+  \url{http://dx.doi.org/10.1007/s11334-016-0281-y}
 \BIBentrySTDinterwordspacing
 
 \bibitem{FMI2INTRO}
@@ -196,12 +202,6 @@ J.~Liu, K.~Jiang, X.~Wang, B.~Cheng, and D.~Du, ``Improved co-simulation with
   Atlanta, GA, USA, June 10-14, 2016}, 2016, pp. 209--214. [Online]. Available:
   \url{http://dx.doi.org/10.1109/COMPSAC.2016.133}
 \BIBentrySTDinterwordspacing
-
-\bibitem{Larsen2016Integrated}
-P.~G. Larsen, J.~Fitzgerald, J.~Woodcock, and P.~Fritzson, ``Integrated tool
-  chain for model-based design of cyber-physical systems: The into-cps
-  project,'' in \emph{International Workshop on Modelling, Analysis, and
-  Control of Complex Cps}, 2016, pp. 1--6.
 
 \bibitem{SkelinWOHL15}
 \BIBentryALTinterwordspacing

@@ -37,7 +37,7 @@ Figure~\ref{tk_controller}, \ref{tk_v}, \ref{tk_wt1} are the templates for contr
 
 Figure~\ref{trs-seq} is the execution fragment of the co-simulation in UPPAAL, we can find that valve sends a $w$ signal to perform data exchange with tank1. After that, tank1 moves to $dostep$ state. The master algorithm sends a $rollback$ signal to all templates, which leads to all of them arrive at $reset$ state. Finally, the master algorithm sends a $continue$ signal to all FMUs. All templates return to $start$ state, and then do the next step. The execution process shows that our models perform correctly.
 
-In order to compare the behavior of three connection cases of water tank system presented in the previous subsection, we also model the other two connection cases in UPPAAL. We add a channel $s$ in the templates for controller and tank1 of connection case 1 to model the connection case 2, as shown in Fig.\ref{tk-arch2}. We add a template \textit{tank2} and channel $w2$ to model the connection case 3 as shown in Fig.\ref{arc3}. In next subsection, we verify some properties of various connection cases to detect whether there is a loop dependence of the architecture.
+In order to compare the behavior of three connection cases of water tank system presented in Section 4.2, we also model the other two connection cases in UPPAAL. We add a channel $s$ in the templates for controller and tank1 of connection case 1 to model the connection case 2, as shown in Fig.\ref{tk-arch2}. We add a template \textit{tank2} and channel $w2$ to model the connection case 3 as shown in Fig.\ref{arc3}. In next subsection, we verify some properties of various connection cases to detect whether there is a loop dependence of the architecture.
 \begin{figure}[htbp]
 \centering{
 		\subfigure[Timed automata for FMU controller]{\includegraphics[width=1.8in,height=1.2in]{fig/2signal_cycle_controller.png}
@@ -64,7 +64,7 @@ $master.start \rightarrow master.Continue$ are liveness property. If the master 
 $A[]~not~deadlock$ is safety property checking whether the model will be deadlock.
 \end{itemize}
 
-The verification results are listed in Table \ref{rs}. We can find that all properties of connection case 1 and 3 are satisfied. It shows that our master algorithm works well and the composition of FMUs is determinate. However, the liveness and reachability properties of connection case 2 are not satisfied. We find that there is a algebraic loop which may be introduced with the I/O dependency in this connection case. The experimental results show that our approach is feasible and useful for model checking the FMI co-simulation.
+The verification results are listed in Table \ref{rs}. We can find that all properties of connection case 1 and 3 are satisfied. It shows that our master algorithm works well and the composition of FMUs is determinate. However, the liveness and reachability properties of connection case 2 are not satisfied. We find that there is a algebraic loop which may be introduced with the I/O dependency in this connection case.The experimental results show that our approach is feasible and useful for model checking the FMI co-simulation.
 Here, we only focus on the detection of algebraic loop and the correctness of co-simulation. In the future work, we will consider eliminating the algebraic loop.  
 \begin{table}
 \caption{Experimental results}

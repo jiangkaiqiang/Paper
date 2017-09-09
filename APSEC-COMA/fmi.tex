@@ -1,6 +1,6 @@
 \section{Background}
 \label{sec:fmi}
-We give the syntax and semantics of FMU and timed automata. In order to verify the execution of FMUs, we propose to encode FMUs by timed automata in section \ref{sec:encoding}. 
+In this section, we present the syntax and semantics of FMU and timed automata separately. In order to verify the co-simulation of FMUs, we propose to encode FMUs by timed automata in subsection \ref{sec:encoding}. 
 
 \subsection{FMU}
 FMU is the model component which implements the methods defined in the FMI API \cite{Tripakis15}. Here, we present the syntax and semantics of FMU. The aim is to encode FMU into timed automata based on their semantics.
@@ -54,7 +54,7 @@ We assume that $doStep(s_{i}, h_{i+1}) = (s_{i+1},h_{i+1})$ based on the assumpt
 \end{itemize}
 
 \subsection{Timed Automata}
-Timed automata (TA) \cite{BehrmannDLHPYH06} is a theory to model the behavior of real-time systems. Its definition provides a powerful way to annotate state-transition graphs with many real-valued clocks. In this section, we introduce the syntax and semantics of timed automata. In section \ref{sec:sysml}, we will encode the FMUs of our case study with the network of TA, so that we can use the model checker UPPAAL to analyse models.
+Timed automata (TA) \cite{BehrmannDLHPYH06} is a theory to model the behavior of real-time systems. It provides a powerful way to annotate state-transition graphs with many real-valued clocks. In this section, we introduce the syntax and semantics of timed automata. 
 \begin{definition}
 \textbf{Timed automata syntax}
 A timed automaton is a tuple $\textit{A}=(L,X,l_{0},E_{i},E_{o},I)$, where:
