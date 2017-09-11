@@ -42,6 +42,10 @@ D.~Broman, C.~X. Brooks, L.~Greenberg, E.~A. Lee, M.~Masin, S.~Tripakis, and
   \url{http://dx.doi.org/10.1109/EMSOFT.2013.6658580}
 \BIBentrySTDinterwordspacing
 
+\bibitem{ClauMODELISAR}
+C.~Clauß, ``Modelisar: From system modeling to s/w running on the vehicle,''
+  \emph{Co-Simulation}.
+
 \bibitem{AckerDVM15}
 \BIBentryALTinterwordspacing
 B.~V. Acker, J.~Denil, H.~Vangheluwe, and P.~D. Meulenaere, ``Generation of an

@@ -1,8 +1,8 @@
 \section{Our Approach}
-In this section, we present a novel approach to model and verify the properties of co-simulation with TA \cite{AlurD94}. Besides, we propose encoding rules to encode FMU into timed automata. In section \ref{sec:sysml}, we will encode the FMUs of our case study with the network of TA, so that we can verify the case study with the model checker UPPAAL.
+In this section, we present a novel approach to model and verify the properties of co-simulation with TA. Besides, we propose encoding rules to encode FMU into timed automata. In next section, we will encode the FMUs of our case study with the network of TA, so that we can verify the case study with the model checker UPPAAL.
 \label{sec:encoding}
 \subsection{Framework of our approach}
-The schematic view of our approach is shown in Fig.\ref{paper-arc}. At the design phase, we construct the architecture of CPSs with SysML block diagrams \cite{RahimHI17}. Each block represents a component and the communication between components is modeled with SysML connector. To simulate the whole system with co-simulation techniques, the block can be modeled with a Functional Mock-up (FMU) and the connector can be modeled with a master algorithm (MA). The MA orchestrate FMUs to accomplish the communication between FMUs. It is called \textit{co-simulation }in our framework. To verify the correctness of the architecture, we encode each FMU component and model the master algorithm by timed automata, which facilitates the verification of livelock or deadlock with the model checker UPPAAL. \cite{BehrmannDLHPYH06}.
+The schematic view of our approach is shown in Fig.~\ref{paper-arc}. At the design phase, we construct the architecture of CPSs with SysML Block Diagrams (BDD) \cite{RahimHI17}. Each block represents a component and the communication between components is modeled with SysML connector. To simulate the whole system with co-simulation techniques, the block can be modeled with a FMU and the connector can be modeled with a MA. The MA orchestrate FMUs to accomplish the communication between FMUs. It is called \textit{co-simulation }in our framework. To verify the correctness of the architecture, we encode each FMU component and model the master algorithm by timed automata, which facilitates the verification of livelock or deadlock with the model checker UPPAAL \cite{BehrmannDLHPYH06}.
 \begin{figure}[htbp]
 	\centering	{\includegraphics[width=3.5in,height=1.6in]{fig/approach.pdf}}
 	\caption{A schematic view of our approach.}
@@ -10,25 +10,25 @@ The schematic view of our approach is shown in Fig.\ref{paper-arc}. At the desig
 \end{figure}
 
 \subsection{Encoding FMUs into timed automata}
-We find that there is a semantic gap between FMU and TA. The former focus on the execution sequence of FMU, which specifies the state change process with time elapsing. Essentially, the execution trace of TA is semantic equivalence to the execution sequence of FMU. Therefore, we encode FMU into TA to analyse the behavior of FMU components without exploring its internal structure. 
-Given an FMU $F=(S,U,Y,D,s_{0},set,get,doStep)$, we encode the FMU into a timed automaton $A = (L,X,l_{0},E,E_{i},E_{o},I)$, the congruent relationship between them is as following:
+We find that there is a semantic gap between FMU and TA. The former focus on the execution sequence of FMU, which specifies the state change process with time elapsing. Essentially, the execution trace of TA is semantic equivalence to the execution sequence of FMU. Therefore, we can encode FMU into TA to analyse the behavior of FMU components without exploring its internal structure. 
+Given an FMU $F=(S,U,Y,D,s_{0},set,get,doStep)$, we encode the FMU into a timed automaton $\textit{A}=(L,l_{0},E,I)$ , the congruent relationship between them is as following:
 \begin{itemize}
 \item
-$L$ is a set of finite states. Note that a location of $A$ is the abstraction of a state in $F$.
+$L$ is a set of finite locations. Note that the state of the transition system $L_{\textit{A}}$ can be seen as the state of $F$, i.e., $(l,v) \rightarrow s$.
 \item
-The initial location of TA $l_{0}$ which $x:=0 \vert x \in X$ is such that $s$ is set to $s_{0}$ of $F$. 
+The initial state of the transition system $L_{\textit{A}}$ can be seen as the initial state of $F$, i.e., $(l_{0},v_{0}) \rightarrow s_{0}$. 
 \item
-Each input variable $u \in U$ ranges over $E_{i} \cup \{absent\}$.
+Each input variable $u \in U$ ranges over $Act_{i} \cup \{absent\}$.
 \item
-Each output variable $y \in Y$ ranges over $E_{o} \cup \{absent\}$.
+Each output variable $y \in Y$ ranges over $Act_{o} \cup \{absent\}$.
 \item
-An input event in $e \in E_{i}$ is such that the function $set$ of $F$ sets the input variable $u$ to a given value. 
+An input action in $e \in Act_{i}$ is such that the function $set$ of $F$ sets the input variable $u$ to a given value. 
 \item
-An output event in $e \in E_{o}$ indicates that the function $get$ of $F$ gets the output variable $y$. The set of values in the $E_{i}$ can be seen as $Y$ of $F$.  
+An output action in $e \in Act_{o}$ indicates that the function $get$ of $F$ gets the output variable $y$. The set of values in the $Act_{i}$ can be seen as $Y$ of $F$.  
 \item
-The communication between the network of TA is the same as the I/O dependencies information in FMU. $(u,y) \in D$ denotes that output $y$ depend on input $u$. The output events also depend on the input events in TA.
+The communication between the network of TA is the same as the I/O dependencies information in FMU. $(u,y) \in D$ denotes that output $y$ depend on input $u$. The output actions also depend on the input actions in TA.
 \item
-For any $e \in E$ of A, there is a transition $s \xrightarrow{e} s^{\prime}$, which may be found after the function $doStep$ is executing. For instance, if there is a transition $l \xrightarrow{e} l^{\prime}$ in $A$, at the same time $doStep(s,h)$ may be called which indicates that $F$ accepts the time step $h$ and reaches the new state $s^{\prime}$. However, $F$ maybe rejects the time step, if there is a rollback behavior happens, the transition in TA could be an edge $l^{\prime} \xrightarrow{e} l$, which denotes that a location travels to the former location.
+For any $e \in Act$ of A, there is a transition $s \xrightarrow{e} s^{\prime}$, which may be found after the function $doStep$ is executing. For instance, if there is a transition $l \xrightarrow{e} l^{\prime}$ in $A$, at the same time $doStep(s,h)$ may be called which indicates that $F$ accepts the time step $h$ and reaches the new state $s^{\prime}$. However, $F$ maybe rejects the time step, if there is a rollback behavior happens, the transition in TA could be an edge $l^{\prime} \xrightarrow{e} l$, which denotes that a location travels to the former location.
 
 \end{itemize}
 \begin{figure}[htbp]
@@ -37,12 +37,12 @@ For any $e \in E$ of A, there is a transition $s \xrightarrow{e} s^{\prime}$, wh
 	\label{fmutota}
 \end{figure}
 
-It is not easy to translate FMU to TA directly. Inspired by \cite{Tripakis15}, we propose some encoding rules from FMU to TA. As we can see in the Fig.\ref{fmutota}, given a state $s_{i}$ at $t_{1}$ in FMU, the operation $Dostep$ makes FMU reach a new state $s_{i+1}$ at $t_{1}+step$. This situation can be encoded into a transition in TA, in which a location $L_{i}$ delays $step$ time and goes to a new location $L_{i}^{\prime}$.
+It is not easy to translate FMU to TA directly. Inspired by \cite{Tripakis15}, we propose some encoding rules. As we can see in the Fig.~\ref{fmutota}, given a state $s_{i}$ at $t_{1}$ in FMU, the operation $Dostep$ makes FMU reach a new state $s_{i+1}$ at $t_{1}+step$. This situation can be encoded into a transition in TA, in which a location $L_{i}$ delays $step$ time and goes to a new location $L_{i}^{\prime}$.
 
-For the operation $Rollback$, given a state $s{i}$ at $t_{1}$ in FMU, the FMU will do a step1 to $s_{i+1}$ at $t_{1}+step1$, and then, the operation $rollback$ makes FMU reach the former state $s_{i}$. For this situation, it can be encoded as: location $L_{i}$ delays step1 time and reach a new location $L_{i}^{\prime}$ after a transition, next returns to the former Location $L_{i}$. 
+For the operation $Rollback$, given a state $s_{i}$ at $t_{1}$ in FMU, the FMU will do a \emph{step1} to $s_{i+1}$ at $t_{1}+step1$, and then, the operation $rollback$ makes FMU reach the former state $s_{i}$. For this situation, it can be encoded as: location $L_{i}$ delays \emph{step1} time and reach a new location $L_{i}^{\prime}$ after a transition, next returns to the former Location $L_{i}$. 
 
-For the operation $prediction$, given a state $s_{i}$, FMU can get max step size ($step$) for next step, and then reach a new state $s_{i+1}$ at $t_{1}+step$. For TA, it gets max step size in location $L_{i}$, then it delays $step$ time and reach a new location $L_{i}^{\prime}$ .
+For the operation $prediction$, given a state $s_{i}$, FMU can get max step size \emph{step} for next step, and then reach a new state $s_{i+1}$ at $t_{1}+step$. For TA, it gets max step size in location $L_{i}$, then it delays $step$ time and reach a new location $L_{i}^{\prime}$ .
 
-For data exchange between two FMUs in state $s_{i}$ at $t_{1}$, they exchange data at $t_{1}$ and then do the same step to $s_{i+1}$. In TA, there will be a signal $io$ to make the two FMUs do the same step from $L_{i}$ to $L_{i+1}$ after data exchange.
+For data exchange between two FMUs in state $s_{i}$ at $t_{1}$, they exchange data at $t_{1}$ and then do the same step to $s_{i+1}$. In TA, there will be a signal \emph{io} to make the two FMUs do the same step from $L_{i}$ to $L_{i+1}$ after data exchange.
 
-Although there are semantic gaps between FMUs and timed automata, we provide appropriate encoding rules to formalism FMU with timed automata. It lays the foundation for analyse FMI co-simulation with timed automata-based model checking. Limited to the length of this paper, we don't prove the correctness of encoding rules. We just encode FMU to TA manually, but the encoding process is semantic-preserve. In section \ref{sec:sysml} we apply these encoding rules to the water tank case study. Through the simulation results, we can find that the encoding rules does work well.
+Although there are semantic gaps between FMUs and timed automata, we provide appropriate encoding rules to formalism FMU with timed automata. It lays the foundation to analyse FMI co-simulation with timed automata-based model checking. Limited to the length of this paper, we don't prove the correctness of encoding rules. We just encode FMU to TA manually, but the encoding process is semantic-preserve. In section \ref{sec:sysml} we apply these encoding rules to the water tank case study. Through the simulation results, we can find that the encoding rules does work well.

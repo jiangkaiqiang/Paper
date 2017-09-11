@@ -9,7 +9,7 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: IEEEabrv.bib
 Database file #2: refcoma.bib
-Repeated entry---line 125 of file refcoma.bib
+Repeated entry---line 131 of file refcoma.bib
  : @inproceedings{BromanBGLMTW13
  :                              ,
 I'm skipping whatever remains of this entry
@@ -44,49 +44,50 @@ Warning--I didn't find a database entry for "DBLP:conf/fossacs/2017"
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 Warning--empty journal in Blochwitz2011The
+Warning--empty year in ClauMODELISAR
 Warning--empty journal in Bogomolov2015Co
 Warning--empty booktitle in Bastian2011Master
 
 Done.
-You've used 25 entries,
+You've used 26 entries,
             4024 wiz_defined-function locations,
-            1376 strings with 21521 characters,
-and the built_in function-call counts, 22464 in all, are:
-= -- 1800
-> -- 579
+            1381 strings with 21638 characters,
+and the built_in function-call counts, 22782 in all, are:
+= -- 1823
+> -- 583
 < -- 204
-+ -- 319
-- -- 99
-* -- 1144
-:= -- 3321
-add.period$ -- 51
-call.type$ -- 25
-change.case$ -- 24
++ -- 321
+- -- 100
+* -- 1157
+:= -- 3381
+add.period$ -- 53
+call.type$ -- 26
+change.case$ -- 25
 chr.to.int$ -- 489
-cite$ -- 28
-duplicate$ -- 1508
-empty$ -- 1772
-format.name$ -- 119
-if$ -- 5192
+cite$ -- 30
+duplicate$ -- 1540
+empty$ -- 1806
+format.name$ -- 120
+if$ -- 5259
 int.to.chr$ -- 0
-int.to.str$ -- 25
-missing$ -- 266
-newline$ -- 134
-num.names$ -- 25
-pop$ -- 622
+int.to.str$ -- 26
+missing$ -- 271
+newline$ -- 137
+num.names$ -- 26
+pop$ -- 637
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1741
+skip$ -- 1765
 stack$ -- 0
-substring$ -- 1164
-swap$ -- 1287
+substring$ -- 1165
+swap$ -- 1301
 text.length$ -- 41
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 25
-warning$ -- 3
-while$ -- 109
-width$ -- 27
-write$ -- 313
+type$ -- 26
+warning$ -- 4
+while$ -- 110
+width$ -- 28
+write$ -- 320
 (There were 10 error messages)
