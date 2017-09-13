@@ -1,6 +1,6 @@
 \section{Background}
 \label{sec:fmi}
-In this section, we present the syntax and semantics of FMU and timed automata separately. Based on their semantics, we propose to encode FMUs by timed automata in Section \ref{sec:encoding}. 
+In this section, we present the syntax and semantics of FMU and timed automaton separately. Based on their semantics, we propose to encode FMUs by timed automata in Section \ref{sec:encoding}. 
 
 \subsection{FMU}
 FMU is the component which implements the methods defined in the FMI API \cite{Tripakis15}. Here, we present the syntax and semantics of FMU. The aim is to encode FMU into timed automata based on their semantics.
@@ -12,9 +12,9 @@ We recall the definition of FMU. An FMU is a tuple $F=(S,U,Y,D,s_{0},set,get,doS
 \item
 $S$ denotes the set of states of $F$. 
 \item
-$U$ denotes the set of input port variables of $F$. Note that an element $u \in U$ is a variable, not a value, which ranges over a set of values $\mathbb{V}$. 
+$U$ denotes the set of input variables of $F$. Note that an element $u \in U$ is a variable which ranges over a set of values $\mathbb{V}$. 
 \item
-$Y$ denotes the set of output port variables of $F$. Each $y \in Y$ ranges over the same set of values $\mathbb{V}$.
+$Y$ denotes the set of output variables of $F$. Each $y \in Y$ ranges over the set of values $\mathbb{V}$.
 \item
 $D \subseteq U \times Y$ denotes a set of input-output dependencies. $(u,y) \in D $ means that the output $y$ is directly dependent on the value of $u$. The $I/O$ dependency information is used to ensure that a network of FMUs does not contain cyclic dependencies, and also to identify the order in which all variables are computed during a simulation step.
 \item
@@ -52,8 +52,8 @@ Given the current state $s_{i}$, the function $set$ is used to set all input var
 We assume that $doStep(s_{i}, h_{i+1}) = (s_{i+1},h_{i+1})$ based on the assumption that every $h_{i}$ is accepted by $F$, $F$ will reach the next state $s_{i+1}$.
 \end{itemize}
 
-\subsection{Timed Automata}
-Timed automata (TA) \cite{BehrmannDLHPYH06} is a theory to model the behavior of real-time systems. It provides a powerful way to annotate state-transition graphs with many real-valued clocks. In this subsection, we recall the syntax and semantics of timed automata. 
+\subsection{Timed Automaton}
+Timed automaton (TA) \cite{BehrmannDLHPYH06} is a theory to model the behavior of real-time systems. It provides a powerful way to annotate state-transition graphs with many real-valued clocks. In this subsection, we recall the syntax and semantics of timed automaton. 
 \begin{definition}
 \textbf{Timed automaton syntax}
 A timed automaton over a finite set of clocks \emph{X} and a finite set of actions \emph{Act} is a quadruple $\textit{A}=(L,l_{0},E,I)$, where:
@@ -66,28 +66,26 @@ $l_{0} \in  L$ is the initial location;
 \item
 The set of guards $G(x)$ is defined by the grammar $g = x \bowtie c \mid g \land g$, where $x \in X$, $c \in \mathbb{N}$ and $\bowtie~\in \{<,\leqslant,\geqslant,>,=\}$. 
 \item
-$E \subseteq L \times G(X) \times 2^X \times L$ is a set of edges labelled by guards and a set of clocks.
-\item
-$Act = Act_{i} \cup Act_{o}$, $Act_{i}$ is a set of input actions and $Act_{o}$ is a set of output actions.
+$E \subseteq L \times G(X) \times Act \times 2^X \times L$ is a set of edges labelled by guards and a set of clocks, where $Act = Act_{i} \cup Act_{o}$. $Act_{i}$ is a set of input actions and $Act_{o}$ is a set of output actions.
 \item
 $I : L \rightarrow G(X)$ assigns invariants to locations.
 \end{itemize}
 A clock valuation is a function $v : X \rightarrow \mathbb{R}_{\geqslant{0}}$. If $\delta \in \mathbb{R}_{\geqslant{0}}$, then $v + \delta$ denotes the valuation such that for each clock $x \in X$, $(v + \delta)(x) = v(x) + \delta$. If $Y \subseteq X$, then $v[Y = 0]$ denotes the valuation such that for each clock $x \in X, Y$, $v[Y = 0](x) = v(x)$ and for each clock $x \in Y$, $v[Y = 0](x) = 0$.
 \begin{definition}
 \textbf{Timed automaton semantics} 
-The semantics of a timed automaton $\textit{A}=(L,l_{0},E,I)$ is defined by a transition system $L_{\textit{A}} = (Proc,Lab,{{\xrightarrow{\alpha}}} \mid \alpha \in Lab)$, where:
+The semantics of a timed automaton $\textit{A}=(L,l_{0},E,I)$ is defined by a transition system $L_{\textit{A}} = (Proc,Lab,\lbrace {{\xrightarrow{\alpha}}} \mid \alpha \in Lab \rbrace)$, where:
 \end{definition}
 \begin{itemize}
 \item 
-$Proc = \lbrace(l,v) \mid (l,v) \in L \times (X \rightarrow \mathbb{R}_{\geqslant{0}})\rbrace$ and $v \models I(l)$, i.e., states are of the form $(l,v)$, where $l$ is the location of the timed automaton and $v$ is a valuation that satisfies the invariant of $l$;
+$Proc = \lbrace(l,v) \mid (l,v) \in L \times (X \rightarrow \mathbb{R}_{\geqslant{0}})$ and $v \models I(l) \rbrace$, i.e., states are of the form $(l,v)$, where $l$ is the location of the timed automaton and $v$ is a valuation that satisfies the invariant of $l$;
 \item
 $Lab = Act \cup \mathbb{R}_{\geqslant{0}}$ is the set of labels; and 
 \item
 the transition relation is defined by 
 
-$(l,v) \xrightarrow{\alpha} (l^{\prime},v^{\prime})$ if there is an edge $(l \xrightarrow{g,\alpha,r}) \in E$ such that $v \models g$, $v^{\prime} = v[r]$ and $v^{\prime} \models I(l^{\prime})$
+$(l,v) \xrightarrow{\alpha} (l^{\prime},v^{\prime})$ if there is an edge $(l \xrightarrow{g,\alpha,r}) \in E$, such that $v \models g$, $v^{\prime} = v[r]$ and $v^{\prime} \models I(l^{\prime})$
 
-$(l,v) \xrightarrow{d} (l,v+d)$ for all $d \in  \mathbb{R}_{\geqslant{0}}$ such that $v \models I(l)$ and $v + d \models I(l)$
+$(l,v) \xrightarrow{d} (l,v+d)$ for all $d \in  \mathbb{R}_{\geqslant{0}}$, such that $v \models I(l)$ and $v + d \models I(l)$
 \end{itemize}
 The reachability problem for an automaton $A$ and a location $l$ is to decide whether there is a state $(l,v)$ reachable from $(l_{0},v_{0})$ in the transition system $L_{A}$. As usual, for verification purposes, we define a symbolic semantics for timed automata. For universality, the definition uses arbitrary sets of clock valuations.
 
