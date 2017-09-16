@@ -1,6 +1,6 @@
 \section{Background}
 \label{sec:fmi}
-In this section, we present the syntax and semantics of FMU and timed automaton separately. Based on their semantics, we propose to encode FMUs by timed automata in Section \ref{sec:encoding}. 
+In this section, we present the syntax and semantics of FMU and timed automaton separately. Based on their semantics, we propose to encode FMUs using timed automata in Section \ref{sec:encoding}. 
 
 \subsection{FMU}
 FMU is the component which implements the methods defined in the FMI API \cite{Tripakis15}. Here, we present the syntax and semantics of FMU. The aim is to encode FMU into timed automata based on their semantics.
@@ -24,7 +24,7 @@ $set : S \times U \times \mathbb{V} \rightarrow S$ denotes the function that set
 \item
 $get : S \times Y \rightarrow \mathbb{V}$ denotes the function that returns the value of an output variable. Given state $s \in S$ and output variable $y \in Y$, $get(s,y)$ returns the value of $y$ in $s$.
 \item
-$doStep : S \times \mathbb{R}_{\geqslant{0}} \rightarrow S \times \mathbb{R}_{\geqslant{0}}$ denotes the function that implements one simulation step. Given current state $s$, and a non-negative real value $h \in \mathbb{R}_{\geqslant{0}}$, $doStep(s,h)$ returns a pair $(s^{\prime},h^{\prime})$ such that:
+$doStep : S \times \mathbb{R}_{\geqslant{0}} \rightarrow S \times \mathbb{R}_{\geqslant{0}}$ denotes the function that implements one simulation step. Given current state $s$, and a non-negative real $h \in \mathbb{R}_{\geqslant{0}}$, $doStep(s,h)$ returns a pair $(s^{\prime},h^{\prime})$ such that:
 \\
 When $h^{\prime} = h$, it indicates that $F$ accepts the time step $h$ and reaches the new state $s^{\prime}$;
 \\
