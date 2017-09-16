@@ -14,9 +14,9 @@ The execution of FMU and co-simulation is time-related. We abstract the executio
 	    \subfigure[Timed automata for FMU\_ Water tank1]{\includegraphics[width=1.5in,height=1.2in]{fig/2signal_wt1.png}
 			\label{tk_wt1}}
 		\hfil
-		 \subfigure[Timed automata for rollback master algorithm]{\includegraphics[width=1.7in,height=1.2in]{fig/2signal_master.png}
+		 \subfigure[Timed automata for MA with rollback]{\includegraphics[width=1.7in,height=1.2in]{fig/2signal_master.png}
 			\label{tk_ma}}		
-	\caption{Network for TA of connection case 1: \emph{controller} $\vert\vert$ \emph{valve} $\vert\vert$ \emph{Water tank1} $\vert\vert$ \emph{MA}.}
+	\caption{TA Network for connection case 1: \emph{controller} $\vert\vert$ \emph{valve} $\vert\vert$ \emph{Water tank1} $\vert\vert$ \emph{MA}.}
 	\label{tk-arch1}
 	}
 \end{figure}
@@ -45,13 +45,13 @@ In order to compare the behavior of three connection cases of water tank system,
 		\hfil
 		\subfigure[Timed automata for FMU\_ Water tank1]{\includegraphics[width=1.5in,height=1.2in]{fig/2signal_cycle_wt1.png}
 			\label{tk2_v}}		
-	\caption{Templates of connection case 2: \emph{controller} $\vert\vert$ \emph{FMU\_ Water tank1}.}
+	\caption{Timed automata for connection case 2.}
 	\label{tk-arch2}
 	}
 \end{figure}
 \begin{figure}[htbp]
 	\centering	{\includegraphics[width=3.5in,height=1.2in]{fig/4signal_wt2.png}}
-	\caption{Template for \emph{Water tank2} of connection case 3.}\label{arc3}
+	\caption{Timed automata for  FMU\_Water tank2 of connection case 3.}\label{arc3}
 \end{figure}
 
 UPPAAL uses a simplified version of TCTL \cite{BouchenebGR09} to specify the constraint property. We verify the following properties of each connection case:

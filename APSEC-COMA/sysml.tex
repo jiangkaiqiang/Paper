@@ -38,7 +38,7 @@ Fig.~\ref{cd} shows the connection diagram for the system. There are three cases
 \end{figure}
 The SysML BDD shows the blocks of system and SysML CD shows the connection between blocks. In next section, we abstract each block as a FMU, and obtain the connection between FMUs based on the SysML CD.
 
-\subsection{The FMUs  Connection of Water Tank}
+\subsection{The FMUs Connection of Water Tank}
 Fig.~\ref{fmu-con} is the FMUs and FMUs connection of water tank system. There are three connection cases between the FMUs according to the SysML CD in the previous section. The first case contains three FMU components (\emph{Controller}, \emph{Valve} and \emph{Water tank1}) and two channels ($v \_ vin$, $w \_ win$) as shown in Fig.\ref{fmu-con1}. The \emph{Controller} and \emph{Valve} are connected with channel $v \_ vin$. The \emph{Valve} and \emph{Water tank1} are connected with channel $w \_ win$. The second case is shown in Fig.\ref{fmu-con2}, there could be a channel $sout \_ s$ between \emph{Water tank1} and \emph{Controller}, which means the water level of \emph{Water tank1} affects the control strategy of the \textbf{controller}. Fig.~\ref{fmu-con3} shows the third case, there could be another \emph{Water tank2}, the \emph{Water tank1} and \emph{Water tank2} are connected by the channel $w \_ out$. 
 \begin{figure}[htbp]
 \centering{
