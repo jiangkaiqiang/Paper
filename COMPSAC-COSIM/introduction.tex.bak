@@ -1,0 +1,56 @@
+\section{Introduction}
+
+\textit{Cyber-physical systems} (CPSs) are integration of computation with physical processes whose behavior is defined by both computational and physical parts of the system \cite{Zanero17}. Embedded computers and networks monitor and control the physical processes, usually with feedback loops where physical processes affect computations and vice versa. The heterogeneity is one of the main characteristics of CPSs. The components of CPSs are of various types, requiring interfacing and interoperability across multiple platforms and different models of computation. Verifying  heterogeneous CPSs requires the use of heterogeneous simulation environments. One emerging industry standard is the Functional Mock-up Interface (FMI) \cite{Blochwitz2011The}\cite{BromanBGLMTW13}. It is a standard to support simulation of complex systems composed of heterogeneous components, by coupling the different models with their own solver in a co-simulation environment.
+
+The FMI standard was first developed in the MODELISAR project started in 2008 and supported by a large number of software companies and research centers \cite{ClauMODELISAR}. FMI offers the means for model based development of systems and is particularly appropriate way to develop complex CPSs. The FMI standard supports both co-simulation and  model exchange. In this paper, we focus on the co-simulation in FMI 2.0. Compared with the FMI 1.0, there are two important new functions: \emph{fmiGetFMUstate} and \emph{fmiSetFMUstate}, which allow the master to copy and restore all states of an FMU slave. These two functions provide a basic mechanism for rollback. The soul of FMI-based co-simulation is a Master Algorithm (MA) \cite{AckerDVM15}, which specifies the orchestration and the exchange of data among the FMUs during the whole co-simulation process. However, the master algorithm is not a part of the FMI standard. This implies that the user or tool vendor needs to develop a sophisticated orchestration algorithm for the problem at hand. Whether the master algorithm is deadlock or satisfies reachability? It should be analysed. There are three versions of master algorithms \cite{BromanBGLMTW13}: fixed step algorithm, rollback algorithm and predictable step size algorithm. Rollback and predictable step size algorithms are based on the extension of FMI 2.0, which supports the rollback and a predict function. P.G Larsen et al. \cite{Larsen2016Integrated} formally analysed the fixed step and rollback algorithms with the FDR3 refinement checker. However, there still lack effective method to verify FMI co-simulation. Based on our previous work, we found that the co-simulation is time-intensive. In this paper, we attempt to model the master algorithms with Timed Automata (TA) and verify the algorithms with the model checker UPPAAL \cite{BehrmannDLHPYH06}. Timed automaton is a finite automaton extended with a finite set of real-valued clocks, which is a classic formalism to specify time-related system. Besides, we also attempt to verify several properties of co-simulation such as deadlock, liveness and reachability. To achieve our goal, we propose a novel approach to model check FMI co-simulation with timed automata.
+
+\textbf{Our main contributions} are as follows:
+\begin{itemize}
+\item
+We propose a framework for verifying CPSs with model checking technology. To bridge the gap between FMU and the model checker, we encode FMU into timed automata with encoding rules.
+\item
+We model and analyse three various master algorithms to ensure the correctness of the co-simulation process. With the help of UPPAAL, we analyse the reachability, livelock and deadlock of three master algorithms.
+%\item
+%We present a novel approach to model check several properties of the co-simulation based on timed automata. With the help of model checker, the property such as livelock, deadlock and reachability of the co-simulation are verified. 
+\item
+The prototype for model checking co-simulation of CPSs is developing, which is integrated in our Mondana platform \cite{Cheng2015Modana}(https://github.com/ECNU-MODANA/AL-Modana.git). We have developed the SysML modelling environment and the \textit{co-simulator} to simulate CPSs \cite{Fritzson1998Modelica}.
+\end{itemize}
+The main novelty of our work, compared to the previous research, is that we propose to verify co-simulation with TA-based model checking. It has extensive tool supports. As far as we know, there is few existing approaches support TA-based model checking for FMI co-simulation.
+
+The remainder of this paper is organized as follows. In Section~\ref{sec:fmi}, we briefly review the technical background including FMI, FMU and timed automaton. Then, we present the technical road-map of our approach and how to encode FMU by timed automaton with the help of their semantic mapping in Section~\ref{sec:encoding}. In Section~\ref{sec:ma}, we model three versions of master algorithms with timed automata and analyse their properties such as the livelock and deadlock. Section~\ref{sec:sysml} presents a case study to demonstrate the feasibility of our approach. We model the architecture of the water tank with SysML block definition diagrams, and then obtains the FMUs components and connection of FMUs. We encode the FMUs with timed automata, and model check FMI co-simulation of the water tank with UPPAAL. Finally we position our work with respect to related work before concluding and discussing possible future extensions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%The syntax of TA is as follows:
+%\par
+%\textbf{Timed Automata}
+%A timed automata over a finite set of clocks $C$ and a finite set of actions $Sigma$ is a quintuple $\textit{H}=(L,l_{0},\Sigma,E,I)$, where
+%\begin{itemize}
+%\item
+%$L$ is a finite set of locations,
+%\item
+%$l_{0}\in L$ is the initial location,
+%\item
+%$\Sigma$ is a finite set of actions, and $\Sigma=\Sigma_{i}+\Sigma_{o}$, where $\Sigma_{i}$ is the set of input actions, $\Sigma_{o}$ is the set of output actions,
+%\item
+%$E$ is a finite set of transactions, where $E\subseteq L \times \mathcal{B(C)}\times \Sigma \times 2^C\times L$
+%\item
+%$I:L\rightarrow \mathcal{B(C)})$ assigns invariants to locations.
+%\end{itemize}
