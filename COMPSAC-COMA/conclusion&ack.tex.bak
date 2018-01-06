@@ -1,0 +1,10 @@
+\section{Conclusion and Future Work}
+\label{sec:conclusion&ack}
+In this paper, we present a novel approach to model check the FMI co-simulation, which facilitates the formal verification of CPSs. It involves to model check the reachability, liveness and deadlock of three various master algorithms. Besides, the correctness of the system architecture is also analysed. We encode the FMU components and master algorithms with timed automata, so that properties of the co-simulation can be verified with UPPAAL. To illustrate the feasibility of our approach, the example water tank is discussed. Its architecture is specified with SysML block diagrams, from which the relevant FMU components are derived to co-simulate the system behavior. With the help of encoding, the network of timed automata for the water tank system is built. The experiment results show that the co-simulation behavior of CPSs can be analysed effectively with model checking technology.
+
+An interesting direction of future work is to analyse and compare the performance of various master algorithms. We will also study how to eliminate algebraic loop of the architecture. Besides, some industrial case studies will be conducted to check the scalability of our approach. The tool implement of co-simulation should also be improved further.
+\section*{Acknowledgement}
+This work was supported by NSFC (Grant No.61472140, 61202104, China HGJ project No.2017ZX01038102-002). 
+
+
+
