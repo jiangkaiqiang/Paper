@@ -10,7 +10,7 @@ The water tank system is our running example as shown in Fig.~\ref{tankfig}. A s
 	\caption{Water tank system.}
 	\label{tankfig}
 \end{figure} 
-\subsection{Architecture Modelling in SysML}
+\subsection{Architecture Modeling in SysML}
 SysML is a general purpose domain-specific language (DSL) \cite{SemerathBHSV17} for model-based systems engineering (MBSE) \cite{Dori16}, which is originated as an initiative of the International Council on Systems Engineering (INCOSE) \cite{Pepper2015International} in January 2001. The SysML BDDs describe the system blocks and their features (structural and behavioural). The \textit{Connection Diagram} (CD) describes the internal structure of blocks. The ports of blocks are connected by the connector. The I/O dependence of blocks describes the communication between blocks. SysML BDDs are usually used to model the architecture of systems.
 
 Fig.~\ref{myad} shows the SysML BDD for the water tank system which models the structure of the system. The system consists of three blocks, i.e., \emph{Valve}, \emph{Tank} and \emph{Controller}, in which \emph{Valve} and \emph{Tank} are physical components. \emph{Controller} is the cyber component. Each component has its own input and output. For instance, the input interface of \emph{Valve} is named as \emph{vin}, which is used to input the \emph{Open-Closed} signal. 
@@ -24,13 +24,13 @@ Fig.~\ref{cd} shows the connection diagram for the system. There are three cases
 
 \begin{figure}[htbp]
 \centering{
-		\subfigure[Connection case1]{\includegraphics[width=3.2in,height=0.8in]{fig/CD1.png}
+		\subfigure[Connection case 1]{\includegraphics[width=3.2in,height=0.8in]{fig/CD1.png}
 			\label{cd1}}
 		\hfil
-		\subfigure[Connection case2]{\includegraphics[width=3.2in,height=0.8in]{fig/CD2.png}
+		\subfigure[Connection case 2]{\includegraphics[width=3.2in,height=0.8in]{fig/CD2.png}
 			\label{cd2}}
 		\hfil
-		\subfigure[Connection case3]{\includegraphics[width=3.2in,height=0.8in]{fig/CD3.png}
+		\subfigure[Connection case 3]{\includegraphics[width=3.2in,height=0.8in]{fig/CD3.png}
 			\label{cd3}}
 	\caption{SysML CD for water tank.}
 	\label{cd}
@@ -42,13 +42,13 @@ The SysML BDD shows the blocks of system and SysML CD shows the connection betwe
 Fig.~\ref{fmu-con} is the FMUs and FMUs connection of water tank system. There are three connection cases between the FMUs according to the SysML CD shown in Fig.~\ref{cd}. The first case contains three FMU components \emph{Controller}, \emph{Valve} and \emph{WaterTank1} and two channels $v \_ vin$, $w \_ win$ as shown in Fig.\ref{fmu-con1}. The \emph{Controller} and \emph{Valve} are connected with channel $v \_ vin$. The \emph{Valve} and \emph{WaterTank1} are connected with channel $w \_ win$. The second case is shown in Fig.\ref{fmu-con2}, there could be a channel $sout \_ s$ between \emph{WaterTank1} and \emph{Controller}, which means the water level of \emph{WaterTank1} affects the control strategy of the \textbf{controller}. Fig.~\ref{fmu-con3} shows the third case, there could be another \emph{WaterTank2}, the \emph{WaterTank1} and \emph{WaterTank2} are connected by the channel $w \_ out$. 
 \begin{figure}[htbp]
 \centering{
-		\subfigure[Connection case1]{\includegraphics[width=1.0in,height=0.6in]{fig/fmuc1.png}
+		\subfigure[Connection case 1]{\includegraphics[width=1.0in,height=0.6in]{fig/fmuc1.png}
 			\label{fmu-con1}}
 		\hfil
-		\subfigure[Connection case2]{\includegraphics[width=1.0in,height=0.6in]{fig/fmuc2.png}
+		\subfigure[Connection case 2]{\includegraphics[width=1.0in,height=0.6in]{fig/fmuc2.png}
 			\label{fmu-con2}}
 		\hfil
-		\subfigure[Connection case3]{\includegraphics[width=1.0in,height=0.6in]{fig/fmuc3.png}
+		\subfigure[Connection case 3]{\includegraphics[width=1.0in,height=0.6in]{fig/fmuc3.png}
 			\label{fmu-con3}}
 	\caption{FMUs connection of water tank.}
 	\label{fmu-con}
