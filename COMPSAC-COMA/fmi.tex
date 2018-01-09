@@ -27,9 +27,9 @@ $get : S \times Y \rightarrow \mathbb{V}$ denotes the function that returns the 
 \item
 $doStep : S \times \mathbb{R}_{\geqslant{0}} \rightarrow S \times \mathbb{R}_{\geqslant{0}}$ denotes the function that implements one simulation step. Given current state $s$, and a non-negative real $h \in \mathbb{R}_{\geqslant{0}}$, $doStep(s,h)$ returns a pair $(s^{\prime},h^{\prime})$ such that:
 \\
-When $h^{\prime} = h$, it indicates that $F$ accepts the time step $h$ and reaches the new state $s^{\prime}$;
+    When $h^{\prime} = h$, it indicates that $F$ accepts the time step $h$ and reaches the new state $s^{\prime}$;
 \\
-When $0 \leqslant h^{\prime} < h$, it means that $F$ rejects the time step $h$, but making partial progress up to $h^{\prime}$, and reach the new state $s^{\prime}$.
+    When $0 \leqslant h^{\prime} < h$, it means that $F$ rejects the time step $h$, but making partial progress up to $h^{\prime}$, and reach the new state $s^{\prime}$.
 \end{itemize}
 \begin{definition}
 \textbf{FMU semantics}
@@ -57,7 +57,7 @@ Therefore, the semantics of an FMU can be defined by a labelled transition syste
 Timed automaton (TA) \cite{BehrmannDLHPYH06} is a classic theory to model the behavior of real-time systems. It provides a powerful way to annotate state-transition graphs with many real-valued clocks. In this subsection, we recall the syntax and semantics of TA. 
 \begin{definition}
 \textbf{TA syntax}
-A TA over a finite set of clocks \emph{X} and a finite set of actions \emph{Act} is a quadruple $\textit{A}=(L,l_{0},E,I)$, where:
+A TA over a finite set of clocks $X$ and a finite set of actions $Act$ is a quadruple $\textit{A}=(L,l_{0},E,I)$, where:
 \end{definition}
 \begin{itemize}
 \item
