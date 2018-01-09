@@ -1,0 +1,466 @@
+%%% ====================================================================
+%%%  BibTeX-file{
+%%%     author          = "Gerry Murray",
+%%%     version         = "1.2",
+%%%     date            = "2 April 2012",
+%%%     filename        = "acmsmall-sample-bibfile.bib",
+%%%     address         = "ACM, NY",
+%%%     email           = "murray at hq.acm.org",
+%%%     codetable       = "ISO/ASCII",
+%%%     keywords        = "ACM Reference Format, bibliography, citation, references",
+%%%     supported       = "yes",
+%%%     docstring       = "This BibTeX database file contains 'bibdata' entries
+%%%                        that 'match' the examples provided in the Specifications Document
+%%%                        AND, also, 'legacy'-type bibs. It should assist authors in 
+%%%                        choosing the 'correct' at-bibtype and necessary bib-fields
+%%%                        so as to obtain the appropriate ACM Reference Format output. 
+%%%			   It also contains many 'Standard Abbreviations'. "
+%%%  }
+%%% ====================================================================
+
+% Journals
+
+% First the Full Name is given, then the abbreviation used in the AMS Math
+% Reviews, with an indication if it could not be found there.
+% Note the 2nd overwrites the 1st, so swap them if you want the full name.
+
+ %{AMS}
+ @String{AMSTrans = "American Mathematical Society Translations" }
+ @String{AMSTrans = "Amer. Math. Soc. Transl." }
+ @String{BullAMS = "Bulletin of the American Mathematical Society" }
+ @String{BullAMS = "Bull. Amer. Math. Soc." }
+ @String{ProcAMS = "Proceedings of the American Mathematical Society" }
+ @String{ProcAMS = "Proc. Amer. Math. Soc." }
+ @String{TransAMS = "Transactions of the American Mathematical Society" }
+ @String{TransAMS = "Trans. Amer. Math. Soc." }
+
+ %ACM
+ @String{CACM = "Communications of the {ACM}" }
+ @String{CACM = "Commun. {ACM}" }
+ @String{CompServ = "Comput. Surveys" }
+ @String{JACM = "J. ACM" }
+ @String{ACMMathSoft = "{ACM} Transactions on Mathematical Software" }
+ @String{ACMMathSoft = "{ACM} Trans. Math. Software" }
+ @String{SIGNUM = "{ACM} {SIGNUM} Newsletter" }
+ @String{SIGNUM = "{ACM} {SIGNUM} Newslett." }
+
+ @String{AmerSocio = "American Journal of Sociology" }
+ @String{AmerStatAssoc = "Journal of the American Statistical Association" }
+ @String{AmerStatAssoc = "J. Amer. Statist. Assoc." }
+ @String{ApplMathComp = "Applied Mathematics and Computation" }
+ @String{ApplMathComp = "Appl. Math. Comput." }
+ @String{AmerMathMonthly = "American Mathematical Monthly" }
+ @String{AmerMathMonthly = "Amer. Math. Monthly" }
+ @String{BIT = "{BIT}" }
+ @String{BritStatPsych = "British Journal of Mathematical and Statistical
+          Psychology" }
+ @String{BritStatPsych = "Brit. J. Math. Statist. Psych." }
+ @String{CanMathBull = "Canadian Mathematical Bulletin" }
+ @String{CanMathBull = "Canad. Math. Bull." }
+ @String{CompApplMath = "Journal of Computational and Applied Mathematics" }
+ @String{CompApplMath = "J. Comput. Appl. Math." }
+ @String{CompPhys = "Journal of Computational Physics" }
+ @String{CompPhys = "J. Comput. Phys." }
+ @String{CompStruct = "Computers and Structures" }
+ @String{CompStruct = "Comput. \& Structures" }
+ @String{CompJour = "The Computer Journal" }
+ @String{CompJour = "Comput. J." }
+ @String{CompSysSci = "Journal of Computer and System Sciences" }
+ @String{CompSysSci = "J. Comput. System Sci." }
+ @String{Computing = "Computing" }
+ @String{ContempMath = "Contemporary Mathematics" }
+ @String{ContempMath = "Contemp. Math." }
+ @String{Crelle = "Crelle's Journal" }
+ @String{GiornaleMath = "Giornale di Mathematiche" }
+ @String{GiornaleMath = "Giorn. Mat." } % didn't find in AMS MR., ibid.
+
+ %IEEE
+ @String{Computer = "{IEEE} Computer" }
+ @String{IEEETransComp = "{IEEE} Transactions on Computers" }
+ @String{IEEETransComp = "{IEEE} Trans. Comput." }
+ @String{IEEETransAC = "{IEEE} Transactions on Automatic Control" }
+ @String{IEEETransAC = "{IEEE} Trans. Automat. Control" }
+ @String{IEEESpec = "{IEEE} Spectrum" } % didn't find in AMS MR
+ @String{ProcIEEE = "Proceedings of the {IEEE}" }
+ @String{ProcIEEE = "Proc. {IEEE}" } % didn't find in AMS MR
+ @String{IEEETransAeroElec = "{IEEE} Transactions on Aerospace and Electronic
+     Systems" }
+ @String{IEEETransAeroElec = "{IEEE} Trans. Aerospace Electron. Systems" }
+
+ @String{IMANumerAna = "{IMA} Journal of Numerical Analysis" }
+ @String{IMANumerAna = "{IMA} J. Numer. Anal." }
+ @String{InfProcLet = "Information Processing Letters" }
+ @String{InfProcLet = "Inform. Process. Lett." }
+ @String{InstMathApp = "Journal of the Institute of Mathematics and
+     its Applications" }
+ @String{InstMathApp = "J. Inst. Math. Appl." }
+ @String{IntControl = "International Journal of Control" }
+ @String{IntControl = "Internat. J. Control" }
+ @String{IntNumerEng = "International Journal for Numerical Methods in
+     Engineering" }
+ @String{IntNumerEng = "Internat. J. Numer. Methods Engrg." }
+ @String{IntSuper = "International Journal of Supercomputing Applications" }
+ @String{IntSuper = "Internat. J. Supercomputing Applic." } % didn't find
+%% in AMS MR
+ @String{Kibernetika = "Kibernetika" }
+ @String{JResNatBurStand = "Journal of Research of the National Bureau
+     of Standards" }
+ @String{JResNatBurStand = "J. Res. Nat. Bur. Standards" }
+ @String{LinAlgApp = "Linear Algebra and its Applications" }
+ @String{LinAlgApp = "Linear Algebra Appl." }
+ @String{MathAnaAppl = "Journal of Mathematical Analysis and Applications" }
+ @String{MathAnaAppl = "J. Math. Anal. Appl." }
+ @String{MathAnnalen = "Mathematische Annalen" }
+ @String{MathAnnalen = "Math. Ann." }
+ @String{MathPhys = "Journal of Mathematical Physics" }
+ @String{MathPhys = "J. Math. Phys." }
+ @String{MathComp = "Mathematics of Computation" }
+ @String{MathComp = "Math. Comp." }
+ @String{MathScand = "Mathematica Scandinavica" }
+ @String{MathScand = "Math. Scand." }
+ @String{TablesAidsComp = "Mathematical Tables and Other Aids to Computation" }
+ @String{TablesAidsComp = "Math. Tables Aids Comput." }
+ @String{NumerMath = "Numerische Mathematik" }
+ @String{NumerMath = "Numer. Math." }
+ @String{PacificMath = "Pacific Journal of Mathematics" }
+ @String{PacificMath = "Pacific J. Math." }
+ @String{ParDistComp = "Journal of Parallel and Distributed Computing" }
+ @String{ParDistComp = "J. Parallel and Distrib. Comput." } % didn't find
+%% in AMS MR
+ @String{ParComputing = "Parallel Computing" }
+ @String{ParComputing = "Parallel Comput." }
+ @String{PhilMag = "Philosophical Magazine" }
+ @String{PhilMag = "Philos. Mag." }
+ @String{ProcNAS = "Proceedings of the National Academy of Sciences
+                    of the USA" }
+ @String{ProcNAS = "Proc. Nat. Acad. Sci. U. S. A." }
+ @String{Psychometrika = "Psychometrika" }
+ @String{QuartMath = "Quarterly Journal of Mathematics, Oxford, Series (2)" }
+ @String{QuartMath = "Quart. J. Math. Oxford Ser. (2)" }
+ @String{QuartApplMath = "Quarterly of Applied Mathematics" }
+ @String{QuartApplMath = "Quart. Appl. Math." }
+ @String{RevueInstStat = "Review of the International Statisical Institute" }
+ @String{RevueInstStat = "Rev. Inst. Internat. Statist." }
+
+ %SIAM
+ @String{JSIAM = "Journal of the Society for Industrial and Applied
+     Mathematics" }
+ @String{JSIAM = "J. Soc. Indust. Appl. Math." }
+ @String{JSIAMB = "Journal of the Society for Industrial and Applied
+     Mathematics, Series B, Numerical Analysis" }
+ @String{JSIAMB = "J. Soc. Indust. Appl. Math. Ser. B Numer. Anal." }
+ @String{SIAMAlgMeth = "{SIAM} Journal on Algebraic and Discrete Methods" }
+ @String{SIAMAlgMeth = "{SIAM} J. Algebraic Discrete Methods" }
+ @String{SIAMAppMath = "{SIAM} Journal on Applied Mathematics" }
+ @String{SIAMAppMath = "{SIAM} J. Appl. Math." }
+ @String{SIAMComp = "{SIAM} Journal on Computing" }
+ @String{SIAMComp = "{SIAM} J. Comput." }
+ @String{SIAMMatrix = "{SIAM} Journal on Matrix Analysis and Applications" }
+ @String{SIAMMatrix = "{SIAM} J. Matrix Anal. Appl." }
+ @String{SIAMNumAnal = "{SIAM} Journal on Numerical Analysis" }
+ @String{SIAMNumAnal = "{SIAM} J. Numer. Anal." }
+ @String{SIAMReview = "{SIAM} Review" }
+ @String{SIAMReview = "{SIAM} Rev." }
+ @String{SIAMSciStat = "{SIAM} Journal on Scientific and Statistical
+     Computing" }
+ @String{SIAMSciStat = "{SIAM} J. Sci. Statist. Comput." }
+
+ @String{SoftPracExp = "Software Practice and Experience" }
+ @String{SoftPracExp = "Software Prac. Experience" } % didn't find in AMS MR
+ @String{StatScience = "Statistical Science" }
+ @String{StatScience = "Statist. Sci." }
+ @String{Techno = "Technometrics" }
+ @String{USSRCompMathPhys = "{USSR} Computational Mathematics and Mathematical
+     Physics" }
+ @String{USSRCompMathPhys = "{U. S. S. R.} Comput. Math. and Math. Phys." }
+ @String{VLSICompSys = "Journal of {VLSI} and Computer Systems" }
+ @String{VLSICompSys = "J. {VLSI} Comput. Syst." }
+ @String{ZAngewMathMech = "Zeitschrift fur Angewandte Mathematik und
+     Mechanik" }
+ @String{ZAngewMathMech = "Z. Angew. Math. Mech." }
+ @String{ZAngewMathPhys = "Zeitschrift fur Angewandte Mathematik und Physik" }
+ @String{ZAngewMathPhys = "Z. Angew. Math. Phys." }
+
+% Publishers % ================================================= |
+
+ @String{Academic = "Academic Press" }
+ @String{ACMPress = "{ACM} Press" }
+ @String{AdamHilger = "Adam Hilger" }
+ @String{AddisonWesley = "Addison-Wesley" }
+ @String{AllynBacon = "Allyn and Bacon" }
+ @String{AMS = "American Mathematical Society" }
+ @String{Birkhauser = "Birkha{\"u}ser" }
+ @String{CambridgePress = "Cambridge University Press" }
+ @String{Chelsea = "Chelsea" }
+ @String{ClaredonPress = "Claredon Press" }
+ @String{DoverPub = "Dover Publications" }
+ @String{Eyolles = "Eyolles" }
+ @String{HoltRinehartWinston = "Holt, Rinehart and Winston" }
+ @String{Interscience = "Interscience" }
+ @String{JohnsHopkinsPress = "The Johns Hopkins University Press" }
+ @String{JohnWileySons = "John Wiley and Sons" }
+ @String{Macmillan = "Macmillan" }
+ @String{MathWorks = "The Math Works Inc." }
+ @String{McGrawHill = "McGraw-Hill" }
+ @String{NatBurStd = "National Bureau of Standards" }
+ @String{NorthHolland = "North-Holland" }
+ @String{OxfordPress = "Oxford University Press" }  %address Oxford or London?
+ @String{PergamonPress = "Pergamon Press" }
+ @String{PlenumPress = "Plenum Press" }
+ @String{PrenticeHall = "Prentice-Hall" }
+ @String{SIAMPub = "{SIAM} Publications" }
+ @String{Springer = "Springer-Verlag" }
+ @String{TexasPress = "University of Texas Press" }
+ @String{VanNostrand = "Van Nostrand" }
+ @String{WHFreeman = "W. H. Freeman and Co." }
+
+%Entries
+@inproceedings{Younes2004Planning,
+  title={Planning and verification for stochastic processes with asynchronous events},
+  author={Younes, H and Kan, L. S},
+  booktitle={Nineteenth National Conference on Artificial Intelligence, Sixteenth Conference on Innovative Applications of Artificial Intelligence, July 25-29, 2004, San Jose, California, Usa},
+  pages={1001-1002},
+  year={2004},
+}
+@article{Bulychev2012Checking,
+  title={Checking and distributing statistical model checking},
+  author={Bulychev, Peter and David, Alexandre and Larsen, Kim Guldstrand and Legay, Axel and Miku{\v{c}}ionis, Marius and Poulsen, Danny B},
+  journal={Lecture Notes in Computer Science},
+  volume={7226},
+  pages={449-463},
+  year={2012},
+}
+@inproceedings{Cheng2015Modana,
+  title={Modana: An Integrated Framework for Modeling and Analysis of Energy-Aware CPSs},
+  author={Cheng, Bei and Wang, Xiao and Liu, Jufu and Du, Dehui},
+  booktitle={IEEE  Computer Software and Applications Conference},
+  pages={127-136},
+  year={2015},
+}
+@article{david2012evaluation,
+	title={An evaluation framework for energy aware buildings using statistical model checking},
+	author={David, Alexandre and Du, DeHui and Larsen, Kim G and Miku{\v{c}}ionis, Marius and Skou, Arne},
+	journal={Science China information sciences},
+	volume={55},
+	number={12},
+	pages={2694--2707},
+	year={2012},
+	publisher={Springer}
+}
+@article{David2015Uppaal,
+  title={Uppaal SMC tutorial},
+  author={David, Alexandre and Larsen, Kim G and Legay, Axel and Miku and Ionis, Marius and Poulsen, Danny B and gsted},
+  journal={International Journal on Software Tools for Technology Transfer},
+  volume={17},
+  number={4},
+  pages={397-415},
+  year={2015},
+}
+@inproceedings{grosu2005monte,
+  title={Monte carlo model checking},
+  author={Grosu, Radu and Smolka, Scott A},
+  booktitle={International Conference on Tools and Algorithms for the Construction and Analysis of Systems},
+  pages={271--286},
+  year={2005},
+  organization={Springer}
+}
+@inproceedings{herault2004,
+	title={Approximate probabilistic model checking},
+	author={H{\'e}rault, Thomas and Lassaigne, Richard and Magniette, Fr{\'e}d{\'e}ric and Peyronnet, Sylvain},
+	booktitle={Verification, Model Checking, and Abstract Interpretation},
+	pages={73--84},
+	year={2004},
+	organization={Springer}
+}
+@inproceedings{jha2009bayesian,
+	title={A bayesian approach to model checking biological systems},
+	author={Jha, Sumit K and Clarke, Edmund M and Langmead, Christopher J and Legay, Axel and Platzer, Andr{\'e} and Zuliani, Paolo},
+	booktitle={Computational Methods in Systems Biology},
+	pages={218--234},
+	year={2009},
+	organization={Springer}
+}
+@article{zuliani2013bayesian,
+	title={Bayesian statistical model checking with application to Stateflow/Simulink verification},
+	author={Zuliani, Paolo and Platzer, Andr{\'e} and Clarke, Edmund M},
+	journal={Formal Methods in System Design},
+	volume={43},
+	number={2},
+	pages={338--367},
+	year={2013},
+	publisher={Springer}
+}
+@incollection{kim2012statistical,
+	title={Statistical model checking for safety critical hybrid systems: An empirical evaluation},
+	author={Kim, Youngjoo and Kim, Moonzoo and Kim, Tai-Hyo},
+	booktitle={Hardware and Software: Verification and Testing},
+	pages={162--177},
+	year={2012},
+	publisher={Springer}
+}
+@inproceedings{legay2010statistical,
+	title={Statistical model checking: An overview},
+	author={Legay, Axel and Delahaye, Beno{\^\i}t and Bensalem, Saddek},
+	booktitle={Runtime Verification},
+	pages={122--135},
+	year={2010},
+	organization={Springer}
+}
+
+@article{younes2006statistical,
+	title={Statistical probabilistic model checking with a focus on time-bounded properties},
+	author={Younes, H{\aa}kan LS and Simmons, Reid G},
+	journal={Information and Computation},
+	volume={204},
+	number={9},
+	pages={1368--1409},
+	year={2006},
+	publisher={Elsevier}
+}
+@inproceedings{younes2005ymer,
+	title={Ymer: A statistical model checker},
+	author={Younes, H{\aa}kan LS},
+	booktitle={Computer Aided Verification},
+	pages={429--433},
+	year={2005},
+	organization={Springer}
+}
+@book{DBLP:books/daglib/0019871,
+  author    = {S. N. Sivanandam and
+               S. N. Deepa},
+  title     = {Introduction to genetic algorithms},
+  publisher = {Springer},
+  year      = {2008},
+  timestamp = {Thu, 10 Feb 2011 14:03:18 +0100},
+  biburl    = {http://dblp.uni-trier.de/rec/bib/books/daglib/0019871},
+  bibsource = {dblp computer science bibliography, http://dblp.org}
+}
+@inproceedings{Behrmann2006UPPAAL,
+  title={UPPAAL 4.0},
+  author={Behrmann, Gerd and David, Alexandre and Larsen, Kim G and Hakansson, John and Petterson, Paul and Yi, Wang and Hendriks, Martijn},
+  booktitle={International Conference on the Quantitative Evaluation of Systems},
+  pages={125-126},
+  year={2006},
+}
+@article{Bulychev2012UPPAAL,
+  title={UPPAAL-SMC: Statistical Model Checking for Priced Timed Automata},
+  author={Bulychev, Peter and David, Alexandre and Larsen, Kim Gulstrand and Marius Miku{\v{c}}ionis},
+  journal={Electronic Proceedings in Theoretical Computer Science},
+  volume={85},
+  year={2012},
+}
+@article{Kwiatkowska2002PRISM,
+  title={PRISM: Probabilistic Symbolic Model Checker},
+  author={Kwiatkowska, Marta and Norman, Gethin and Parker, David},
+  journal={Lecture Notes in Computer Science},
+  volume={2324},
+  pages={200-204},
+  year={2002},
+}
+
+@incollection{carrasco1994learning,
+	title={Learning stochastic regular grammars by means of a state merging method},
+	author={Carrasco, Rafael C and Oncina, Jos{\'e}},
+	booktitle={Grammatical Inference and Applications},
+	pages={139--152},
+	year={1994},
+	publisher={Springer}
+}
+
+@article{du2015smc4rare,
+	title={Statistical Model Checking for Rare-Event in Safety-Critical System},
+	author={Dehui Du,   Bei Cheng,    Jing Liu},
+	journal={Journal of Software},
+	number={2},
+	pages={305-320},
+	year={2015},
+}
+
+@book{baier2008principles,
+	title={Principles of model checking},
+	author={Baier, Christel and Katoen, Joost-Pieter and others},
+	volume={26202649},
+	year={2008},
+	publisher={MIT press Cambridge}
+}
+@incollection{basu2010statistical,
+	title={Statistical abstraction and model-checking of large heterogeneous systems},
+	author={Basu, Ananda and Bensalem, Saddek and Bozga, Marius and Caillaud, Beno{\^\i}t and Delahaye, Beno{\^\i}t and Legay, Axel},
+	booktitle={Formal Techniques for Distributed Systems},
+	pages={32--46},
+	year={2010},
+	publisher={Springer}
+}
+
+@book{dunteman1989principal,
+	title={Principal components analysis},
+	author={Dunteman, George H},
+	volume={69},
+	year={1989},
+	publisher={Sage}
+}
+@article{David2014Statistical,
+  title={Statistical Model Checking of Dynamic Networks of Stochastic Hybrid Automata},
+  author={David, Alexandre and Larsen, Kim G. and Legay, Axel and Poulsen, Danny B},
+  journal={Francisco Javier Fuente Fernandez},
+  volume={66},
+  pages={91-104},
+  year={2014},
+}
+@article{Yoo2016Challenges,
+  title={Challenges and research directions for heterogeneous cyber physical system based on IEC 61850: Vulnerabilities, security requirements, and security architecture},
+  author={Yoo, Hyunguk and Shon, Taeshik},
+  journal={Future Generation Computer Systems},
+  volume={61},
+  pages={128-136},
+  year={2016},
+}
+@inproceedings{Miura2000Modeling,
+  title={Modeling motion uncertainty of moving obstacles for robot motion planning},
+  author={Miura, J and Shirai, Y},
+  booktitle={IEEE International Conference on Robotics and Automation, 2000. Proceedings. ICRA},
+  pages={2258-2263 vol.3},
+  year={2000},	
+}
+@inproceedings{herault2004approximate,
+	title={Approximate probabilistic model checking},
+	author={H{\'e}rault, Thomas and Lassaigne, Richard and Magniette, Fr{\'e}d{\'e}ric and Peyronnet, Sylvain},
+	booktitle={Verification, Model Checking, and Abstract Interpretation},
+	pages={73--84},
+	year={2004},
+	organization={Springer}
+}
+
+@article{jiangkaiqiang2016,
+  title={AL-SMC: Optimizing Statistical Model Checking by Automatic Abstraction and Learning},
+  author={Dehui Du, Ping Huang, Kaiqiang Jiang},
+  journal={International Journal of Software and Informatics},
+  volume={10},
+  pages={4:0},
+  year={2016},
+}
+
+@book{Sen2004Statistical,
+  title={Statistical Model Checking of Black-Box Probabilistic Systems},
+  author={Sen, Koushik and Viswanathan, Mahesh and Agha, Gul},
+  publisher={Springer Berlin Heidelberg},
+  year={2004},
+}
+
+@InProceedings{LWAB10,
+author={M. Lahijanian and J. Wasniewski and S. B. Andersson and C. Belta},
+title={Motion Planning and Control from Temporal Logic Specifications with Probabilistic Satisfaction Guarantees},
+booktitle={Proc. 2010 IEEE International Conference on Robotics and Automation},
+year={2010},
+
+editor={},
+pages={3227--3232},
+organization={},
+publisher={},
+series={},
+volume={},
+address={},
+month={},
+note={},
+key={}
+}
