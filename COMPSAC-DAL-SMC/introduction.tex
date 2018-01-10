@@ -1,19 +1,16 @@
 \section{Introduction}
-
 Statistical Model Checking techniques (SMC) \cite{Younes2004Planning,Sen2004Statistical,herault2004} can be seen as a trade-off between testing and formal verification. Recently, SMC has been an alternative to standard model-checking in order to avoid the state-space explosion problem, especially for verifying Cyber-physical Systems (CPSs) \cite{Yoo2016Challenges}. The core idea of SMC is to decide whether the stochastic model satisfies a given property or to evaluate its probability of satisfaction by combining statistical techniques with Monte-Carlo simulation on model traces. Nowadays, SMC is getting increasing industrial attentions and there are many model checkers which supports SMC techniques to analyze the stochastic model more effectively (e.g., Uppaal-SMC \cite{Bulychev2012UPPAAL}, Prism \cite{Kwiatkowska2002PRISM}).
 
 CPS focus on the coupling of cyber part viewed as distributed computation units and physical part covering the environment affecting the running of the system. The modeling of stochastic behaviors for CPS might be highly cumbersome \cite{basu2010statistical} and the analysis of these models demands extremely high confidence \cite{du2015smc4rare}. SMC still encounters the performance bottleneck for verifying CPS. There are two factors having a direct influence on the performance of SMC, one is the number of simulation traces, the other is the length of a single trace.  In this paper, we focus on these two factors to improve the efficiency of SMC. Figure \ref{tech-map} is the technology roadmap of our approach. A statistical model checker contains three components: \emph{simulator, SMC algorithm and model checker}. The \emph{simulator} generates simulation traces which are fed to the \emph{model checker}.  With model checking technology, it verifies whether the trace satisfies the property, and returns observations. The \emph{SMC algorithm} collects observations obtained from a \emph{model checker} and computes the probability with statistical testing. To reduce the number of simulation traces, we have proposed abstraction and learning teachique with \emph{SMC algorithm} called AL-SMC \cite{jiangkaiqiang2016}. With many experiments, we find that AL-SMC effectively reduces the number of traces, and improves the performance of SMC. As observed in \cite{younes2005ymer}, SMC can be distributed based on master/slave architecture where several slave computers are used to generate simulation traces. Inspired by their work, we apply distributed technology on \emph{simulator} to reduce the time consumption for generating a single trace. Further, we propose the distributed Bayesian Interval Estimation (BIE) algorithm \cite{zuliani2013bayesian}. In this paper, we combine distributed technology with AL-SMC technique, which is called distributed AL-SMC (DAL-SMC).  DAL-SMC reduces both the number of simulation traces and the time consumption for generating a single trace.
-
 \begin{figure}[htbp]
 	{
 	\centering	
-	\includegraphics[width=3.0in,height=1.8in]{fig/paper-framework.png}
+	\includegraphics[width=3.0in,height=1.7in]{fig/paper-framework.png}
 \caption{Technology roadmap.}\label{tech-map}	
 	}
 	%\vspace{0.10in}
 	
 \end{figure}
-
 \textbf{The main contributions of this paper include:} 
 \begin{itemize}
 \item

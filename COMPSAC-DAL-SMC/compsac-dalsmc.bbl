@@ -115,6 +115,11 @@ R.~C. Carrasco and J.~Oncina, ``Learning stochastic regular grammars by means
 S.~N. Sivanandam and S.~N. Deepa, \emph{Introduction to genetic
   algorithms}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2008.
 
+\bibitem{David2015Uppaal}
+A.~David, K.~G. Larsen, A.~Legay, Miku, M.~Ionis, D.~B. Poulsen, and gsted,
+  ``Uppaal smc tutorial,'' \emph{International Journal on Software Tools for
+  Technology Transfer}, vol.~17, no.~4, pp. 397--415, 2015.
+
 \bibitem{david2012evaluation}
 A.~David, D.~Du, K.~G. Larsen, M.~Miku{\v{c}}ionis, and A.~Skou, ``An
   evaluation framework for energy aware buildings using statistical model
@@ -125,6 +130,28 @@ A.~David, D.~Du, K.~G. Larsen, M.~Miku{\v{c}}ionis, and A.~Skou, ``An
 J.~Miura and Y.~Shirai, ``Modeling motion uncertainty of moving obstacles for
   robot motion planning,'' in \emph{IEEE International Conference on Robotics
   and Automation, 2000. Proceedings. ICRA}, 2000, pp. 2258--2263 vol.3.
+
+\bibitem{Behrmann2006UPPAAL}
+G.~Behrmann, A.~David, K.~G. Larsen, J.~Hakansson, P.~Petterson, W.~Yi, and
+  M.~Hendriks, ``Uppaal 4.0,'' in \emph{International Conference on the
+  Quantitative Evaluation of Systems}, 2006, pp. 125--126.
+
+\bibitem{jha2009bayesian}
+S.~K. Jha, E.~M. Clarke, C.~J. Langmead, A.~Legay, A.~Platzer, and P.~Zuliani,
+  ``A bayesian approach to model checking biological systems,'' in
+  \emph{Computational Methods in Systems Biology}.\hskip 1em plus 0.5em minus
+  0.4em\relax Springer, 2009, pp. 218--234.
+
+\bibitem{younes2006statistical}
+H.~L. Younes and R.~G. Simmons, ``Statistical probabilistic model checking with
+  a focus on time-bounded properties,'' \emph{Information and Computation},
+  vol. 204, no.~9, pp. 1368--1409, 2006.
+
+\bibitem{herault2004approximate}
+T.~H{\'e}rault, R.~Lassaigne, F.~Magniette, and S.~Peyronnet, ``Approximate
+  probabilistic model checking,'' in \emph{Verification, Model Checking, and
+  Abstract Interpretation}.\hskip 1em plus 0.5em minus 0.4em\relax Springer,
+  2004, pp. 73--84.
 
 \bibitem{LWAB10}
 M.~Lahijanian, J.~Wasniewski, S.~B. Andersson, and C.~Belta, ``Motion planning
@@ -142,17 +169,6 @@ R.~Grosu and S.~A. Smolka, ``Monte carlo model checking,'' in
 A.~Legay, B.~Delahaye, and S.~Bensalem, ``Statistical model checking: An
   overview,'' in \emph{Runtime Verification}.\hskip 1em plus 0.5em minus
   0.4em\relax Springer, 2010, pp. 122--135.
-
-\bibitem{younes2006statistical}
-H.~L. Younes and R.~G. Simmons, ``Statistical probabilistic model checking with
-  a focus on time-bounded properties,'' \emph{Information and Computation},
-  vol. 204, no.~9, pp. 1368--1409, 2006.
-
-\bibitem{jha2009bayesian}
-S.~K. Jha, E.~M. Clarke, C.~J. Langmead, A.~Legay, A.~Platzer, and P.~Zuliani,
-  ``A bayesian approach to model checking biological systems,'' in
-  \emph{Computational Methods in Systems Biology}.\hskip 1em plus 0.5em minus
-  0.4em\relax Springer, 2009, pp. 218--234.
 
 \bibitem{kim2012statistical}
 Y.~Kim, M.~Kim, and T.-H. Kim, ``Statistical model checking for safety critical

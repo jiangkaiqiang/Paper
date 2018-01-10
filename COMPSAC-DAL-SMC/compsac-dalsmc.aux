@@ -13,7 +13,7 @@
 \fi}
 \global\let\hyper@last\relax 
 \gdef\HyperFirstAtBeginDocument#1{#1}
-\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand*\HyPL@Entry[1]{}
 \citation{Younes2004Planning,Sen2004Statistical,herault2004}
 \citation{Yoo2016Challenges}
 \citation{Bulychev2012UPPAAL}
@@ -23,6 +23,7 @@
 \citation{jiangkaiqiang2016}
 \citation{younes2005ymer}
 \citation{zuliani2013bayesian}
+\HyPL@Entry{0<</S/D>>}
 \@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{section.1}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Technology roadmap.}}{1}{figure.1}}
 \newlabel{tech-map}{{1}{1}{Technology roadmap}{figure.1}{}}
@@ -65,6 +66,9 @@
 \citation{David2015Uppaal}
 \citation{david2012evaluation}
 \citation{Miura2000Modeling}
+\citation{Cheng2015Modana}
+\citation{Behrmann2006UPPAAL}
+\citation{Kwiatkowska2002PRISM}
 \@writefile{loa}{\contentsline {algocf}{\numberline {6}{\ignorespaces Salve algorithm of DAL-SMC}}{5}{algocf.6}}
 \newlabel{alg:dals}{{6}{5}{Distributed AL-SMC\relax }{algocf.6}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-D}}Parameter optimization of DAL-SMC}{5}{subsection.2.4}}
@@ -76,15 +80,12 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-A}}Time and space complexity}{5}{subsection.3.1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-B}}Error bound}{5}{subsection.3.2}}
 \newlabel{formula3}{{3}{5}{Error bound\relax }{equation.3.3}{}}
-\citation{Cheng2015Modana}
-\citation{Behrmann2006UPPAAL}
-\citation{Kwiatkowska2002PRISM}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Implementation and Benchmark Experiments}{5}{section.4}}
 \citation{Bulychev2012UPPAAL}
 \citation{jha2009bayesian}
 \citation{younes2006statistical}
 \citation{zuliani2013bayesian}
 \citation{herault2004approximate}
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Implementation and Benchmark Experiments}{6}{section.4}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}}DAL-SMC implementation}{6}{subsection.4.1}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The user interface of DAL-SMC.}}{6}{figure.4}}
 \newlabel{ui_dsmc}{{4}{6}{The user interface of DAL-SMC}{figure.4}{}}
@@ -121,8 +122,17 @@
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Heater}}}{7}{figure.8}}
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {Controller}}}{7}{figure.8}}
 \newlabel{ui_sb}{{8}{7}{The main SHA templates for energy-aware building}{figure.8}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Properties of energy-aware building}}{7}{table.2}}
-\newlabel{tb:property}{{II}{7}{Properties of energy-aware building\relax }{table.2}{}}
+\newlabel{trace_sb}{{9(a)}{7}{Subfigure 9(a)\relax }{subfigure.9.1}{}}
+\newlabel{sub@trace_sb}{{(a)}{7}{Subfigure 9(a)\relax }{subfigure.9.1}{}}
+\newlabel{time_sb}{{9(b)}{7}{Subfigure 9(b)\relax }{subfigure.9.2}{}}
+\newlabel{sub@time_sb}{{(b)}{7}{Subfigure 9(b)\relax }{subfigure.9.2}{}}
+\newlabel{error_sb}{{9(c)}{7}{Subfigure 9(c)\relax }{subfigure.9.3}{}}
+\newlabel{sub@error_sb}{{(c)}{7}{Subfigure 9(c)\relax }{subfigure.9.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Algorithms comparison with energy-aware building.}}{7}{figure.9}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Trace number of each algorithm}}}{7}{figure.9}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Verification time of each algorithm}}}{7}{figure.9}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {Statistical error of each algorithm}}}{7}{figure.9}}
+\newlabel{rs_sb}{{9}{7}{Algorithms comparison with energy-aware building}{figure.9}{}}
 \citation{LWAB10}
 \citation{grosu2005monte}
 \citation{legay2010statistical}
@@ -138,17 +148,8 @@
 \citation{younes2005ymer}
 \citation{Younes2004Planning}
 \citation{Bulychev2012Checking}
-\newlabel{trace_sb}{{9(a)}{8}{Subfigure 9(a)\relax }{subfigure.9.1}{}}
-\newlabel{sub@trace_sb}{{(a)}{8}{Subfigure 9(a)\relax }{subfigure.9.1}{}}
-\newlabel{time_sb}{{9(b)}{8}{Subfigure 9(b)\relax }{subfigure.9.2}{}}
-\newlabel{sub@time_sb}{{(b)}{8}{Subfigure 9(b)\relax }{subfigure.9.2}{}}
-\newlabel{error_sb}{{9(c)}{8}{Subfigure 9(c)\relax }{subfigure.9.3}{}}
-\newlabel{sub@error_sb}{{(c)}{8}{Subfigure 9(c)\relax }{subfigure.9.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Algorithms comparison with energy-aware building.}}{8}{figure.9}}
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Trace number of each algorithm}}}{8}{figure.9}}
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Verification time of each algorithm}}}{8}{figure.9}}
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {Statistical error of each algorithm}}}{8}{figure.9}}
-\newlabel{rs_sb}{{9}{8}{Algorithms comparison with energy-aware building}{figure.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Properties of energy-aware building}}{8}{table.2}}
+\newlabel{tb:property}{{II}{8}{Properties of energy-aware building\relax }{table.2}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Properties of robots path planning}}{8}{table.3}}
 \newlabel{tb:robot}{{III}{8}{Properties of robots path planning\relax }{table.3}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {IV-B}3}Robots path planning}{8}{subsubsection.4.2.3}}
@@ -194,13 +195,16 @@
 \bibcite{dunteman1989principal}{16}
 \bibcite{carrasco1994learning}{17}
 \bibcite{DBLP:books/daglib/0019871}{18}
-\bibcite{david2012evaluation}{19}
-\bibcite{Miura2000Modeling}{20}
-\bibcite{LWAB10}{21}
-\bibcite{grosu2005monte}{22}
-\bibcite{legay2010statistical}{23}
+\bibcite{David2015Uppaal}{19}
+\bibcite{david2012evaluation}{20}
+\bibcite{Miura2000Modeling}{21}
+\bibcite{Behrmann2006UPPAAL}{22}
+\bibcite{jha2009bayesian}{23}
 \bibcite{younes2006statistical}{24}
-\bibcite{jha2009bayesian}{25}
-\bibcite{kim2012statistical}{26}
+\bibcite{herault2004approximate}{25}
+\bibcite{LWAB10}{26}
+\bibcite{grosu2005monte}{27}
+\bibcite{legay2010statistical}{28}
+\bibcite{kim2012statistical}{29}
 \@writefile{toc}{\contentsline {section}{\numberline {VI}Conclusions and future work}{10}{section.6}}
 \@writefile{toc}{\contentsline {section}{References}{10}{section*.1}}
