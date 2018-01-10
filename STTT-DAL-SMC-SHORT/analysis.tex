@@ -1,5 +1,4 @@
 \section{Algorithm Analysis of DAL-SMC}
-
 \subsection{Time and space complexity}
 We analyse the time and space complexity of DAL-SMC as shown in Table~\ref{tb:complexity}.
 
@@ -8,7 +7,6 @@ We analyse the time and space complexity of DAL-SMC as shown in Table~\ref{tb:co
 (ii)The time and space complexity of PFT construction are respectively $O(mn)$ + $O(d\log{d}))$ and $O(\log{d})$, where $d$ denotes the number of leaf nodes in PFT.
 
 (iii)Suppose the iterations of BIE algorithm is B, the time complexity of each statistical test iteration is $O(i)$, and the time of searching leaf node is $\log{d}$. Therefore, the time complexity of probability evaluation is $O(B*(\log{d}+i))$.
-
 \begin{table}[t]
 	\renewcommand{\arraystretch}{1.2}
 	\caption{The time and space complexity of DAL-SMC.}
@@ -24,10 +22,8 @@ We analyse the time and space complexity of DAL-SMC as shown in Table~\ref{tb:co
 		\hline
 	\end{tabular}
 \end{table}
-
 \subsection{Error bound}
 Models in step i and ii of Algorithm \ref{alg:dalm} are probabilistically equivalent in terms of a certain property. Therefore, the statistical error is only generated in probability evaluation. We use multiple BIEs to evaluate the probablity in DAL-SMC, therefore the error is enlarged compared with distributed BIE. Suppose the half-interval size of each BIE is $\delta$ and the number of BIEs is $M$, thus the error of multi-BIE is less than $\delta*M$. Besides, we use $\delta$ prediction method in section 2.4 to reduce the statistical error. Consequently, the error ($\xi$) of DAL-SMC with parameter optimization satisfies the formula \ref{formula3}.
-
 \begin{equation}
 \label{formula3}
 | \xi | \leq \sum\limits_{m=1}^M (T_m / \sum\limits_{i=1}^k N_i / \eta)
