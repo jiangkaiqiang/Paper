@@ -1,10 +1,10 @@
 \section{Modeling and Analysis of Master Algorithm}
 \label{sec:ma}
-The MA provides the orchestration of FMUs, which denotes the co-simulation of various FMUs. To ensure the correctness of co-simulation, it is necessary to verify certain properties of the MA. In this section, we model three versions of MAs with TA and verify some expected properties of MAs such as deadlock, livelock and reachability with UPPAAL.
+The MA provides the orchestration of FMUs, which denotes the co-simulation of various FMUs. To ensure the correctness of coordination, it is necessary to verify certain properties of the MA. In this section, we model three versions of MAs with TA and verify some expected properties of MAs such as deadlock, livelock and reachability with UPPAAL.
 \subsection{I/O Dependency Information}
 When it comes to co-simulation, I/O dependency information \cite{BromanBGLMTW13} is inevitably required to be well considered. The MA calls function $Set$ to provide input value to an FMU and function $Get$ to obtain an output value. It is of vital importance to know the dependence between input and output of FMUs. In the design of a MA, the direct dependency information can be used to call the function $Set$ and $Get$ in a well-defined order. In FMI 2.0, this information can be provided using the element $ModelStructure$ \cite{FMI2INTRO}. However, sometime there may be an algebraic loop in the sequence of function call, which may not converge. In section \ref{sec:sysml}, we presents water tank system to detect algebraic loop in the architecture.
 \subsection{Master Algorithm}
-The MA is used to orchestrate the execution of different subsystems. Each subsystem serves as an FMU component whose simulation is triggered by a particular MA. FMUs can be seen as black boxes which can be simulated independently until it needs to exchange data or synchronize. There are three versions of MAs, which are shown in Fig.~\ref{ad-fixedstep}.
+The MA is used to orchestrate the execution of different components or subsystems. Each subsystem serves as an FMU component whose simulation is triggered by a particular MA. FMUs can be seen as black boxes which can be simulated independently until it needs to exchange data or synchronize. There are three versions of MAs, which are shown in Fig.~\ref{ad-fixedstep}.
 \begin{figure}[htbp]
 \centering{
 		\subfigure[Fix step size algorithm]{\includegraphics[width=3.5in,height=0.8in]{fig/MA1.png}
@@ -28,7 +28,7 @@ To improve the efficiency of MA, it is important to predict the step size. So, p
 In predictable step size algorithm, MA chooses the maximum step size of all predictable FMUs and find the smallest communication step size $h$ which ensure all predictable step size can be accepted. Then, the states of all FMUs are saved. MA calls $doStep(h)$ function of FMUs which support rollback. The function $doStep()$ will return the real performed step size. If all performed step sizes are equal to $h$, MA will call $doStep(h)$ for FMUs. Otherwise, MA will find the smallest performed step $h_{min}$, then all FMUs will restore the saved state. Finally, MA will invoke $doStep$ $(h_{min})$ on all FMUs. The control flow of predictable step size algorithm is shown in Fig.\ref{sd-pre}. For example, $getMinStepFromCP$ is an activity that MA will call $GetMaxStepSize$ on all predictable FMUs to find their maximum simulation step size and then choose the smallest one of them. 
 
 \subsection{Modeling and Verification of MA} 
-UPPAAL is a toolset for verification of real-time systems represented by (a network of) TA which is extended with integer variables, structured data types, and channel synchronization. We model the MAs using TA in UPPAAL. The Fig.\ref{ta-master} shows the TA models of three MAs,  respectively. Fixed step algorithm has $Init$, $doStep$ states and synchronize with $FMU$ by channel $continue$. Rollback algorithm has $Init$, $DoStep$, and $Continue$ states. If all FMUs don't have the same step size, rollback algorithm will communicate with FMUs by $rollback$ signal, otherwise, it will send $continue$ signal and move to $Continue$ state. Predictable step size algorithm has $Init$, $find \_ CP \_ MIN$, $DoStep$, $writeCP$ states. It obtains the minimal step size $step2$ of FMUs supporting $GetMaxStepSize$ function and the maximal step size $step1$ of FMUs supporting rollback. If $step1$ is greater than $step2$, FMUs receive $rollback$ signal and return to $DoStep$ state. Otherwise, FMUs receive $continue$ signal and do next step.  
+UPPAAL is a toolset for verification of real-time systems represented by a network of TA which is extended with integer variables, structured data types, and channel synchronization. We model the MAs using TA in UPPAAL. The Fig.\ref{ta-master} shows the TA models of three MAs,  respectively. Fixed step algorithm has $Init$, $doStep$ states and synchronize with $FMU$ by channel $continue$. Rollback algorithm has $Init$, $DoStep$, and $Continue$ states. If all FMUs don't have the same step size, rollback algorithm will communicate with FMUs by $rollback$ signal, otherwise, it will send $continue$ signal and move to $Continue$ state. Predictable step size algorithm has $Init$, $find \_ CP \_ MIN$, $DoStep$, $writeCP$ states. It obtains the minimal step size $step2$ of FMUs supporting $GetMaxStepSize$ function and the maximal step size $step1$ of FMUs supporting rollback. If $step1$ is greater than $step2$, FMUs receive $rollback$ signal and return to $DoStep$ state. Otherwise, FMUs receive $continue$ signal and do next step.  
 
 \begin{figure}[htbp]
 \centering{
@@ -55,14 +55,13 @@ $master.Init \rightarrow master.dostep$, $master.Init \rightarrow master.Continu
 $A[]~not~deadlock$ is safety property, which means whether the MA will be deadlock.
 \end{itemize}
 
-Table \ref{ta_r} shows that the properties such as deadlock, liveness and reachability are satisfied, which ensures that the correctness of MA. For example, The property $A[]~not~deadlock$ is satisfied, which means the MA is deadlock free. The property $master.Init \rightarrow master.doStep$ is satisfied, which means if the model reach the former state $Init$, it will eventually reach the state $doStep$. The property $E\langle\rangle~master.doStep$ is satisfied, which means there exists a reachable state $doStep$. 
-
+Table \ref{ta_r} shows that the properties such as deadlock, liveness and reachability are satisfied, which ensures that the correctness of MA. For example, The property $A[]~not~deadlock$ is satisfied, which means the MA is deadlock free. The property $master.Init \rightarrow master.doStep$ is satisfied, which means if the model reach the former state $Init$, it will eventually reach the state $doStep$. The property $E\langle\rangle~master.doStep$ is satisfied, which means there exists a reachable state $doStep$.  In short, the coordination of CPS involves architecture and MA. In this section, we have verified the correctness of various MAs.
 \begin{table}
 \caption{Experimental results for verifying MA}
 \centering
 \begin{tabular}{c c c}
         \hline
-        MA & Property & Result\\
+        MA & Verified Property & Result\\
         \hline
         \multirow{2}{2.0cm}{Fixed Step}
                 & $A[]~not~deadlock$ & True\\
