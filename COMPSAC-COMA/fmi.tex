@@ -22,11 +22,11 @@ $D \subseteq U \times Y$ denotes a set of input-output dependencies. $(u,y) \in 
 \item
 $s_{0} \in S$ denotes the initial state of $F$.
 \item
-$set : S \times U \times \mathbb{V} \rightarrow S$ denotes the function that sets the value of an input variable. Given current state $s \in S$, input variable $u \in U$, and value $v \in \mathbb{V}$, it returns a new state obtained by setting $u$ to $v$.
+$set : S \times U \times \mathbb{V} \rightarrow S$ denotes that the function sets the value of an input variable. Given current state $s \in S$, input variable $u \in U$, and value $v \in \mathbb{V}$, it returns a new state obtained by setting $u$ to $v$.
 \item
-$get : S \times Y \rightarrow \mathbb{V}$ denotes the function that returns the value of an output variable. Given state $s \in S$ and output variable $y \in Y$, $get(s,y)$ returns the value of $y$ in $s$.
+$get : S \times Y \rightarrow \mathbb{V}$ denotes that the  function returns the value of an output variable. Given state $s \in S$ and output variable $y \in Y$, $get(s,y)$ returns the value of $y$ in $s$.
 \item
-$doStep : S \times \mathbb{R}_{\geqslant{0}} \rightarrow S \times \mathbb{R}_{\geqslant{0}}$ denotes the function that implements one simulation step. Given current state $s$, and a non-negative real $h \in \mathbb{R}_{\geqslant{0}}$, $doStep(s,h)$ returns a pair $(s^{\prime},h^{\prime})$ such that:
+$doStep : S \times \mathbb{R}_{\geqslant{0}} \rightarrow S \times \mathbb{R}_{\geqslant{0}}$ denotes that the function implements one simulation step. Given current state $s$, and a non-negative real $h \in \mathbb{R}_{\geqslant{0}}$, $doStep(s,h)$ returns a pair $(s^{\prime},h^{\prime})$ such that:
 \\
     When $h^{\prime} = h$, it indicates that $F$ accepts the time step $h$ and reaches the new state $s^{\prime}$;
 \\
@@ -56,7 +56,7 @@ We assume that $doStep(s_{i}, h_{i+1}) = (s_{i+1},h_{i+1})$ based on the assumpt
 \end{itemize}
 Therefore, the semantics of an FMU can be defined by a labelled transition system.
 \subsection{Timed Automaton}
-TA \cite{BehrmannDLHPYH06} is a classic theory to model the behavior of real-time systems. It provides a powerful way to annotate state-transition graphs with many real-valued clocks. In this subsection, we recall the syntax and semantics of TA. 
+TA \cite{BehrmannDLHPYH06} is a classic theory to model the behavior of real-time system. It provides a powerful way to annotate state-transition graphs with many real-valued clocks. In this subsection, we recall the syntax and semantics of TA. 
 \begin{definition}
 \textbf{TA syntax}
 
