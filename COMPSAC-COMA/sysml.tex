@@ -11,9 +11,9 @@ The water tank system is shown in Fig.~\ref{tankfig}. A source of water flows in
 	\label{tankfig}
 \end{figure} 
 \subsection{Architecture Modeling with SysML}
-SysML is a general purpose Domain-Specific Language (DSL) \cite{SemerathBHSV17} for Model-Based Systems Engineering (MBSE) \cite{Dori16}, which is originated as an initiative of the International Council on Systems Engineering (INCOSE) \cite{Pepper2015International} in January 2001. The SysML BDD describes the structure of the system with blocks. The \textit{Connection Diagram} (CD) describes the internal structure and connections of blocks. The ports of blocks are connected by the connector. The I/O dependence of blocks describes the communication between blocks. SysML BDD is usually used to model the architecture of system.
+SysML is a general purpose Domain-Specific Language (DSL) \cite{SemerathBHSV17} for Model-Based Systems Engineering (MBSE) \cite{Dori16}, which is originated as an initiative of the International Council on Systems Engineering (INCOSE) \cite{Pepper2015International} in January 2001. The SysML BDD describes the structure of the system with blocks. The IBD describes the internal structure and connections of blocks. The ports of blocks are connected by the connector. The I/O dependence of blocks describes the communication between blocks. SysML BDD is usually used to model the architecture of system.
 
-Fig.~\ref{myad} shows the SysML BDD for the water tank system, which consists of three blocks: $Valve$, $Tank$ and $Controller$. $Valve$ and $Tank$ are physical components. $Controller$ is the cyber component. Each component has its own input and output. For instance, the input interface of $Valve$ is named as $vin$, which is used to input the $Open-Closed$ signal. 
+Fig.~\ref{myad} shows the SysML BDD for the water tank system, which consists of three blocks: $Valve$, $Tank$ and $Controller$. $Valve$ and $Tank$ are physical components. $Controller$ is the cyber component. Each component has its own input and output. For instance, the input interface of $Valve$ is named as $vin$, which is used to input the $OpenClosed$ signal. 
 \begin{figure}[htbp]
 	\centering	{\includegraphics[width=3.2in,height=2.3in]{fig/AD.jpg}}
 	\caption{SysML BDD for water tank.}
@@ -32,14 +32,14 @@ Fig.~\ref{cd} shows the connection diagram for the system. There are three cases
 		\hfil
 		\subfigure[Connection case 3]{\includegraphics[width=3.2in,height=0.8in]{fig/CD3.png}
 			\label{cd3}}
-	\caption{SysML CD for water tank.}
+	\caption{SysML IBD for water tank.}
 	\label{cd}
 	}
 \end{figure}
-The SysML BDD shows the blocks of system and SysML CD shows the connection between blocks. In next section, we abstract each block as an FMU, and model SysML CD as the connector configuration.
+The SysML BDD shows the blocks of system and SysML IBD shows the connection between blocks. In next section, we abstract each block as an FMU, and model SysML IBD as the connector configuration.
 
 \subsection{FMUs Connection of Water Tank}
-Fig.~\ref{fmu-con} is the FMUs and FMUs connection of water tank system. There are three connection cases between the FMUs according to the SysML CD shown in Fig.~\ref{cd}. The first case contains three FMU components $Controller$, $Valve$ and $WaterTank1$ and two channels $v \_ vin$, $w \_ win$ as shown in Fig.\ref{fmu-con1}. The $Controller$ and $Valve$ are connected with channel $v \_ vin$. The $Valve$ and $WaterTank1$ are connected with channel $w \_ win$. The second case is shown in Fig.\ref{fmu-con2}, there could be a channel $sout \_ s$ between $WaterTank1$ and $Controller$, which means the water level of $WaterTank1$ affects the control strategy of the \textbf{controller}. Fig.~\ref{fmu-con3} shows the third case, there could be another $WaterTank2$, the $WaterTank1$ and $WaterTank2$ are connected by the channel $w \_ out$. 
+Fig.~\ref{fmu-con} is the FMUs and FMUs connection of water tank system. There are three connection cases between the FMUs according to the SysML IBD shown in Fig.~\ref{cd}. The first case contains three FMU components $Controller$, $Valve$ and $WaterTank1$ and two channels $v \_ vin$, $w \_ win$ as shown in Fig.\ref{fmu-con1}. The $Controller$ and $Valve$ are connected with channel $v \_ vin$. The $Valve$ and $WaterTank1$ are connected with channel $w \_ win$. The second case is shown in Fig.\ref{fmu-con2}, there could be a channel $sout \_ s$ between $WaterTank1$ and $Controller$, which means the water level of $WaterTank1$ affects the control strategy of the \textbf{controller}. Fig.~\ref{fmu-con3} shows the third case, there could be another $WaterTank2$, the $WaterTank1$ and $WaterTank2$ are connected by the channel $w \_ out$. 
 \begin{figure}[htbp]
 \centering{
 		\subfigure[Case 1]{\includegraphics[width=1.0in,height=0.6in]{fig/fmuc1.png}
