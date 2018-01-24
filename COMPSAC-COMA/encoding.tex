@@ -26,9 +26,9 @@ An input action $e \in Act_{i}$ is such that the function $set$ of $F$ sets the 
 \item
 An output action $e \in Act_{o}$ indicates that the function $get$ of $F$ gets the output variable $y$. The set of values in the $Act_{i}$ can be seen as $Y$ of $F$.  
 \item
-The communication between the TA is the same as the I/O dependencies information between the FMUs. $(u,y) \in D$ denotes that output $y$ depend on input $u$. The output actions also depend on the input actions in TA.
+The communication between TA is the same as the I/O dependencies information between the FMUs. $(u,y) \in D$ denotes that output $y$ depend on input $u$. The output actions also depend on the input actions in TA.
 \item
-For any $e \in Act$ of A, there is a transition $s \xrightarrow{e} s^{\prime}$, which may be found after the function $doStep$ executed. For instance, if there is a transition $l \xrightarrow{e} l^{\prime}$ in $A$, at the same time $doStep(s,h)$ may be called which indicates that $F$ accepts the time step $h$ and reaches the new state $s^{\prime}$. However, the time step $h$ may be rejected, if there is a rollback behaviour happens, the transition in TA could be an edge $l^{\prime} \xrightarrow{e} l$, which denotes that a location travels to the former location.
+For any $e \in Act$ of A, there is a transition $s \xrightarrow{e} s^{\prime}$, which may be found after the function $doStep$ execute. For instance, if there is a transition $l \xrightarrow{e} l^{\prime}$ in $A$, at the same time $doStep(s,h)$ may be called which indicates that $F$ accepts the time step $h$ and reaches the new state $s^{\prime}$. However, the time step $h$ may be rejected, if there is a rollback behaviour happens, the transition in TA could be an edge $l^{\prime} \xrightarrow{e} l$, which denotes that a location travels to the former location.
 
 \end{itemize}
 \begin{figure}[htbp]
@@ -37,13 +37,13 @@ For any $e \in Act$ of A, there is a transition $s \xrightarrow{e} s^{\prime}$, 
 	\label{fmutota}
 \end{figure}
 
-It is not easy to map FMUs to TA directly. S. Tripakis encodes TA as FMUs in \cite{Tripakis15}. Inspired by it, we propose some encoding rules to encode FMUs as TA according to the congruent relationships. As we can see in the Fig.~\ref{fmutota}, given a state $s_{i}$ at $t_{1}$ in FMU, the operation $Dostep$ makes FMU reach a new state $s_{i+1}$ at $t_{1}+step$. This situation can be encoded as a transition in TA, in which a location $L_{i}$ delays $step$ time and goes to a new location $L_{i}^{\prime}$.
+It is not easy to map FMUs to TA directly. S. Tripakis encodes TA as FMUs in \cite{Tripakis15}. Inspired by their work, we propose some encoding rules to encode FMUs as TA according to the congruent relationships. As we can see in the Fig.~\ref{fmutota}, given a state $s_{i}$ at $t_{1}$ in FMU, the operation $Dostep$ makes FMU reach a new state $s_{i+1}$ at $t_{1}+step$. This situation can be encoded as a transition in TA, in which a location $L_{i}$ delays $step$ time and goes to a new location $L_{i}^{\prime}$.
 
 For the operation $Rollback$, given a state $s_{i}$ at $t_{1}$ in FMU, the FMU will do a $step1$ to $s_{i+1}$ at $t_{1}+step1$, and then, the operation $rollback$ makes FMU reach the former state $s_{i}$. For this situation, it can be encoded as location $L_{i}$ delays $step1$ time units and reach a new location $L_{i}^{\prime}$ after a transition, and then returns to the former location $L_{i}$. 
 
-For the operation $Prediction$, given a state $s_{i}$, FMU can get max step size for next step, and then reach a new state $s_{i+1}$ at $t_{1}+step$. For TA, it gets max step size in location $L_{i}$, then it delays $step$ time units and reach a new location $L_{i}^{\prime}$ .
+For the operation $Prediction$, given a state $s_{i}$, FMU can get max step size for next step, and then reach a new state $s_{i+1}$ at $t_{1}+step$. For TA, it gets the max step size in location $L_{i}$, then it delays $step$ time units and reach a new location $L_{i}^{\prime}$ .
 
-For $Data Exchange$ between two FMUs in state $s_{i}$ at $t_{1}$, they exchange data at $t_{1}$ and then do the same step to $s_{i+1}$. In TA, there will be a signal $io$ to make the two FMUs do the same step from $L_{i}$ to $L_{i+1}$ after data exchange.
+For $Data Exchange$ between two FMUs in state $s_{i}$ at $t_{1}$, they exchange data at $t_{1}$ and then do the same step to $s_{i+1}$. In TA, there will be a signal $io$ to make the two FMUs do the same step from $L_{i}$ to $L_{i+1}$ after data exchanging.
 
 To bridge the semantic gaps between FMU and TA, we provide proper encoding rules to formalize FMUs as TA. It lays the foundation to analyse coordination of CPS with TA-based model checking. 
 %Limited to the length of this paper, we don't prove the correctness of encoding rules. But the encoding process is semantic-preserve. In section \ref{sec:sysml}, we apply these encoding rules to the water tank case study. According to the simulation results, we can find that the encoding rules work well.
@@ -52,7 +52,7 @@ As for the correctness of encoding rules, we analyse the equivalence of executio
 \item
 For the encoding rule of $Dostep$ operation, the execution fragments of FMU and TA are ($s_{i}$, $t_{1}$), ($s_{i+1}$, $t_{1}+step$) and ($l_{i}$, $t$), ($l_{i}^{\prime}$, $t+step$). It means that TA and FMU execute $step$ time units, and jump to a new state or location.
 \item 
-For encoding rule of $Rollback$ operation, the execution fragments of FMU and TA are ($s_{i}$, $t_{1}$), ($s_{i+1}$, $t_{1}+step1$), ($s_{i}$, $t_{1}+step1+step2$) and ($l_{i}$, $t$), ($l_{i}^{\prime}$, $t+step1$), ($l_{i}$, $t+step1+step2$). It means that TA and FMU execute $step1$ time units, and jump to a new state or location, and then execute $step2$ time units, return to the previous state or location. 
+For encoding rule of $Rollback$ operation, the execution fragments of FMU and TA are ($s_{i}$, $t_{1}$), ($s_{i+1}$, $t_{1}+step1$), ($s_{i}$, $t_{1}+step1+step2$) and ($l_{i}$, $t$), ($l_{i}^{\prime}$, $t+step1$), ($l_{i}$, $t+step1+step2$). It means that TA and FMU execute $step1$ time units, and jump to a new state or location, and then execute $step2$ time units and return to the previous state or location. 
 \item
 For the encoding rule of $Prediction$, the execution fragments of FMU and TA are ($s_{i}$, $t_{1}$), ($s_{i+1}$, $t_{1}+step$) and ($l_{i}$, $t$), ($l_{i}^{\prime}$, $t+step$). It means that TA and FMU predict the step size $step$, and then execute $step$ time units.
 \item

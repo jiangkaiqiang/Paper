@@ -55,15 +55,16 @@ P.~G. Larsen, J.~Fitzgerald, J.~Woodcock, and P.~Fritzson, ``Integrated tool
   project,'' in \emph{International Workshop on Modelling, Analysis, and
   Control of Complex Cps}, 2016, pp. 1--6.
 
+\bibitem{LiuJWCD16}
+
+
 \bibitem{BehrmannDLHPYH06}
 G.~Behrmann, A.~David, K.~G. Larsen, J.~Hakansson, P.~Petterson, Y.~Wang, and
   M.~Hendriks, ``Uppaal 4.0,'' in \emph{International Conference on the
   Quantitative Evaluation of Systems}, 2006, pp. 125--126.
 
 \bibitem{Cheng2015Modana}
-B.~Cheng, X.~Wang, J.~Liu, and D.~Du, ``Modana: An integrated framework for
-  modeling and analysis of energy-aware cpss,'' in \emph{IEEE Computer Software
-  and Applications Conference}, 2015, pp. 127--136.
+
 
 \bibitem{Fritzson1998Modelica}
 P.~Fritzson and V.~Engelson, ``Modelica - a unified object-oriented language
@@ -130,11 +131,6 @@ V.~Danos, T.~Heindel, I.~Garnier, and J.~G. Simonsen, ``Computing
 M.~A. Guerry, ``On the embedding problem for discrete-time markov chains,''
   \emph{Journal of Applied Probability}, vol.~50, no.~4, pp. págs. 918--930,
   2013.
-
-\bibitem{LiuJWCD16}
-J.~Liu, K.~Jiang, X.~Wang, B.~Cheng, and D.~Du, ``Improved co-simulation with
-  event detection for stochastic behaviors of cpss,'' in \emph{Computer
-  Software and Applications Conference}, 2016, pp. 209--214.
 
 \bibitem{Arbab2002Reo}
 F.~Arbab, ``Reo: a channel-based coordination model for component
