@@ -94,21 +94,21 @@ $A[] not deadlock$ 是死锁的验证, 用来验证主算法是否存在死锁�
 给定一个FMU$F=(S,U,Y,D,s_{0},set,get,doStep)$, 我们可以根据他们执行语义之间的关联，将FMU用时间自动机$\textit{A}=(L,l_{0},E,I)$进行形式化描述：
 \begin{itemize}
 \item
-$L$是时间自动机的有限位置集合。因此，时间自动机语义模型$L_{\textit{A}}$中的状态可以看做为FMU中的状态，即$(l,v) \Rightarrow s$.
+$L$是时间自动机的有限位置集合。因此，时间自动机语义模型$L_{\textit{A}}$中的状态可以看做为FMU中的状态，即$(l,v) \Rightarrow s$。
 \item
-时间自动机语义模型$L_{\textit{A}}$中的初始状态可以看做为FMU中的初始状态$F$, 即$(l_{0},v_{0}) \Rightarrow s_{0}$. 
+时间自动机语义模型$L_{\textit{A}}$中的初始状态可以看做为FMU中的初始状态, 即$(l_{0},v_{0}) \Rightarrow s_{0}$。
 \item
-FMU中的输入变量$u \in U$可以看做为时间自动机的$Act_{i} \cup \{absent\}$.
+FMU中的输入变量$u \in U$可以看做为时间自动机的$Act_{i} \cup \{absent\}$。
 \item
-FMU的输出变量$y \in Y$可以看做为时间自动机的$Act_{o} \cup \{absent\}$.
+FMU的输出变量$y \in Y$可以看做为时间自动机的$Act_{o} \cup \{absent\}$。
 \item
-An input action $e \in Act_{i}$ is such that the function $set$ of $F$ sets the input variable $u$ with a given value. 
+时间自动机的输入动作$e \in Act_{i}$可以看做FMU中的$set$函数。
 \item
-An output action $e \in Act_{o}$ indicates that the function $get$ of $F$ gets the output variable $y$. The set of values in the $Act_{i}$ can be seen as $Y$ of $F$.  
+时间自动机的输出动作$e \in Act_{o}$可以看做为FMU中的$get$函数。  
 \item
-The communication between the TA is the same as the I/O dependencies information between the FMUs. $(u,y) \in D$ denotes that output $y$ depend on input $u$. The output actions also depend on the input actions in TA.
+时间自动机之间依靠channel的同步可以看做为FMU之间的依赖关系。 $(u,y) \in D$表示输出变量$y$依赖于输入变量$u$，在时间自动机中输出动作同样依赖于输入动作。
 \item
-For any $e \in Act$ of A, there is a transition $s \xrightarrow{e} s^{\prime}$, which may be found after the function $doStep$ executed. For instance, if there is a transition $l \xrightarrow{e} l^{\prime}$ in $A$, at the same time $doStep(s,h)$ may be called which indicates that $F$ accepts the time step $h$ and reaches the new state $s^{\prime}$. However, the time step $h$ may be rejected, if there is a rollback behaviour happens, the transition in TA could be an edge $l^{\prime} \xrightarrow{e} l$, which denotes that a location travels to the former location.
+对于时间自动机，一个动作$e \in Act$会触发一个迁移$s \xrightarrow{e} s^{\prime}$, 这个过程就相当于FMU里面的$doStep$执行，会使其到达下一个状态。 例如：时间自动机的迁移$l \xrightarrow{e} l^{\prime}$可以描述FMU的$doStep(s,h)$被调用，并且此FMU接受了步长$h$并到达了下一个状态 $s^{\prime}$；然而，此FMU也可能会拒绝步长$h$, 并且发生了回滚，这个过程在时间自动机里面可以用一条边$l^{\prime} \xrightarrow{e} l$来进行描述，来表示回滚到了上一个状态。
 
 \end{itemize}
 \begin{figure}[htbp]
@@ -117,29 +117,57 @@ For any $e \in Act$ of A, there is a transition $s \xrightarrow{e} s^{\prime}$, 
 	\label{fmutota}
 \end{figure}
 
-It is not easy to map FMUs to TA directly. S. Tripakis encodes TA as FMUs in \cite{Tripakis15}. Inspired by it, we propose some encoding rules to encode FMUs as TA according to the congruent relationships. As we can see in the Fig.~\ref{fmutota}, given a state $s_{i}$ at $t_{1}$ in FMU, the operation $Dostep$ makes FMU reach a new state $s_{i+1}$ at $t_{1}+step$. This situation can be encoded as a transition in TA, in which a location $L_{i}$ delays $step$ time and goes to a new location $L_{i}^{\prime}$.
+将FMU直接转化为时间自动机是比较难得，S. Tripakis层在论文 \cite{Tripakis15}中将时间自动机编码为FMU。我们受到此论文的启发，根据时间自动机和FMU之间语义的关联，提出了几条从FMU到时间自动机在操作语义上的映射规则如图\ref{fmutota}所示。
 
-For the operation $Rollback$, given a state $s_{i}$ at $t_{1}$ in FMU, the FMU will do a $step1$ to $s_{i+1}$ at $t_{1}+step1$, and then, the operation $rollback$ makes FMU reach the former state $s_{i}$. For this situation, it can be encoded as location $L_{i}$ delays $step1$ time units and reach a new location $L_{i}^{\prime}$ after a transition, and then returns to the former location $L_{i}$. 
+给定FMU$t_{1}$时刻的当前状态$s_{i}$，操作函数$Dostep$可以使得FMU在$t_{1}+step$时刻到达$s_{i+1}$状态。这个操作可以用时间自动机的迁移来进行表示：在位置$L_{i}$延迟$step$的时间并迁移到一个新的位置$L_{i}^{\prime}$。
 
-For the operation $Prediction$, given a state $s_{i}$, FMU can get max step size for next step, and then reach a new state $s_{i+1}$ at $t_{1}+step$. For TA, it gets max step size in location $L_{i}$, then it delays $step$ time units and reach a new location $L_{i}^{\prime}$ .
+对于操作函数$Rollback$，给定FMU$t_{1}$时刻的当前状态$s_{i}$，FMU首先执行步长$step1$并在 $t_{1}+step1$时刻到达$s_{i+1}$状态，然后操作函数$rollback$又使得FMU回滚到上一个状态$s_{i}$。对于时间自动机来说，这个可以表示为在$L_{i}$位置延迟了$step1$时间单位并迁移到新的位置 a$L_{i}^{\prime}$，之后又迁移到了上一个位置$L_{i}$。 
 
-For $Data Exchange$ between two FMUs in state $s_{i}$ at $t_{1}$, they exchange data at $t_{1}$ and then do the same step to $s_{i+1}$. In TA, there will be a signal $io$ to make the two FMUs do the same step from $L_{i}$ to $L_{i+1}$ after data exchange.
+对于操作函数$Prediction$，给定一个状态$s_{i}$, FMU可以由一个函数$getMaxstepsieze$得到下一步能执行的最大步长，然后执行此步长并在$t_{1}+step$时刻到达 $s_{i+1}$状态。 对于时间自动机，可以表示为在$L_{i}$位置执行了一个函数并得到要延迟的时间 $step$, 然后延迟该时间单位并迁移到一个新的位置 $L_{i}^{\prime}$ .
 
-To bridge the semantic gaps between FMU and TA, we provide proper encoding rules to formalize FMUs as TA. It lays the foundation to analyse coordination of CPS with TA-based model checking. 
-%Limited to the length of this paper, we don't prove the correctness of encoding rules. But the encoding process is semantic-preserve. In section \ref{sec:sysml}, we apply these encoding rules to the water tank case study. According to the simulation results, we can find that the encoding rules work well.
-As for the correctness of encoding rules, we analyse the equivalence of execution fragments as following:
+对于操作函数$Data Exchange$，两个FMU在$t_{1}$时刻的$s_{i}$状态执行$Data Exchange$进行了数据交换, 然后他们执行相同的步长并迁移到下一个位置$s_{i+1}$和$s2_{i+1}$。对于时间自动机，可以表示为两个时间自动机在$t_{1}$时刻通过信道$io$进行了同步，然后延迟了相同的时间并$L_{i}$位置迁移到$L_{i+1}$位置。
+
+为了将FMU用时间自动机进行形式化描述，我们提出了以上操作语义的映射规则。为了证明我们以上规则的正确性，我们分析了FMU和时间自动机的执行片段如下所示：
 \begin{itemize}
 \item
-For the encoding rule of $Dostep$ operation, the execution fragments of FMU and TA are ($s_{i}$, $t_{1}$), ($s_{i+1}$, $t_{1}+step$) and ($l_{i}$, $t$), ($l_{i}^{\prime}$, $t+step$). It means that TA and FMU execute $step$ time units, and jump to a new state or location.
+对于操作函数$Dostep$的映射，在FMU和时间自动机中的执行片段为 ($s_{i}$, $t_{1}$), ($s_{i+1}$, $t_{1}+step$)和($l_{i}$, $t$), ($l_{i}^{\prime}$, $t+step$). 这说明时间自动机和FMU都执行 $step$的时间单位并到达了一个新的状态或是位置。
 \item 
-For encoding rule of $Rollback$ operation, the execution fragments of FMU and TA are ($s_{i}$, $t_{1}$), ($s_{i+1}$, $t_{1}+step1$), ($s_{i}$, $t_{1}+step1+step2$) and ($l_{i}$, $t$), ($l_{i}^{\prime}$, $t+step1$), ($l_{i}$, $t+step1+step2$). It means that TA and FMU execute $step1$ time units, and jump to a new state or location, and then execute $step2$ time units, return to the previous state or location. 
+对于操作函数$Rollback$的映射, 在FMU和时间自动机的执行片段为($s_{i}$, $t_{1}$), ($s_{i+1}$, $t_{1}+step1$), ($s_{i}$, $t_{1}+step1+step2$) 和 ($l_{i}$, $t$), ($l_{i}^{\prime}$, $t+step1$), ($l_{i}$, $t+step1+step2$)。这说明时间自动机和FMU都首先执行了$step1$时间单位，并且到达了一个新的状态或位置，然后执行了$step2$时间单位, 又返回到了之前的状态或位置。
 \item
-For the encoding rule of $Prediction$, the execution fragments of FMU and TA are ($s_{i}$, $t_{1}$), ($s_{i+1}$, $t_{1}+step$) and ($l_{i}$, $t$), ($l_{i}^{\prime}$, $t+step$). It means that TA and FMU predict the step size $step$, and then execute $step$ time units.
+对于操作函数$Prediction$的映射，FMU和时间自动机的执行片段为($s_{i}$, $t_{1}$), ($s_{i+1}$, $t_{1}+step$)和($l_{i}$, $t$), ($l_{i}^{\prime}$, $t+step$). 这说明时间自动机和FMU都成功预测到了步长$step$并执行了此步长。
 \item
-For the encoding rule of $Data Exchange$ operation, the execution fragments of FMU1 and TA1 are ($s_{i}$, $t_{1}$), ($s_{i+1}$, $t_{1}+step$) and ($l_{i}$, $t$), ($l_{i}^{\prime}$, $t+step$). The execution fragments of FMU2 and TA2 are ($s2_{i}$, $t_{1}$), ($s2_{i+1}$, $t_{1}+step$) and ($l2_{i}$, $t$), ($l2_{i}^{\prime}$, $t+step$). It means that FMUs or TA exchange data, and then execute $step$ time units.
+对于操作函数$Data Exchange$的映射，FMU1和时间自动机TA1的执行片段为 ($s_{i}$, $t_{1}$), ($s_{i+1}$, $t_{1}+step$)和($l_{i}$, $t$), ($l_{i}^{\prime}$, $t+step$)。FMU2和时间自动机TA2的执行片段为 ($s2_{i}$, $t_{1}$), ($s2_{i+1}$, $t_{1}+step$) 和 ($l2_{i}$, $t$), ($l2_{i}^{\prime}$, $t+step$)。这说明时间自动机和FMU在经过了数据交换后又执行了$step$时间单位。
 \end{itemize}
-We have analysed the whole execution trace of FMU and TA for these encoding rules. According to the encoding rules, we find that the execution traces of FMUs and TA are equivalent which means the encoding rules work well. In section \ref{sec:sysml}, we apply these encoding rules to the water tank system. According to the simulation fragments of the case study, we also find that the encoding rules work well.
+为了更加准确的验证映射规则的正确性，我们分析了时间自动机和FMU的整个执行序列。我们通过分析得到FMU和时间自动机的执行序列是等价的，验证了映射规则的正确性。在之后几个小节的内容中，我们将此映射规则应用到了水箱的案例中，根据我们之后对案例仿真片段的分析，我们也发现映射规则是正确的。 
 \subsection{基于SysML的架构建模} 
+为了更好的阐述我们的方法，我们采用了水箱的案例 \cite{•} 作为驱动以更加形象的展示我们的方法。下面我们先简单的介绍一下水箱案例，然后用SysML建模语言对整个案例的架构建模。水箱案例：有一个水源可以向水箱里面注水，且水箱里面的水通过一个管道流入到一个水池当中，这个水源的流出由一个阀门控制，而阀门的开关由一个控制器进行控制。在本小节，由于水箱、阀门、控制器连接方式的不同，我们在此描述了三种不同类型的水箱系统。
+
+SysML是为模型驱动式软件开发（Model-Based Systems Engineering，MBSE）\cite{Dori16}而提出的一种通用的领域建模语言（ Domain-Specific Language，DSL）\cite{SemerathBHSV17} ，它起源于国际系统工程委员会（INCOSE）的倡议\ cite {Pepper2015International}并于2001年1月发布 。SysML的BDD图用块来描述系统中组件的结构；IBD图用来描述各个块之间的关联关系。各个块的接口由连接器进行关联，因此，系统各个组件的依赖关系可以用各个块的接口之间的连接进行表示。
+
+图\ref{myad}是水箱案例的SysML BDD图，其中包含三个块： $Valve$, $Tank$ 和 $Controller$。 $Valve$ and $Tank$ are physical components. $Controller$ is the cyber component. Each component has its own input and output. For instance, the input interface of $Valve$ is named as $vin$, which is used to input the $OpenClosed$ signal. 
+\begin{figure}[htbp]
+	\centering	{\includegraphics[width=4.5in,height=3.0in]{fig/3/AD.jpg}}
+	\caption{SysML BDD for water tank.}
+	\label{myad}
+\end{figure}
+
+Fig.~\ref{cd} shows the connection diagram for the system. There are three cases for connections. The first case is that the system has one valve, one controller and one tank. The controller sends stochastic signals to control the valve on/off leading to various rates of water flow. The second case is that the signal from the controller is affected by the water level of the tank. The last case is modified based on the first case and added another $waterTank2$ which is affected by the flow rate of the $waterTank1$.
+
+\begin{figure}[htbp]
+\centering{
+		\subfigure[Connection case 1]{\includegraphics[width=4.5in,height=1.0in]{fig/3/CD1.png}
+			\label{cd1}}
+		\hfil
+		\subfigure[Connection case 2]{\includegraphics[width=4.5in,height=1.0in]{fig/3/CD2.png}
+			\label{cd2}}
+		\hfil
+		\subfigure[Connection case 3]{\includegraphics[width=4.5in,height=1.0in]{fig/3/CD3.png}
+			\label{cd3}}
+	\caption{SysML IBD for water tank.}
+	\label{cd}
+	}
+\end{figure}
+The SysML BDD shows the blocks of system and SysML IBD shows the connection between blocks. In next section, we abstract each block as an FMU, and model SysML IBD as the connector configuration.
 \subsection{基于FMI的连接关系配置} 
 
 \subsection{协同行为的验证分析} 
