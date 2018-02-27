@@ -1,0 +1,131 @@
+\chapter{预备知识与概念}
+\label{ch2}
+
+\section{信息物理融合系统及异构性}
+CPS 这一概念最早由美国基金委的Helen Gill 于2006 年提出，近几年已成为国际学术交流的热点之一，如领域内最重要的CPS Week，集合了四大CPS 的学术会议（HSCC、ICCPS、IPSN 及RTAS）、20 个Workshops 等一系列平台，以推进CPS 在学术和工业界的发展。美国国家科学基金会资助了CPS 在嵌入式、信息安全等多方面的研究，已取得重要成果；2007 年，美国总统科学技术委员会将CPS 列为八大关键技术之首。欧洲、日本、韩国也开始逐步重视对CPS 相关领域的基础研究。
+CPS 在国内的研究也已起步，2010 年，国家863 计划信息技术领域办公室和专家组在上海举办了“信息物理融合系统发展战略论坛”，并对这项极具前景的技术给予了高度关注。周巢尘、何积丰院士等人对CPS 不变式等方面的基础研究做出了巨大贡献，为国内各个研究机构（如西北工业大学、南京大学、华东师范大学等）的研究工作奠定了坚实的基础。
+\section{FMI功能模型接口及FMU}
+CPS中各个组件之间的协同可以使用基于FMI标准的协同仿真来实现，FMI标准最初是在2008年开始的MODELISAR项目中开发的，并得到大量软件公司和研究中心的支持。FMI支持模拟由异构组件组成的复杂系统，通过一个协同仿真环境将不同模型与自己的求解器耦合起来。实现了FMI标准接口的系统组件被称为FMU，下面我们给出FMU的语法和语义。
+\begin{define}
+\textbf{FMU 语法}
+
+FMU的语法可以用一个八元组$F=(S,U,Y,D,s_{0},set,get,doStep)$表示, 
+\end{define}
+\begin{itemize}
+\item
+$S$ 表示FMU的状态集合。
+\item
+$U$ 表示FMU的输入变量集合。
+\item
+$Y$ 表示FMU的输出变量集合。
+\item
+$D \subseteq U \times Y$ 表示多个FMU之间输入和输出之间的依赖关系集合。 $(u,y) \in D $表示输出变量 $y$ 直接依赖于输入变量$u$的取值。 
+\item
+$s_{0} \in S$ 表示FMU的初始状态。
+\item
+$set : S \times U \times \mathbb{V} \rightarrow S$ 表示$set$函数对一个输入变量进行赋值。给定当前状态 $s \in S$, 输入变量 $u \in U$, 及一个数值 $v \in \mathbb{V}$, 该函数将返回一个新的状态，此状态的$u$ 的值为 $v$.
+\item
+$get : S \times Y \rightarrow \mathbb{V}$ 表示$get$函数返回某个输出变量的数值。给定一个状态 $s \in S$ 和一个输出变量 $y \in Y$, $get(s,y)$返回$s$状态上$y$输出变量的取值。
+\item
+$doStep : S \times \mathbb{R}_{\geqslant{0}} \rightarrow S \times \mathbb{R}_{\geqslant{0}}$ 表示$doStep$函数进行了一步仿真。 给定当前状态 $s$, 和一个非负实数$h \in \mathbb{R}_{\geqslant{0}}$, $doStep(s,h)$ 返回一个集合 $(s^{\prime},h^{\prime})$，且
+\\
+    当$h^{\prime} = h$时, $F$接受并执行步长$h$ 并且迁移到了一个新的状态 $s^{\prime}$;
+\\
+    当$0 \leqslant h^{\prime} < h$时, $F$拒绝步长 $h$, 只执行步长$h^{\prime}$, 并且迁移到一个新的状态 $s^{\prime}$.
+\end{itemize}
+\begin{define}
+\textbf{FMU 语义}
+\end{define} 
+给定一个FMU $F=(S,U,Y,D,s_{0},set,get,doStep)$, FMU的执行依赖于$doStep$函数, FMU的执行可以用一个时间输入序列（Timed Input Sequence, TIS）进行描述。
+
+TIS是一个有限的四元组序列$(t,s,v,v^{\prime})$, $t \in \mathbb{R}_{\geqslant{0}}$ 表示当前时刻, $s \in S$表示$F$的一个状态, $v$是一个输入赋值, $v^{\prime} : Y \rightarrow \mathbb{V}$ 是一个输出赋值。
+ 
+TIS = $(t_{0},s_{0},v_{0},v_{0}^{\prime}), (t_{1},s_{1},v_{1},v_{1}^{\prime}),(t_{2},s_{2},v_{2},v_{2}^{\prime}), ..., (t_{i},$
+$s_{i},v_{i},v_{i}^{\prime}), (t_{i+1},s_{i+1},v_{i+1},v_{i+1}^{\prime}), ...$定义如下:
+\begin{itemize}
+\item
+$t_{0} = 0$时刻的$s_{0}$状态表示$F$的初始状态。
+\item
+对于任意的$i \geqslant 1$, $t_{i} = t_{0} + \sum_{k = 1}^i h_{k}$
+\item
+给定当前状态$s_{i}$, $set$函数用来将当前状态的输入参数设置为一个特定的数值$v$. 之后$F$执行$doStep$函数并且迁移到一个新的状态$s_{i}^{\prime}$.  $get$函数用来得到当前状态的所有输出参数值$v_{i}^{\prime}$.
+\end{itemize}
+因此, FMU的语义可以用一个标签迁移系统进行描述。
+\section{时间自动机}
+时间自动机 \cite{BehrmannDLHPYH06}是一个建模实时系统行为的经典理论模型。它提供了一种用许多实值时钟标注状态转换图的有效方法。 在本小节中，我们来回顾一下时间自动机的语法和语义。
+\begin{define}
+\textbf{时间自动机 语法}
+
+时间自动机可以用一个四元组$\textit{A}=(L,l_{0},E,I)$来表示, 其中:
+\end{define}
+\begin{itemize}
+\item
+$L$表示时间自动机中有限的位置集合;
+\item
+$l_{0} \in  L$为时间自动机的初始位置;
+\item
+约束集合$G(x)$可以用$g = x \bowtie c \mid g \land g$来表示, 其中 $x \in X$, $c \in \mathbb{N}$且$\bowtie~\in \{<,\leqslant,\geqslant,>,=\}$. 
+\item
+$E \subseteq L \times G(X) \times Act \times 2^X \times L$是包含约束和时钟的一组边的集合, 其中 $Act = Act_{i} \cup Act_{o}$. $Act_{i}$是一个输入动作的集合且$Act_{o}$是一个输出动作的集合。
+\item
+$I : L \rightarrow G(X)$将不变量指定给位置。
+\end{itemize}
+\begin{define}
+\textbf{时间自动机 语义} 
+
+时间自动机$\textit{A}=(L,l_{0},E,I)$ 的语义可以用一个标签迁移系统$L_{\textit{A}} = (Proc,Lab,\lbrace {{\xrightarrow{\alpha}}} \mid \alpha \in Lab \rbrace)$进行描述, 其中:
+\end{define}
+\begin{itemize}
+\item 
+$Proc = \lbrace(l,v) \mid (l,v) \in L \times (X \rightarrow \mathbb{R}_{\geqslant{0}})$ 且 $v \models I(l) \rbrace$, 其中， 状态是一个$(l,v)$元组, $l$是时间自动机中的位置且$v$是满足$I(l)$的一个时钟变量;
+\item
+$Lab = Act \cup \mathbb{R}_{\geqslant{0}}$ 是一个标签集合；且 
+\item
+迁移关系定义如下：
+
+$(l,v) \xrightarrow{\alpha} (l^{\prime},v^{\prime})$，如果存在一个边 $(l \xrightarrow{g,\alpha,r} l^{\prime}) \in E$, 则$v \models g$, $v^{\prime} = v[r]$ 且 $v^{\prime} \models I(l^{\prime})$
+
+$(l,v) \xrightarrow{d} (l,v+d)$，对于所有的 $d \in  \mathbb{R}_{\geqslant{0}}$, 则$v \models I(l)$ and $v + d \models I(l)$
+\end{itemize}
+对于时间自动机$A$和其中某个位置$l$的可达性问题就是一个判断在迁移系统 $L_{A}$.中是否存在一个从初始状态 $(l_{0},v_{0})$ 到状态$(l,v)$的路径。为了验证需要，我们定义了时间自动机的符号语义。该定义用到了包含一组时钟的执行序列集合。
+
+对于一个特定的位置$l$，特定的时刻 $t \in X$，对于任意的$x \in X$, 则$t + x \in X$. 从该时刻位置开始的执行序列如下所示：
+
+$(l,t) \xrightarrow{x_{1}} (l,t+x_{1}) \xrightarrow{x_{2}} (l,t+x_{1}+x_{2}) \xrightarrow{x_{3}} (l,t+x_{1}+x_{2}+x_{3}) \xrightarrow{x_{4}}...\xrightarrow{x_{i}}(l,t+x_{1}+x_{2}+x_{3}+...+x_{i}) \xrightarrow{x_{i+1}}...$
+
+其中 $x_{i} > 0$ 且无穷序列$x_{1} + x_{2} + . . .$ 对于$x$是收敛的。 
+
+\section{概率有界线性时态逻辑}
+概率有界线性时态逻辑（Probabilistic Bounded Linear Temporal Logic，PBLTL）公式可以用来形式化的描述系统的验证属性。首先，我们定义用来验证单条仿真迹的有界线性时态逻辑（Bounded Linear Temporal Logic，BLTL）的语法和语义，然后将其扩展为PBLTL。
+
+给定一个模型$M$，设其状态变量的集合$SV$是一个有限的实数集。在$SV$上的一个布尔谓词约束为$y \sim v$的形式，其中$y\in SV$，$\sim \in \lbrace \geq,\leq,=\rbrace$，且$v\in \mathbb{R}$。BLTL的语法定义如下：
+$$\varphi ::= y \sim v\mid\phi_{1}\wedge\phi_{2}\mid\phi_{1}\vee\phi_{2}\mid \neg \phi_{1}\mid\phi_{1}U^{\leq t}\phi_{2}
+$$
+其中$\sim \in \lbrace \geq,\leq,=\rbrace$，$y\in SV$，$v\in \mathbb{Q}$，$t\in \mathbb{Q}_{\geq 0}$。为方便使用，我们可以定义一些辅助的时序逻辑算子，例如“$F$”算子，$F^{\leq t}\phi = True U^{\leq t}\phi$，表示最终在$t$时间内存在$\phi$满足；又如"$G$"算子，$G^{\leq t}\phi = \neg F^{\leq t}\neg \phi$，表示在$t$时间内$\phi$始终满足。对于一条迹$\sigma$，$\sigma^k$表示这条迹的后缀，即$\sigma$从第$k$步开始执行的部分（$\sigma^0$则表示原始迹）。我们规定$V(\sigma,k,y)$表示迹 $\sigma$在第$k$步时状态变量$y$的值，$t_k$表示第$k$步的时间，$t$表示最终的时间约束，则BLTL在迹 $\sigma^k$上的语义可以如下定义：
+
+\begin{define}\label{def:bltl_semantics}
+（有界线性时态逻辑的语义）.	
+\begin{itemize}
+\item $\sigma^{k}\vDash y \sim v $当且仅当$V(\sigma,i,y)\sim v$。
+\item $\sigma^{k}\vDash\phi_{1}\vee\phi_{2}$当且仅当$\sigma^{k}\vDash\phi_{1}$或者$\sigma^{k}\vDash\phi_{2}$。
+\item $\sigma^{k}\vDash\phi_{1}\wedge\phi_{2}$当且仅当$\sigma^{k}\vDash\phi_{1}$并且$\sigma^{k}\vDash\phi_{2}$。
+\item $\sigma^{k}\vDash\neg\phi_{1}$当且仅当$\sigma^{k}\vDash\phi_{1}$不成立。
+\item $\sigma^{k}\vDash\phi_{1}U^{t}\phi_{2}$当且仅当存在一个自然数$i$使得
+
+1）$ \Sigma_{0\leq l<i}$ $t_{k+1}\leq t$；
+
+2）$ \sigma_{k+i}\models\phi_{2}$；
+
+3）$\sigma_{k+j}\models\phi_{1}$对于每个$ 0\leq j \leq i$。
+\end{itemize}
+\end{define}
+
+\begin{define}\label{def:pbltl}
+（概率有界线性时态逻辑）.
+
+一个PBLTL属性公式$\phi$表示为$P_{\geq \theta}(\phi')$的形式，其中$\phi'$是一个BLTL公式，$\theta$是一个介于0和1之间的阈值。我们定义模型$M$满足PBLTL属性$P_{\geq \theta}(\phi')$，表示为$M \models P_{\geq \theta}(\phi)$，即模型$M$的仿真迹满足BLTL属性$\phi'$的概率不小于$\theta$。而对于定量分析的PBLTL属性公式，则无需指定阈值$\theta$，所以可表示为$P_{=?}(\phi')$。
+\end{define}
+
+
+\section{本章小结}
+本章首先给出了信息物理融合系统的定义，并介绍了本文涉及到的一个重要概念——CPS的异构性，指出对异构系统的验证分析面临巨大的挑战。之后，介绍了实现异构系统各个组件之间协同运行的标准，即FMI标准和FMU的语法及语义；同时，给出了用于验证组件之间协同行为正确性的理论模型-时间自动机的语法和语义。最后，给出了描述本文的验证属性主要用到的逻辑公式PBLTL的语法和语义。下一章我们将介绍如何建模整个异构系统的架构以及如何基于时间自动机理论来验证异构系统中各个组件协同行为的正确性。

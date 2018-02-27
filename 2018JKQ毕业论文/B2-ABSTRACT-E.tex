@@ -1,0 +1,49 @@
+\newpage
+\vspace{-1cm}
+\chapter*{\zihao{-2}\heiti{ABSTRACT}}
+%\vspace{-0.5cm}
+
+Cyber Physical Systems (CPS) are advanced embedded systems concerning more the interaction and collaboration between computer and physical environment. Since 2006 when this concept was presented, they have been highlighted by both academic and industrial worlds. First, most CPS applications are safety-critical or limit demanding energy consumption; a number of non-functional requirements (e.g. throughput, energy consumption, etc) need to be met when functional ones have been guaranteed, so that they required to be checked to achieve trustworthy systems. Second, most CPS are heterogeneous hybrid systems which combine continuous physical process and discrete system behavior, and also are exposed to open environment of high uncertainty; so traditional methods (model checking and theorem proving) can hardly finish checking effectively. To mitigate this issue, statistical methods are used to analyze the traces drawn from system simulator, by which an approximate result are obtained with an error bound. This method is known as Statistical Model Checking (SMC) which does analysis without traversing the state space of systems. However, SMC with high precision usually consumes a large number of traces (generating traces is seriously time-consuming for most simulation softwares), which leads to poor performance. This paper intensely studies the performance issue of SMC.
+
+First of all, we gives an insight into the theory of existing SMC algorithms and implement four of them for conducting large numbers of experiments of their performance in detail. Based on our conclusion, an adaptive SMC algorithm framework is presented to automatically choose appropriate SMC algorithms according to the estimated probability of properties in different cases.
+
+Next, to overcome the shortcoming of Bayesian Interval Estimate in the adaptive SMC, we present an SMC method based on abstraction and learning, aimed at improving the efficiency of SMC via reducing the number of traces for statistical analysis. This method uses the existing related learning theories (e.g. principal components analysis and stochastic grammar inference) to abstract and simplify probabilistically equivalent traces of Stochastic Hybrid Automata. Then we learn the probabilistically equivalent system behavior model, i.e. prefix frequency tree with abstracted traces, and effectively control the size of the tree by two-phase reduction algorithms presented also in this paper. It provides a well abstract model for more efficient verification and analysis with SMC later.
+
+Finally, we introduce Modana Platform for modeling and analysis of CPS, which is implemented by our team. Based on Modana, we further implements the improved SMC presented in this paper. And a typical CPS application - smart heating system is modeled and analyzed. Then we experimentally evaluate the performance and accuracy of both original and improved SMC algorithms with three benchmarks. It turns out that our method is correct and efficient.
+
+%\hspace{-0.5cm}
+{\sihao{\textbf{Keywords:}}} \textit{Cyber physical systems, Stochastic hybrid automata, Principal components analysis, Statistical abstraction, Statistical model checking}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

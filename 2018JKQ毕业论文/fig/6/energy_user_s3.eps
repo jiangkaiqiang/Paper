@@ -1,0 +1,5911 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 20 208 575 583
+%%Creator: FreeHEP Graphics2D Driver
+%%Producer: org.freehep.graphicsio.ps.PSGraphics2D Revision: 1.20 
+%%For: dehuidu@ad-ts01
+%%Title: Probability Density Distribution
+%%CreationDate: Saturday, October 13, 2012 4:04:09 PM CEST
+%%LanguageLevel: 3
+%%EndComments
+%%BeginProlog
+100 dict dup begin
+
+%
+% File: org/freehep/graphicsio.ps/PSProlog.txt
+% Author: Charles Loomis
+%
+
+% Redefinitions which save some space in the output file.  These are also
+% the same as the PDF operators.
+/q {gsave} def
+/Q {grestore} def
+
+/n {newpath} def
+/m {moveto} def
+/l {lineto} def
+/c {curveto} def
+/h {closepath} def
+
+/re {4 -2 roll moveto
+     dup 0 exch rlineto exch 0 rlineto
+     neg 0 exch rlineto closepath} def
+
+/f {fill} def
+/f* {eofill} def
+/F {gsave vg&FC fill grestore} def
+/F* {gsave vg&FC eofill grestore} def
+
+/s {closepath stroke} def
+/S {stroke} def
+
+/b {closepath gsave vg&FC fill grestore
+    gsave stroke grestore newpath} def
+/B {gsave vg&FC fill grestore gsave stroke grestore newpath} def
+/b* {closepath gsave vg&FC eofill grestore
+    gsave stroke grestore newpath} def
+/B* {gsave vg&FC eofill grestore gsave stroke grestore newpath} def
+
+/g {1 array astore /vg&fcolor exch def} def
+/G {setgray} def
+/k {4 array astore /vg&fcolor exch def} def
+/K {setcmykcolor} def
+/rg {3 array astore /vg&fcolor exch def} def
+/RG {setrgbcolor} def
+
+% Initialize the fill color.
+0 0 0 rg
+
+/vg&FC {mark vg&fcolor aload pop
+        counttomark 1 eq {G} if
+        counttomark 3 eq {RG} if
+        counttomark 4 eq {K} if
+        cleartomark } def
+
+/vg&DFC {/vg&fcolor exch def} def
+
+/vg&C {mark exch aload pop
+       counttomark 1 eq {G} if
+       counttomark 3 eq {RG} if
+       counttomark 4 eq {K} if
+       cleartomark } def
+
+/w {setlinewidth} def
+/j {setlinejoin} def
+/J {setlinecap} def
+/M {setmiterlimit} def
+/d {setdash} def
+/i {setflat} def
+
+/W {clip} def
+/W* {eoclip} def
+
+% Setup the default graphics state.
+% (black; 1 pt. linewidth; miter join; butt-ends; solid)
+/defaultGraphicsState {0 g 1 w 0 j 0 J [] 0 d} def
+
+% Emulation of the rectangle operators for PostScript implementations
+% which do not implement all Level 2 features.  This is an INCOMPLETE
+% emulation; only the "x y width height rect..." form is emulated.
+/*rf {gsave newpath re fill grestore} def
+/*rs {gsave newpath re stroke grestore} def
+/*rc {newpath re clip} def
+/rf  /rectfill where {pop /rectfill}{/*rf} ifelse load def
+/rs  /rectstroke where {pop /rectstroke}{/*rs} ifelse load def
+/rc  /rectclip where {pop /rectclip}{/*rc} ifelse load def
+
+% Emulation of the selectfont operator.  This includes a 20% increase in
+% the fontsize which is necessary to get sizes similar to the Java fonts.
+/*sf {exch findfont exch
+      dup type /arraytype eq {makefont}{scalefont} ifelse setfont} bind def
+/sf /selectfont where {pop {1.2 mul selectfont}}{{1.2 mul *sf}} ifelse def
+
+% Special version of stroke which allows the dash pattern to continue
+% across path segments.  (This may be needed for PostScript although
+% modern printers seem to do this correctly.)
+/vg&stroke {
+  currentdash pop length 0 eq
+  {stroke}
+  {
+    currentdash /vg&doffset exch def pop
+    flattenpath
+    {m vg&resetdash}
+    {2 copy
+     currentpoint
+     3 -1 roll sub dup mul
+     3 1 roll sub dup mul
+     add sqrt
+     3 1 roll l
+     currentdash 3 -1 roll add setdash}
+     {}
+     {h vg&resetdash}
+     pathforall
+     stroke
+     vg&resetdash
+  } ifelse
+} def
+/vg&resetdash {currentdash pop vg&doffset setdash} def
+
+% Initialize variables for safety.
+/delta 0 def
+/xv 0 def  /yv 0 def  /width 0 def  /height 0 def
+
+% Initialize to portrait INTERNATIONAL (Letter-height, A4-width) page.
+/pw 595 def  /ph 791  def  /po true def /ftp false def
+
+% Initialize margins to 20 points.
+/ml 20 def  /mr 20 def  /mt 20 def  /mb 20 def
+
+% Temporary matrices.
+/smatrix 0 def  /nmatrix 0 def
+
+% set page size (usage: <page width><page height> setpagesize)
+/setpagesize {/ph exch def /pw exch def} def
+
+% set page orientation (usage: portrait or landscape)
+/portrait {/po true def} def
+/landscape {/po false def} def
+
+% force natural size for image (usage: naturalsize)
+/naturalsize {/ftp false def} def
+
+% resize image to fill page (usage: fittopage)
+/fittopage {/ftp true def} def
+
+% set margins of the page (usage: <left><bottom><top><right> setmargins)
+/setmargins {/mr exch def /mt exch def /mb exch def /ml exch def} def
+
+% set the graphic's size (usage: <width><height> setsize)
+/setsize {/gh exch def /gw exch def} def
+
+% set the graphic's origin (usage: <x0><y0> setorigin)
+/setorigin {/gy exch def /gx exch def} def
+
+% calculate image center
+/imagecenter {pw ml sub mr sub 2 div ml add
+              ph mt sub mb sub 2 div mb add} def
+
+% calculate the necessary scaling
+/imagescale {po {gw}{gh} ifelse pw ml sub mr sub div
+             po {gh}{gw} ifelse ph mt sub mb sub div
+             2 copy lt {exch} if pop
+             ftp not {1 2 copy lt {exch} if pop} if
+             1 exch div /sfactor exch def
+             /gw gw sfactor mul def /gh gh sfactor mul def} def
+
+% calculate image origin
+/imageorigin {pw ml sub mr sub 2 div ml add
+              po {gw}{gh} ifelse 2 div sub
+              ph mt sub mb sub 2 div mb add
+              po {gh}{gw} ifelse 2 div po {add}{sub} ifelse} def
+
+% calculate the clipping origin
+/cliporigin  {pw ml sub mr sub 2 div ml add
+              po {gw}{gh} ifelse 2 div sub floor
+              ph mt sub mb sub 2 div mb add
+              po {gh}{gw} ifelse 2 div sub floor} def
+
+% Set the clipping region to the bounding box.
+/cliptobounds {cliporigin po {gw}{gh} ifelse 1 add
+                          po {gh}{gw} ifelse 1 add rc} def
+
+% set the base transformation matrix (usage: setbasematrix)
+/setbasematrix {imageorigin translate
+                po {0}{90} ifelse rotate
+                sfactor sfactor neg scale
+                /defaultmatrix matrix currentmatrix def} def
+
+% The lower-right bias in drawing 1 pt. wide lines.
+/bias  {q 0.5 0.5 translate} def
+/unbias {Q} def
+
+% Draw a line. (x0 y0 x1 y1 line)
+/L {bias n m l S unbias} def
+
+% Polyline primitive.
+/polyline  {n m 1 exch 1 exch
+           {pop currentfile token pop currentfile token pop l} for
+           } def
+
+% Draw a polyline (n x0 y0 OPL x1 y1 x2 y2 ... ... xn yn)
+/OPL {bias polyline S unbias} def
+
+% Draw a closed polyline (n x0 y0 CPL x1 y1 x2 y2 ... ... xn yn)
+/CPL {bias polyline s unbias} def
+
+% Draw a filled polyline (n x0 y0 FPL x1 y1 x2 y2 ... ... xn yn)
+/FPL {polyline h f*} def
+
+% Draw an oval. (x y w h OVL)
+/OVL {matrix currentmatrix /smatrix exch def
+      /height exch def /width exch def
+      /yv exch def /xv exch def
+      width 2 div xv add height 2 div yv add translate
+      width currentlinewidth sub 2 div
+      height currentlinewidth sub 2 div neg
+      scale n 0 0 1 5 -2 roll arc
+      smatrix setmatrix S} def
+
+% Draw a filled oval. (x y w h FOVL)
+/FOVL {matrix currentmatrix /smatrix exch def
+      /height exch def /width exch def
+      /yv exch def /xv exch def
+      width 2 div xv add height 2 div yv add translate
+      width 2 div
+      height 2 div neg
+      scale n 0 0 m 0 0 1 5 -2 roll arc
+      h smatrix setmatrix f} def
+
+% Draw a rounded rectangle. (x y w h arcwidth archeight RREC)
+/RREC {matrix currentmatrix /smatrix exch def
+      2 div /ah exch def
+      2 div /aw exch def
+      /height exch def /width exch def
+      /yv exch def /xv exch def
+      aw ah scale matrix
+      currentmatrix /nmatrix exch def
+      smatrix setmatrix
+      n xv width add aw sub yv m
+      nmatrix setmatrix
+      currentpoint exch 1 add exch
+      currentpoint 1 add exch 1 add exch
+      1 arct smatrix setmatrix
+      xv width add yv height add ah sub l
+      nmatrix setmatrix
+      currentpoint 1 add
+      currentpoint exch 1 sub exch 1 add
+      1 arct smatrix setmatrix
+      xv aw add yv height add l
+      nmatrix setmatrix
+      currentpoint exch 1 sub exch
+      currentpoint exch 1 sub exch 1 sub
+      1 arct smatrix setmatrix
+      xv yv ah add l
+      nmatrix setmatrix
+      currentpoint 1 sub
+      currentpoint exch 1 add exch 1 sub
+      1 arct smatrix setmatrix
+      s} def
+
+% Draw a filled rounded rectangle. (x y w h arcwidth archeight FRREC)
+/FRREC{matrix currentmatrix /smatrix exch def
+      2 div /ah exch def
+      2 div /aw exch def
+      /height exch def /width exch def
+      /yv exch def /xv exch def
+      aw ah scale matrix
+      currentmatrix /nmatrix exch def
+      smatrix setmatrix
+      n xv width add aw sub yv m
+      nmatrix setmatrix
+      currentpoint exch 1 add exch
+      currentpoint 1 add exch 1 add exch
+      1 arct smatrix setmatrix
+      xv width add yv height add ah sub l
+      nmatrix setmatrix
+      currentpoint 1 add
+      currentpoint exch 1 sub exch 1 add
+      1 arct smatrix setmatrix
+      xv aw add yv height add l
+      nmatrix setmatrix
+      currentpoint exch 1 sub exch
+      currentpoint exch 1 sub exch 1 sub
+      1 arct smatrix setmatrix
+      xv yv ah add l
+      nmatrix setmatrix
+      currentpoint 1 sub
+      currentpoint exch 1 add exch 1 sub
+      1 arct smatrix setmatrix
+      h f} def
+
+% Draw a string.  (string x y STR)
+/STR {q m 1 -1 scale recshow Q} def
+
+% Define basic plot symbols.
+/xys   {/siz exch def /yv exch def /xv exch def} def
+/hline {xys n xv siz 2. div sub yv m siz 0 rlineto S} def
+/vline {xys n xv yv siz 2. div sub m 0 siz rlineto S} def
+/plus  {xys n xv yv siz 2. div sub m 0 siz rlineto
+                    xv siz 2. div sub yv m siz 0 rlineto S} def
+/dot   {n 2. div 0 360 arc s} def
+/fdot  {n 2. div 0 360 arc h f} def
+/box   {xys n xv siz 2 sqrt div 2 div sub yv siz 2 sqrt div 2 div sub
+                    siz 2 sqrt div dup rs} def
+/fbox  {xys n xv siz 2 sqrt div 2 div sub yv siz 2 sqrt div 2 div sub
+                       siz 2 sqrt div dup rf} def
+/tridn{xys n xv yv siz 3 sqrt div add m
+                       siz 2. div neg 3 sqrt 2. div siz mul neg rlineto
+                       siz 0 rlineto s} def
+/ftridn{xys n xv yv siz 3 sqrt div add m
+                       siz 2. div neg 3 sqrt 2. div siz mul neg rlineto
+                       siz 0 rlineto h f} def
+
+% Symbols defined in terms of the others.
+/star     {3 copy cross plus} def
+/cross    {xys q xv yv translate 45 rotate 0 0 siz plus Q} def
+/diamond  {xys q xv yv translate 45 rotate 0 0 siz box Q} def
+/fdiamond {xys q xv yv translate 45 rotate 0 0 siz fbox Q} def
+/triup    {xys q xv yv translate 180 rotate 0 0 siz tridn Q} def
+/ftriup   {xys q xv yv translate 180 rotate 0 0 siz ftridn Q} def
+
+% Define the composite fonts used to print Unicode strings.
+% Undefine particular values in an encoding array.
+/vg&undef { {exch dup 3 -1 roll /.notdef put} forall } def
+/vg&redef { {3 -1 roll dup 4 2 roll put} forall } def
+
+% usage: key encoding basefontname vg&newbasefont font
+/vg&newbasefont {
+findfont dup length dict copy
+  begin
+    currentdict /FID undef
+    /Encoding exch def
+    dup /FontName exch def
+    currentdict
+  end
+definefont
+} def
+
+% usage: key encoding basefontname vg&newskewedbasefont font
+/vg&newskewedbasefont {
+findfont dup length dict copy
+  begin
+    currentdict /FID undef
+    /Encoding exch def
+    dup /FontName exch def
+    exch FontMatrix exch matrix concatmatrix /FontMatrix exch def
+    currentdict
+  end
+definefont
+} def
+
+% usage: basekey suffix vg&nconcat name
+/vg&nconcat {
+  2 {dup length string cvs exch} repeat
+  dup length 3 -1 roll dup length 3 -1 roll add string
+  dup 0 4 -1 roll dup length 5 1 roll putinterval
+  dup 4 -2 roll exch putinterval cvn
+} def
+
+%usage: fontname vg&skewmatrix matrix
+/vg&skewmatrix {
+findfont dup /FontInfo known
+  {
+    /FontInfo get dup /ItalicAngle known
+    {
+      [ 1 0 4 -1 roll /ItalicAngle get neg dup sin exch cos div 1 0 0 ]
+    }
+    {pop matrix} ifelse
+  }
+  {pop matrix} ifelse
+} def
+
+% usage: newfontname basefontname vg&newcompositefont --
+/vg&newcompositefont {
+/vg&fstyle exch def
+/vg&bfont exch def
+/vg&fname exch def
+<<
+/FontStyleBits vg&fstyle
+/FontType 0
+/FontMatrix matrix
+/FontName vg&fname
+/FMapType 2
+/Encoding [ 0 1 255 {pop 6} for ]
+          dup 16#00 0 put % Latin
+          dup 16#03 1 put % Greek
+          dup 16#20 2 put % Punctuation
+          dup 16#21 3 put % Arrows
+          dup 16#22 4 put % MathOps
+          dup 16#27 5 put % Dingbats
+
+/FDepVector [
+vg&bfont /-UC-Latin vg&nconcat UCLatinEncoding
+vg&bfont vg&newbasefont
+
+vg&bfont vg&skewmatrix
+vg&bfont /-UC-Greek vg&nconcat UCGreekEncoding
+/Symbol vg&newskewedbasefont
+
+vg&bfont /-UC-Punctuation vg&nconcat UCPunctuationEncoding
+vg&bfont vg&newbasefont
+
+/Arrows-UC findfont
+/MathOps-UC findfont
+/Dingbats-UC findfont
+/Undefined-UC findfont ]
+>>
+vg&fname exch definefont pop
+} def
+
+% Null encoding vector (all elements set to .notdef)
+/NullEncoding [ 256 {/.notdef} repeat ] def
+
+% Unicode Latin encoding (unicode codes \u0000-\u00ff)
+/UCLatinEncoding
+  ISOLatin1Encoding dup length array copy
+  dup 16#60 /grave put
+  [ 16#90 16#91 16#92 16#93 16#94 16#95 16#96
+    16#97 16#98 16#9a 16#9b 16#9d 16#9e 16#9f
+  ] vg&undef
+  def
+
+% Unicode Greek encoding (unicode codes \u0370-\u03ff)
+/UCGreekEncoding
+  NullEncoding dup length array copy
+  << 16#91 /Alpha    16#92 /Beta      16#93 /Gamma    16#94 /Delta
+     16#95 /Epsilon  16#96 /Zeta      16#97 /Eta      16#98 /Theta
+     16#99 /Iota     16#9a /Kappa     16#9b /Lambda   16#9c /Mu
+     16#9d /Nu       16#9e /Xi        16#9f /Omicron  16#a0 /Pi
+     16#a1 /Rho      16#a3 /Sigma     16#a4 /Tau      16#a5 /Upsilon
+     16#a6 /Phi      16#a7 /Chi       16#a8 /Psi      16#a9 /Omega
+     16#b1 /alpha    16#b2 /beta      16#b3 /gamma    16#b4 /delta
+     16#b5 /epsilon  16#b6 /zeta      16#b7 /eta      16#b8 /theta
+     16#b9 /iota     16#ba /kappa     16#bb /lambda   16#bc /mu
+     16#bd /nu       16#be /xi        16#bf /omicron  16#c0 /pi
+     16#c1 /rho      16#c2 /sigma1    16#c3 /sigma    16#c4 /tau
+     16#c5 /upsilon  16#c6 /phi1      16#c7 /chi      16#c8 /psi
+     16#c9 /omega    16#7e /semicolon 16#87 /dotmath  16#d1 /theta1
+     16#d2 /Upsilon1 16#d5 /phi       16#d6 /omega1
+  >> vg&redef
+  def
+
+% Unicode punctuation encoding (unicode codes \u2000-\u206f)
+/UCPunctuationEncoding
+  NullEncoding dup length array copy
+  << 16#10 /hyphen          16#11 /hyphen              16#12 /endash
+     16#13 /emdash          16#18 /quoteleft           16#19 /quoteright
+     16#1a /quotesinglbase  16#1b /quotesingle         16#1c /quotedblleft
+     16#1d /quotedblright   16#1e /quotedblbase        16#1f /quotedbl
+     16#20 /dagger          16#21 /daggerdbl           16#22 /bullet
+     16#24 /period          16#26 /ellipsis            16#27 /periodcentered
+     16#30 /perthousand     16#44 /fraction
+     16#70 /zerosuperior    16#74 /foursuperior        16#75 /fivesuperior
+     16#76 /sixsuperior     16#77 /sevensuperior       16#78 /eightsuperior
+     16#79 /ninesuperior    16#7b /hyphensuperior      16#7d /parenleftsuperior
+     16#7e /parenrightsuperior
+     16#80 /zeroinferior    16#84 /fourinferior        16#85 /fiveinferior
+     16#81 /oneinferior     16#82 /twoinferior         16#83 /threeinferior
+     16#86 /sixinferior     16#87 /seveninferior       16#88 /eightinferior
+     16#89 /nineinferior    16#8b /hypheninferior      16#8d /parenleftinferior
+     16#8e /parenrightinferior
+  >> vg&redef
+  def
+
+% Unicode mathematical operators encoding (unicode codes \u2200-\u22ff)
+/UCMathOpsEncoding
+  NullEncoding dup length array copy
+  << 16#00 /universal       16#02 /partialdiff         16#03 /existential
+     16#05 /emptyset        16#06 /Delta               16#07 /gradient
+     16#08 /element         16#09 /notelement          16#0b /suchthat
+     16#0f /product         16#11 /summation           16#12 /minus
+     16#15 /fraction        16#17 /asteriskmath        16#19 /bullet
+     16#1a /radical         16#1d /proportional        16#1e /infinity
+     16#20 /angle           16#23 /bar                 16#27 /logicaland
+     16#28 /logicalor       16#29 /intersection        16#2a /union
+     16#2b /integral        16#34 /therefore           16#36 /colon
+     16#3c /similar         16#45 /congruent           16#48 /approxequal
+     16#60 /notequal        16#61 /equivalence         16#64 /lessequal
+     16#65 /greaterequal    16#82 /propersubset        16#83 /propersuperset
+     16#86 /reflexsubset    16#87 /reflexsuperset      16#95 /circleplus
+     16#97 /circlemultiply  16#a5 /perpendicular       16#03 /existential
+     16#c0 /logicaland      16#c1 /logicalor           16#c2 /intersection
+     16#c3 /union           16#c4 /diamond             16#c5 /dotmath
+  >> vg&redef
+  def
+
+% Unicode arrows encoding (unicode codes \u2190-\u21ff)
+% Also includes those "Letterlike" unicode characters
+% which are available in the symbol font. (unicode codes \u2100-\u214f)
+/UCArrowsEncoding
+  NullEncoding dup length array copy
+  << 16#11 /Ifraktur        16#1c /Rfraktur            16#22 /trademarkserif
+     16#35 /aleph
+     16#90 /arrowleft       16#91 /arrowup             16#92 /arrowright
+     16#93 /arrowdown       16#94 /arrowboth           16#d0 /arrowdblleft
+     16#d1 /arrowdblup      16#d2 /arrowdblright       16#d3 /arrowdbldown
+     16#d4 /arrowdblboth
+  >> vg&redef
+  def
+
+/ZapfDingbats findfont /Encoding get
+dup length array copy /UCDingbatsEncoding exch def
+16#20 1 16#7f {
+  dup 16#20 sub exch
+  UCDingbatsEncoding exch get
+  UCDingbatsEncoding 3 1 roll put
+} for
+16#a0 1 16#ff {
+  dup 16#40 sub exch
+  UCDingbatsEncoding exch get
+  UCDingbatsEncoding 3 1 roll put
+} for
+UCDingbatsEncoding [ 16#c0 1 16#ff {} for ] vg&undef
+[ 16#00  16#05 16#0a 16#0b  16#28 16#4c 16#4e  16#53 16#54 16#55  16#57 16#5f
+  16#60  16#68 16#69 16#6a  16#6b 16#6c 16#6d  16#6e 16#6f 16#70  16#71 16#72
+  16#73  16#74 16#75 16#95  16#96 16#97 16#b0  16#bf
+] vg&undef pop
+
+% Define the base fonts which don't change.
+/Undefined-UC NullEncoding       /Helvetica    vg&newbasefont pop
+/MathOps-UC   UCMathOpsEncoding  /Symbol       vg&newbasefont pop
+/Arrows-UC    UCArrowsEncoding   /Symbol       vg&newbasefont pop
+/Dingbats-UC  UCDingbatsEncoding /ZapfDingbats vg&newbasefont pop
+
+% Make the SansSerif composite fonts.
+/SansSerif /Helvetica 16#00 vg&newcompositefont
+/SansSerif-Bold /Helvetica-Bold 16#01 vg&newcompositefont
+/SansSerif-Italic /Helvetica-Oblique 16#02 vg&newcompositefont
+/SansSerif-BoldItalic /Helvetica-BoldOblique 16#03 vg&newcompositefont
+
+% Make the Serif composite fonts.
+/Serif /Times-Roman 16#00 vg&newcompositefont
+/Serif-Bold /Times-Bold 16#01 vg&newcompositefont
+/Serif-Italic /Times-Italic 16#02 vg&newcompositefont
+/Serif-BoldItalic /Times-BoldItalic 16#03 vg&newcompositefont
+
+% Make the Monospaced composite fonts.
+/Monospaced /Courier 16#00 vg&newcompositefont
+/Monospaced-Bold /Courier-Bold 16#01 vg&newcompositefont
+/Monospaced-Italic /Courier-Oblique 16#02 vg&newcompositefont
+/Monospaced-BoldItalic /Courier-BoldOblique 16#03 vg&newcompositefont
+
+% Make the Dialog composite fonts.
+/Dialog /Helvetica 16#00 vg&newcompositefont
+/Dialog-Bold /Helvetica-Bold 16#01 vg&newcompositefont
+/Dialog-Italic /Helvetica-Oblique 16#02 vg&newcompositefont
+/Dialog-BoldItalic /Helvetica-BoldOblique 16#03 vg&newcompositefont
+
+% Make the DialogInput composite fonts.
+/DialogInput /Helvetica 16#00 vg&newcompositefont
+/DialogInput-Bold /Helvetica-Bold 16#01 vg&newcompositefont
+/DialogInput-Italic /Helvetica-Oblique 16#02 vg&newcompositefont
+/DialogInput-BoldItalic /Helvetica-BoldOblique 16#03 vg&newcompositefont
+
+% Make the Typewriter composite fonts (JDK 1.1 only).
+/Typewriter /Courier 16#00 vg&newcompositefont
+/Typewriter-Bold /Courier-Bold 16#01 vg&newcompositefont
+/Typewriter-Italic /Courier-Oblique 16#02 vg&newcompositefont
+/Typewriter-BoldItalic /Courier-BoldOblique 16#03 vg&newcompositefont
+
+
+/cfontH {
+ dup /fontsize exch def /SansSerif exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+/cfontHB {
+  dup /fontsize exch def /SansSerif-Bold exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+/cfontHI {
+ dup /fontsize exch def /SansSerif-Italic exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+/cfontHBI {
+ dup /fontsize exch def /SansSerif-BoldItalic exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+
+/cfontT {
+ dup /fontsize exch def /Serif exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+/cfontTB {
+ dup /fontsize exch def /Serif-Bold exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+/cfontTI {
+ dup /fontsize exch def /Serif-Italic exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+/cfontTBI {
+ dup /fontsize exch def /Serif-BoldItalic exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+
+/cfontC {
+ dup /fontsize exch def /Typewriter exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+/cfontCB {
+ dup /fontsize exch def /Typewriter-Bold exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+/cfontCI {
+ dup /fontsize exch def /Typewriter-Italic exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+/cfontCBI {
+ dup /fontsize exch def /Typewriter-BoldItalic exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+
+% Darken or lighten the current color.
+/darken {0.7 exch exp 3 copy
+         q 4 -1 roll vg&C
+         currentrgbcolor 3 {4 -2 roll mul} repeat
+         3 array astore Q} def
+
+/displayColorMap
+<< /Cr   [1.00 0.00 0.00]       /Cg     [0.00 1.00 0.00]
+   /Cb   [0.00 0.00 1.00]       /Cc     [1.00 0.00 0.00 0.00]
+   /Cm   [0.00 1.00 0.00 0.00]  /Cy     [0.00 0.00 1.00 0.00]
+   /Co   [1.00 0.78 0.00]       /Cp     [1.00 0.67 0.67]
+   /Cw   [1   ]                 /Cgrl   [0.75]
+   /Cgr  [0.50]                 /Cgrd   [0.25]
+   /Ck   [0   ]
+   /CGr  [1.00 0.00 0.00]       /CGg    [0.00 1.00 0.00]
+   /CGb  [0.00 0.00 1.00]       /CGc    [1.00 0.00 0.00 0.00]
+   /CGm  [0.00 1.00 0.00 0.00]  /CGy    [0.00 0.00 1.00 0.00]
+   /CGo  [1.00 0.78 0.00]       /CGp    [1.00 0.67 0.67]
+   /CGw  [1   ]                 /CGgrl  [0.75]
+   /CGgr [0.50]                 /CGgrd  [0.25]
+   /CGk  [0   ]
+   /CIr  [1.00 0.00 0.00]       /CIg    [0.00 1.00 0.00]
+   /CIb  [0.00 0.00 1.00]       /CIc    [1.00 0.00 0.00 0.00]
+   /CIm  [0.00 1.00 0.00 0.00]  /CIy    [0.00 0.00 1.00 0.00]
+   /CIo  [1.00 0.78 0.00]       /CIp    [1.00 0.67 0.67]
+   /CIw  [1   ]                 /CIgrl  [0.75]
+   /CIgr [0.50]                 /CIgrd  [0.25]
+   /CIk  [0   ]
+>> def
+
+/printColorMap
+<< /Cr   [1.00 0.33 0.33]       /Cg     [0.33 1.00 0.33]
+   /Cb   [0.33 0.33 1.00]       /Cc     [1.00 0.00 0.00 0.00]
+   /Cm   [0.00 1.00 0.00 0.00]  /Cy     [0.00 0.00 1.00 0.00]
+   /Co   [1.00 0.78 0.00]       /Cp     [1.00 0.67 0.67]
+   /Cw   [1   ]                 /Cgrl   [0.75]
+   /Cgr  [0.50]                 /Cgrd   [0.25]
+   /Ck   [0   ]
+   /CGr  [1.00 0.33 0.33]       /CGg    [0.33 1.00 0.33]
+   /CGb  [0.33 0.33 1.00]       /CGc    [1.00 0.00 0.00 0.00]
+   /CGm  [0.00 1.00 0.00 0.00]  /CGy    [0.00 0.00 1.00 0.00]
+   /CGo  [1.00 0.78 0.00]       /CGp    [1.00 0.67 0.67]
+   /CGw  [1   ]                 /CGgrl  [0.75]
+   /CGgr [0.50]                 /CGgrd  [0.25]
+   /CGk  [0   ]
+   /CIr  [1.00 0.33 0.33]       /CIg    [0.33 1.00 0.33]
+   /CIb  [0.33 0.33 1.00]       /CIc    [1.00 0.00 0.00 0.00]
+   /CIm  [0.00 1.00 0.00 0.00]  /CIy    [0.00 0.00 1.00 0.00]
+   /CIo  [1.00 0.78 0.00]       /CIp    [1.00 0.67 0.67]
+   /CIw  [1   ]                 /CIgrl  [0.75]
+   /CIgr [0.50]                 /CIgrd  [0.25]
+   /CIk  [0   ]
+>> def
+
+/grayColorMap
+<< /Cr   [0   ]                 /Cg     [0   ]
+   /Cb   [0   ]                 /Cc     [0   ]
+   /Cm   [0   ]                 /Cy     [0   ]
+   /Co   [0   ]                 /Cp     [0   ]
+   /Cw   [0   ]                 /Cgrl   [0   ]
+   /Cgr  [0   ]                 /Cgrd   [0   ]
+   /Ck   [0   ]
+   /CGr  [0.75]                 /CGg    [1   ]
+   /CGb  [0.50]                 /CGc    [0.75]
+   /CGm  [0.50]                 /CGy    [1   ]
+   /CGo  [0.75]                 /CGp    [1   ]
+   /CGw  [0   ]                 /CGgrl  [0.25]
+   /CGgr [0.50]                 /CGgrd  [0.75]
+   /CGk  [1   ]
+   /CIr  [1   ]                 /CIg    [1   ]
+   /CIb  [1   ]                 /CIc    [1   ]
+   /CIm  [1   ]                 /CIy    [1   ]
+   /CIo  [1   ]                 /CIp    [1   ]
+   /CIw  [1   ]                 /CIgrl  [1   ]
+   /CIgr [1   ]                 /CIgrd  [1   ]
+   /CIk  [1   ]
+>> def
+
+/bwColorMap
+<< /Cr   [0   ]                 /Cg     [0   ]
+   /Cb   [0   ]                 /Cc     [0   ]
+   /Cm   [0   ]                 /Cy     [0   ]
+   /Co   [0   ]                 /Cp     [0   ]
+   /Cw   [0   ]                 /Cgrl   [0   ]
+   /Cgr  [0   ]                 /Cgrd   [0   ]
+   /Ck   [0   ]
+   /CGr  [1   ]                 /CGg    [1   ]
+   /CGb  [1   ]                 /CGc    [1   ]
+   /CGm  [1   ]                 /CGy    [1   ]
+   /CGo  [1   ]                 /CGp    [1   ]
+   /CGw  [0   ]                 /CGgrl  [1   ]
+   /CGgr [1   ]                 /CGgrd  [1   ]
+   /CGk  [1   ]
+   /CIr  [1   ]                 /CIg    [1   ]
+   /CIb  [1   ]                 /CIc    [1   ]
+   /CIm  [1   ]                 /CIy    [1   ]
+   /CIo  [1   ]                 /CIp    [1   ]
+   /CIw  [1   ]                 /CIgrl  [1   ]
+   /CIgr [1   ]                 /CIgrd  [1   ]
+   /CIk  [1   ]
+>> def
+
+%
+% The following routines handle the alignment of and printing of
+% tagged strings.
+%
+
+% Predefine the bounding box values.
+/bbllx 0 def /bblly 0 def /bburx 0 def /bbury 0 def
+
+% This routine pops the first unicode character off of a string and returns
+% the remainder of the string, the character code of first character,
+% and a "true" if the string was non-zero length.
+% <string>      popfirst <remaining string> <true>
+% <null string> popfirst <false>
+/popfirst {
+  dup length 1 gt
+    {dup 0 get /vg&fbyte exch def
+     dup 1 get /vg&cbyte exch def
+     dup length 2 sub 2 exch getinterval true}
+    {pop false} ifelse
+} def
+
+% This routine shows a single unicode character given the font and
+% character codes.
+% <font code> <char code> unicharshow --
+/unicharshow {
+  2 string
+  dup 0 5 -1 roll put
+  dup 1 4 -1 roll put
+  internalshow
+} def
+
+% This is an internal routine to alternate between determining the
+% bounding box for stringsize and showing the string for recshow.
+% <string> internalshow --
+/internalshow {show} def
+
+% This is an internal routine to alternate between determining the
+% bounding box for stringsize and stroking various ornaments.
+% <string> internalstroke --
+/internalstroke {S} def
+
+% Sets up internalshow to use the null device to determine string size.
+% -- nullinternalshow --
+/nullinternalshow {/internalshow {false charpath flattenpath
+                                  pathbbox updatebbox} def} def
+
+% Sets up internalstroke to use the null device to determine string size.
+% -- nullinternalstroke --
+/nullinternalstroke {
+ /internalstroke {flattenpath pathbbox updatebbox} def} def
+
+% This routine tests to see if the character code matches the first
+% character of a string.
+% <char code> <string> testchar <char code> <true or false>
+/testchar {exch dup 3 -1 roll 0 get eq} def
+
+% Raise the text baseline for superscripts.
+% -- raise --
+/raise {
+  0 fontsize 2 div rmoveto
+  /fontsize fontsize 2 mul 3 div def
+  currentfont /FontName get fontsize sf
+} def
+
+% Un-raise the text baseline for superscripts.
+% -- unraise --
+/unraise {
+  /fontsize fontsize 1.5 mul def
+  0 fontsize 2 div neg rmoveto
+} def
+
+% Lower the text baseline for subscripts.
+% -- lower --
+/lower {
+  0 fontsize 3 div neg rmoveto
+  /fontsize fontsize 2 mul 3 div def
+  currentfont /FontName get fontsize sf
+} def
+
+% Un-lower the text baseline for subscripts.
+% -- unlower --
+/unlower {
+  /fontsize fontsize 1.5 mul def
+  0 fontsize 3 div rmoveto
+} def
+
+% Compare the top two elements on the stack and leave only the
+% larger one.
+/maxval {2 copy gt {pop} {exch pop} ifelse} def
+
+% Tokenize a string.  Do not use the usual PostScript token because
+% parentheses will not be interpreted correctly because of rescanning
+% of the string.
+/vg&token {/vg&string exch def /vg&index -1 def /vg&level 0 def
+0 2 vg&string length 2 sub {
+  dup dup 1 add exch vg&string exch get 8 bitshift vg&string 3 -1 roll get or
+  dup 16#f0fe eq {pop 1}{16#f0ff eq {-1}{0} ifelse} ifelse
+  /vg&level exch vg&level add def
+  vg&level 0 eq {/vg&index exch def exit} if pop
+} for
+vg&index 0 ge {
+  vg&string vg&index 2 add dup vg&string length exch sub getinterval
+  vg&index 2 gt {vg&string 2 vg&index 2 sub getinterval}{()} ifelse
+  true}
+{false} ifelse
+} bind def
+
+% Recursively show an unicode string.
+% <string> recshow --
+/recshow {
+  popfirst
+  {
+    % Test to see if this is a string attribute.
+    vg&fbyte 16#f0 and 16#e0 eq
+    {
+      q
+
+      % Font style.
+      currentfont dup /FontStyleBits known {/FontStyleBits get}{pop 0} ifelse
+      vg&cbyte or vg&fontstyles exch get fontsize exch exec
+
+      vg&token pop recshow currentpoint Q m recshow
+    }
+    {
+      vg&fbyte 16#F8 and 16#F0 eq {
+
+        % Superscript and/or subscript.
+        vg&cbyte 16#00 eq {
+          vg&token pop exch vg&token pop 3 -1 roll
+          q raise recshow unraise currentpoint pop Q exch
+          q lower recshow unlower currentpoint pop Q
+          maxval currentpoint exch pop m recshow } if
+
+        % Strikeout.
+        vg&cbyte 16#01 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick w
+          currentpoint 4 -2 roll fontsize 3 div add moveto
+          fontsize 3 div add lineto internalstroke Q
+          recshow} if
+
+        % Underline.
+        vg&cbyte 16#02 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick w
+          currentpoint 4 -2 roll vg&uoffset add moveto
+          vg&uoffset add lineto internalstroke Q
+          recshow} if
+
+        % Dashed underline.
+        vg&cbyte 16#03 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J [ vg&uthick 5 mul vg&uthick 2 mul] 0 d
+          vg&underline vg&uthick w
+          currentpoint 4 -2 roll vg&uoffset add moveto
+          vg&uoffset add lineto internalstroke Q
+          recshow} if
+
+        % Dotted underline.
+        vg&cbyte 16#04 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 1 J [ 0 vg&uthick 3 mul] 0 d
+          vg&underline vg&uthick w
+          currentpoint 4 -2 roll vg&uoffset add moveto
+          vg&uoffset add lineto internalstroke Q
+          recshow} if
+
+        % Thick underline.
+        vg&cbyte 16#05 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick 2 mul w
+          currentpoint 4 -2 roll vg&uoffset vg&uthick 2 div sub add moveto
+          vg&uoffset vg&uthick 2 div sub add lineto internalstroke Q
+          recshow} if
+
+        % Gray thick underline.
+        vg&cbyte 16#06 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick 2 mul w 0.5 setgray
+          currentpoint 4 -2 roll vg&uoffset vg&uthick 2 div sub add moveto
+          vg&uoffset vg&uthick 2 div sub add lineto internalstroke Q
+          recshow} if
+
+        % Overbar.
+        vg&cbyte 16#07 eq {
+          vg&token pop dup stringsize relative 4 1 roll pop pop exch
+          3 -1 roll recshow
+          q 0 J vg&underline vg&uthick w
+          vg&uoffset neg add dup currentpoint pop exch m l internalstroke Q
+          recshow} if
+      }
+      {
+        vg&fbyte vg&cbyte unicharshow recshow
+      } ifelse
+    } ifelse
+  } if
+} def
+
+% Get the underline position and thickness from the current font.
+/vg&underline {
+
+currentfont dup /FontType get 0 eq {/FDepVector get 0 get} if
+dup dup /FontInfo known {
+  /FontInfo get dup
+  dup /UnderlinePosition known {
+    /UnderlinePosition get /vg&uoffset exch def
+  }
+  {
+    pop /vg&uoffset 0 def
+  } ifelse
+  dup /UnderlineThickness known {
+    /UnderlineThickness get /vg&uthick exch def
+  }
+  {
+    pop /vg&uthick 0 def
+  } ifelse
+}
+{
+  pop /vg&uoffset 0 def /vg&uthick 0 def
+} ifelse
+/FontMatrix get
+currentfont dup /FontType get 0 eq
+{/FontMatrix get matrix concatmatrix}{pop} ifelse
+dup 0 vg&uoffset 3 -1 roll transform /vg&uoffset exch def pop
+0 vg&uthick 3 -1 roll transform /vg&uthick exch def pop
+} def
+
+% Make a frame with the coordinates on the stack.
+% <llx> <lly> <urx> <ury> frame --
+/frame {4 copy m 3 1 roll exch l 4 -2 roll l l h} def
+
+% Resets the accumulated bounding box to a degenerate box at the
+% current point.
+% -- resetbbox --
+/resetbbox {
+  currentpoint 2 copy
+  /bbury exch def
+  /bburx exch def
+  /bblly exch def
+  /bbllx exch def
+} def
+
+% Update the accumulated bounding box.
+% <llx'> <lly'> <urx'> <ury'> updatebbox --
+/updatebbox {
+  dup bbury gt {/bbury exch def} {pop} ifelse
+  dup bburx gt {/bburx exch def} {pop} ifelse
+  dup bblly lt {/bblly exch def} {pop} ifelse
+  dup bbllx lt {/bbllx exch def} {pop} ifelse
+} def
+
+% Set the bounding box to the values on the stack.
+% <llx'> <lly'> <urx'> <ury'> updatebbox --
+/restorebbox {
+  /bbury exch def /bburx exch def /bblly exch def /bbllx exch def
+} def
+
+% Push the accumulated bounding box onto the stack.
+% -- pushbbox <llx> <lly> <urx> <ury>
+/pushbbox {bbllx bblly bburx bbury} def
+
+% Make the relative bounding box relative to the currentpoint.
+% <llx'> <lly'> <urx'> <ury'> inflate <llx> <lly> <urx> <ury>
+/inflate {
+  2 {fontsize 0.2 mul add 4 1 roll} repeat
+  2 {fontsize 0.2 mul sub 4 1 roll} repeat
+} def
+
+% Make the relative bounding box relative to the currentpoint.
+% <llx'> <lly'> <urx'> <ury'> relative <llx> <lly> <urx> <ury>
+/relative {
+  currentpoint 3 -1 roll add 3 1 roll add exch 4 2 roll
+  currentpoint 3 -1 roll add 3 1 roll add exch 4 2 roll
+} def
+
+% Returns the size of a string appropriate for recshow.
+% <string> stringsize <llx> <lly> <urx> <ury>
+/stringsize {
+  pushbbox /internalshow load /internalstroke load 7 -1 roll
+  q
+  nulldevice 0 0 m
+  nullinternalshow nullinternalstroke
+  resetbbox
+  recshow
+  /internalstroke exch def /internalshow exch def
+  pushbbox 8 -4 roll restorebbox
+  Q
+} def
+
+% Calculate values for string positioning.
+/calcval {4 copy
+  3 -1 roll sub /widy exch def sub neg /widx exch def
+  pop pop /dy exch def /dx exch def} def
+
+% Utilities to position a string.
+% First letter (U=upper, C=center, B=baseline, L=lower)
+% Second letter (L=left, C=center, R=right)
+/align [
+{calcval dx neg widy dy add neg rmoveto} % UL
+{calcval dx neg widy 2 div dy add neg rmoveto} % CL
+{calcval dx neg 0 rmoveto} % BL
+{calcval dx neg dy neg rmoveto} % LL
+{calcval widx dx add neg widy dy add neg rmoveto} % UR
+{calcval widx dx add neg widy 2 div dy add neg rmoveto} % CR
+{calcval widx dx add neg 0 rmoveto} % BR
+{calcval widx dx add neg dy neg rmoveto} % LR
+{calcval widx 2 div dx add neg widy dy add neg rmoveto} % UC
+{calcval widx 2 div dx add neg widy 2 div dy add neg rmoveto} % CC
+{calcval widx 2 div dx add neg 0 rmoveto} % BC
+{calcval widx 2 div dx add neg dy neg rmoveto} % LC
+] def
+
+/vg&str {m q 1 -1 scale dup stringsize 4 copy align 11 -1 roll get exec
+         q inflate relative frame exch exec Q recshow Q} def
+
+end /procDict exch def
+%%EndProlog
+
+%%BeginSetup
+save
+procDict begin
+printColorMap begin
+595 791 setpagesize
+20 20 20 20 setmargins
+0 0 setorigin
+239 161 setsize
+fittopage
+portrait
+imagescale
+cliptobounds
+setbasematrix
+/Helvetica 10 sf
+defaultGraphicsState
+%%EndSetup
+
+0.0 0.0 0.0 RG
+[ 1.0 0.0 0.0 1.0 0.0 0.0 ] defaultmatrix matrix concatmatrix setmatrix
+1.0 w
+2 J
+0 j
+10.0 M
+[ ] 0.0 d
+1.0 1.0 1.0 RG
+0.0 0.0 239.0 161.0 rf
+0.0 0.0 0.0 RG
+q
+0 0 239 161 rc
+q
+1.0 1.0 1.0 RG
+0.0 0.0 239.0 161.0 rf
+Q
+q
+171.0 0.0 translate
+0 0 68 161 rc
+q
+q
+1.0 1.0 1.0 RG
+0.0 0.0 68.0 161.0 rf
+Q
+q
+3.0 80.0 translate
+0 0 62 14 rc
+q
+q
+gsave /DeviceRGB setcolorspace
+[ 19.0 0.0 0.0 12.0 0.0 1.0 ] concat
+<<
+/ImageType 1
+/Width 19  /Height 12
+/BitsPerComponent 8
+/Decode [0 1 0 1 0 1]
+/ImageMatrix [19 0 0 12 0 0]
+/DataSource currentfile /ASCII85Decode filter /FlateDecode filter 
+>> image
+Gar8O+<UM/*K1tt$tkNM#U'K9_@^t]U#nkN23J1E&jte0~>
+grestore
+23.0 11.0 moveto
+q 1 -1 scale
+9 dict begin
+/FontType 3 def
+/FontMatrix [0.0010 0 0 0.0010 0 0]def
+/FontBBox [0 -206 1549 1000 ] def
+	/Encoding 256 array def
+			0 1 255 {Encoding exch /.notdef put}for
+		Encoding 32 /space put
+		Encoding 33 /exclam put
+		Encoding 34 /quotedbl put
+		Encoding 35 /numbersign put
+		Encoding 36 /dollar put
+		Encoding 37 /percent put
+		Encoding 38 /ampersand put
+		Encoding 39 /quoteright put
+		Encoding 40 /parenleft put
+		Encoding 41 /parenright put
+		Encoding 42 /asterisk put
+		Encoding 43 /plus put
+		Encoding 44 /comma put
+		Encoding 45 /hyphen put
+		Encoding 46 /period put
+		Encoding 47 /slash put
+		Encoding 48 /zero put
+		Encoding 49 /one put
+		Encoding 50 /two put
+		Encoding 51 /three put
+		Encoding 52 /four put
+		Encoding 53 /five put
+		Encoding 54 /six put
+		Encoding 55 /seven put
+		Encoding 56 /eight put
+		Encoding 57 /nine put
+		Encoding 58 /colon put
+		Encoding 59 /semicolon put
+		Encoding 60 /less put
+		Encoding 61 /equal put
+		Encoding 62 /greater put
+		Encoding 63 /question put
+		Encoding 64 /at put
+		Encoding 65 /A put
+		Encoding 66 /B put
+		Encoding 67 /C put
+		Encoding 68 /D put
+		Encoding 69 /E put
+		Encoding 70 /F put
+		Encoding 71 /G put
+		Encoding 72 /H put
+		Encoding 73 /I put
+		Encoding 74 /J put
+		Encoding 75 /K put
+		Encoding 76 /L put
+		Encoding 77 /M put
+		Encoding 78 /N put
+		Encoding 79 /O put
+		Encoding 80 /P put
+		Encoding 81 /Q put
+		Encoding 82 /R put
+		Encoding 83 /S put
+		Encoding 84 /T put
+		Encoding 85 /U put
+		Encoding 86 /V put
+		Encoding 87 /W put
+		Encoding 88 /X put
+		Encoding 89 /Y put
+		Encoding 90 /Z put
+		Encoding 91 /bracketleft put
+		Encoding 92 /backslash put
+		Encoding 93 /bracketright put
+		Encoding 94 /asciicircum put
+		Encoding 95 /underscore put
+		Encoding 96 /quoteleft put
+		Encoding 97 /a put
+		Encoding 98 /b put
+		Encoding 99 /c put
+		Encoding 100 /d put
+		Encoding 101 /e put
+		Encoding 102 /f put
+		Encoding 103 /g put
+		Encoding 104 /h put
+		Encoding 105 /i put
+		Encoding 106 /j put
+		Encoding 107 /k put
+		Encoding 108 /l put
+		Encoding 109 /m put
+		Encoding 110 /n put
+		Encoding 111 /o put
+		Encoding 112 /p put
+		Encoding 113 /q put
+		Encoding 114 /r put
+		Encoding 115 /s put
+		Encoding 116 /t put
+		Encoding 117 /u put
+		Encoding 118 /v put
+		Encoding 119 /w put
+		Encoding 120 /x put
+		Encoding 121 /y put
+		Encoding 122 /z put
+		Encoding 123 /braceleft put
+		Encoding 124 /bar put
+		Encoding 125 /braceright put
+		Encoding 126 /asciitilde put
+		Encoding 161 /exclamdown put
+		Encoding 162 /cent put
+		Encoding 163 /sterling put
+		Encoding 164 /fraction put
+		Encoding 165 /yen put
+		Encoding 166 /florin put
+		Encoding 167 /section put
+		Encoding 168 /currency put
+		Encoding 169 /quotesingle put
+		Encoding 170 /quotedblleft put
+		Encoding 171 /guillemotleft put
+		Encoding 172 /guilsinglleft put
+		Encoding 173 /guilsinglright put
+		Encoding 174 /fi put
+		Encoding 175 /fl put
+		Encoding 177 /endash put
+		Encoding 178 /dagger put
+		Encoding 179 /daggerdbl put
+		Encoding 180 /periodcentered put
+		Encoding 182 /paragraph put
+		Encoding 183 /bullet put
+		Encoding 184 /quotesinglbase put
+		Encoding 185 /quotedblbase put
+		Encoding 186 /quotedblright put
+		Encoding 187 /guillemotright put
+		Encoding 188 /ellipsis put
+		Encoding 189 /perthousand put
+		Encoding 191 /questiondown put
+		Encoding 193 /grave put
+		Encoding 194 /acute put
+		Encoding 195 /circumflex put
+		Encoding 196 /tilde put
+		Encoding 197 /macron put
+		Encoding 198 /breve put
+		Encoding 199 /dotaccent put
+		Encoding 200 /dieresis put
+		Encoding 202 /ring put
+		Encoding 203 /cedilla put
+		Encoding 205 /hungarumlaut put
+		Encoding 206 /ogonek put
+		Encoding 207 /caron put
+		Encoding 208 /emdash put
+		Encoding 225 /AE put
+		Encoding 227 /ordfeminine put
+		Encoding 232 /Lslash put
+		Encoding 233 /Oslash put
+		Encoding 234 /OE put
+		Encoding 235 /ordmasculine put
+		Encoding 241 /ae put
+		Encoding 245 /dotlessi put
+		Encoding 248 /lslash put
+		Encoding 249 /oslash put
+		Encoding 250 /oe put
+		Encoding 251 /germandbls put
+	/BuildGlyph
+		{ 2 copy exch /Metrics get exch 
+			2 copy known {get}{pop pop 1000.0} ifelse
+			0
+			0 -206 1549 1000
+			setcachedevice
+			exch /CharProcs get exch
+			2 copy known not
+					{pop /.notdef}
+				if
+			get exec
+		} bind def
+
+	/BuildChar
+		{ 1 index /Encoding get exch get
+		  1 index /BuildGlyph get exec
+	  } bind def
+	/Metrics 150 dict def
+		Metrics begin
+		/.notdef 1000 def
+		/space 312.5 def
+		/exclam 332.03125 def
+		/quotedbl 401.3671875 def
+		/numbersign 727.5390625 def
+		/dollar 545.8984375 def
+		/percent 976.5625 def
+		/ampersand 673.828125 def
+		/quoteright 210.9375 def
+		/parenleft 382.8125 def
+		/parenright 382.8125 def
+		/asterisk 545.8984375 def
+		/plus 727.5390625 def
+		/comma 302.734375 def
+		/hyphen 363.28125 def
+		/period 302.734375 def
+		/slash 382.32421875 def
+		/zero 545.8984375 def
+		/one 545.8984375 def
+		/two 545.8984375 def
+		/three 545.8984375 def
+		/four 545.8984375 def
+		/five 545.8984375 def
+		/six 545.8984375 def
+		/seven 545.8984375 def
+		/eight 545.8984375 def
+		/nine 545.8984375 def
+		/colon 353.515625 def
+		/semicolon 353.515625 def
+		/less 727.5390625 def
+		/equal 727.5390625 def
+		/greater 727.5390625 def
+		/question 473.6328125 def
+		/at 909.1796875 def
+		/A 599.609375 def
+		/B 589.35546875 def
+		/C 600.5859375 def
+		/D 678.22265625 def
+		/E 561.03515625 def
+		/F 521.484375 def
+		/G 667.48046875 def
+		/H 675.29296875 def
+		/I 373.046875 def
+		/J 416.50390625 def
+		/K 587.890625 def
+		/L 497.55859375 def
+		/M 770.5078125 def
+		/N 667.48046875 def
+		/O 707.51953125 def
+		/P 551.26953125 def
+		/Q 707.51953125 def
+		/R 620.60546875 def
+		/S 557.12890625 def
+		/T 583.984375 def
+		/U 655.76171875 def
+		/V 596.6796875 def
+		/W 901.85546875 def
+		/X 580.56640625 def
+		/Y 576.171875 def
+		/Z 559.08203125 def
+		/bracketleft 382.8125 def
+		/backslash 382.32421875 def
+		/bracketright 382.8125 def
+		/asciicircum 727.5390625 def
+		/underscore 545.8984375 def
+		/quoteleft 545.8984375 def
+		/a 524.90234375 def
+		/b 552.734375 def
+		/c 461.42578125 def
+		/d 552.734375 def
+		/e 526.3671875 def
+		/f 318.359375 def
+		/g 552.734375 def
+		/h 557.6171875 def
+		/i 228.515625 def
+		/j 281.73828125 def
+		/k 498.046875 def
+		/l 228.515625 def
+		/m 839.84375 def
+		/n 557.6171875 def
+		/o 542.96875 def
+		/p 552.734375 def
+		/q 552.734375 def
+		/r 360.3515625 def
+		/s 446.2890625 def
+		/t 334.47265625 def
+		/u 557.6171875 def
+		/v 498.046875 def
+		/w 742.1875 def
+		/x 495.1171875 def
+		/y 498.046875 def
+		/z 444.3359375 def
+		/braceleft 480.46875 def
+		/bar 382.32421875 def
+		/braceright 480.46875 def
+		/asciitilde 727.5390625 def
+		/exclamdown 332.03125 def
+		/cent 545.8984375 def
+		/sterling 545.8984375 def
+		/fraction 432.6171875 def
+		/yen 545.8984375 def
+		/florin 545.8984375 def
+		/section 545.8984375 def
+		/currency 545.8984375 def
+		/quotesingle 210.9375 def
+		/quotedblleft 401.3671875 def
+		/guillemotleft 573.2421875 def
+		/guilsinglleft 382.8125 def
+		/guilsinglright 382.8125 def
+		/fi 533.203125 def
+		/fl 530.2734375 def
+		/endash 363.28125 def
+		/dagger 545.8984375 def
+		/daggerdbl 545.8984375 def
+		/periodcentered 353.515625 def
+		/paragraph 545.8984375 def
+		/bullet 454.58984375 def
+		/quotesinglbase 210.9375 def
+		/quotedblbase 397.4609375 def
+		/quotedblright 401.3671875 def
+		/guillemotright 573.2421875 def
+		/ellipsis 817.3828125 def
+		/perthousand 1390.625 def
+		/questiondown 473.6328125 def
+		/grave 545.8984375 def
+		/acute 545.8984375 def
+		/circumflex 545.8984375 def
+		/tilde 545.8984375 def
+		/macron 545.8984375 def
+		/breve 545.8984375 def
+		/dotaccent 545.8984375 def
+		/dieresis 545.8984375 def
+		/ring 545.8984375 def
+		/cedilla 545.8984375 def
+		/hungarumlaut 474.609375 def
+		/ogonek 545.8984375 def
+		/caron 545.8984375 def
+		/emdash 363.28125 def
+		/AE 913.0859375 def
+		/ordfeminine 493.1640625 def
+		/Lslash 517.578125 def
+		/Oslash 707.51953125 def
+		/OE 976.5625 def
+		/ordmasculine 493.1640625 def
+		/ae 879.8828125 def
+		/dotlessi 228.515625 def
+		/lslash 274.4140625 def
+		/oslash 542.96875 def
+		/oe 908.69140625 def
+		/germandbls 548.33984375 def
+	end
+	/CharProcs 150 dict def
+	CharProcs begin
+			%define Glyph dictionary and start filling
+	/space
+		{
+fill
+		} def
+
+	/exclam
+		{
+220 727 moveto
+207 200 lineto
+125 200 lineto
+111 727 lineto
+220 727 lineto
+closepath
+215 0 moveto
+116 0 lineto
+116 103 lineto
+215 103 lineto
+215 0 lineto
+closepath
+fill
+		} def
+
+	/quotedbl
+		{
+345 759 moveto
+324 477 lineto
+260 477 lineto
+239 759 lineto
+345 759 lineto
+closepath
+162 759 moveto
+141 477 lineto
+76 477 lineto
+55 759 lineto
+162 759 lineto
+closepath
+fill
+		} def
+
+	/numbersign
+		{
+658 455 moveto
+515 455 lineto
+470 271 lineto
+601 271 lineto
+601 205 lineto
+453 205 lineto
+401 0 lineto
+338 0 lineto
+390 205 lineto
+258 205 lineto
+207 0 lineto
+144 0 lineto
+195 205 lineto
+69 205 lineto
+69 271 lineto
+212 271 lineto
+257 455 lineto
+126 455 lineto
+126 521 lineto
+274 521 lineto
+325 727 lineto
+388 727 lineto
+337 521 lineto
+469 521 lineto
+520 727 lineto
+583 727 lineto
+532 521 lineto
+658 521 lineto
+658 455 lineto
+closepath
+453 456 moveto
+319 456 lineto
+273 270 lineto
+407 270 lineto
+453 456 lineto
+closepath
+fill
+		} def
+
+	/dollar
+		{
+500 185 moveto
+500 137 481 96 445 62  curveto
+408 27 362 7 306 0  curveto
+306 -176 lineto
+250 -176 lineto
+250 -1 lineto
+215 -1 180 2 144 10  curveto
+109 18 78 28 51 41  curveto
+51 140 lineto
+59 140 lineto
+84 120 113 105 146 93  curveto
+178 81 213 73 250 70  curveto
+250 281 lineto
+242 283 232 285 221 288  curveto
+209 291 199 293 191 296  curveto
+142 309 107 329 86 356  curveto
+65 383 55 417 55 456  curveto
+55 502 73 542 109 577  curveto
+145 611 192 631 250 636  curveto
+250 769 lineto
+306 769 lineto
+306 637 lineto
+336 636 366 632 398 625  curveto
+430 617 456 609 476 601  curveto
+476 504 lineto
+469 504 lineto
+446 520 421 533 394 545  curveto
+367 557 337 564 306 566  curveto
+306 356 lineto
+317 354 327 352 336 349  curveto
+345 347 354 345 360 343  curveto
+405 333 439 315 463 289  curveto
+487 263 500 229 500 185  curveto
+closepath
+250 364 moveto
+250 566 lineto
+221 563 197 554 177 537  curveto
+157 521 147 498 147 469  curveto
+147 440 154 417 169 402  curveto
+183 386 210 373 250 364  curveto
+closepath
+407 172 moveto
+407 203 399 226 384 240  curveto
+368 255 342 266 306 273  curveto
+306 71 lineto
+339 75 364 85 382 101  curveto
+399 117 407 141 407 172  curveto
+closepath
+fill
+		} def
+
+	/percent
+		{
+394 525 moveto
+394 452 379 397 349 362  curveto
+320 327 277 309 222 309  curveto
+165 309 122 327 93 363  curveto
+64 399 49 452 49 524  curveto
+49 597 64 652 94 687  curveto
+123 722 166 740 222 740  curveto
+278 740 321 722 350 687  curveto
+379 651 394 597 394 525  curveto
+closepath
+719 727 moveto
+338 0 lineto
+257 0 lineto
+638 727 lineto
+719 727 lineto
+closepath
+926 201 moveto
+926 128 911 74 882 38  curveto
+852 3 810 -14 754 -14  curveto
+697 -14 654 3 625 39  curveto
+596 75 582 129 582 201  curveto
+582 274 596 328 626 363  curveto
+656 399 698 417 754 417  curveto
+811 417 853 399 882 363  curveto
+911 327 926 273 926 201  curveto
+closepath
+307 525 moveto
+307 574 301 612 289 637  curveto
+278 663 255 675 222 675  curveto
+188 675 166 662 154 637  curveto
+142 611 136 574 136 524  curveto
+136 476 142 438 153 413  curveto
+164 387 187 374 222 374  curveto
+255 374 278 387 289 413  curveto
+301 438 307 476 307 525  curveto
+closepath
+839 201 moveto
+839 251 833 288 822 313  curveto
+810 339 787 352 754 352  curveto
+720 352 698 339 686 313  curveto
+674 287 668 250 668 201  curveto
+668 152 674 115 685 89  curveto
+696 63 719 50 754 50  curveto
+787 50 810 63 822 89  curveto
+833 115 839 152 839 201  curveto
+closepath
+fill
+		} def
+
+	/ampersand
+		{
+705 0 moveto
+580 0 lineto
+480 104 lineto
+447 61 413 31 378 12  curveto
+343 -5 304 -15 259 -15  curveto
+194 -15 139 4 96 44  curveto
+54 83 32 135 32 199  curveto
+32 227 36 252 44 274  curveto
+52 296 62 315 75 333  curveto
+88 350 103 365 119 378  curveto
+136 391 152 402 167 411  curveto
+134 433 110 457 93 481  curveto
+77 505 69 536 69 573  curveto
+69 596 73 618 83 637  curveto
+92 657 104 674 119 689  curveto
+135 705 155 717 180 727  curveto
+205 737 232 742 262 742  curveto
+316 742 360 727 394 699  curveto
+428 670 445 634 445 591  curveto
+445 575 443 558 439 541  curveto
+435 524 428 508 417 492  curveto
+406 476 392 461 375 447  curveto
+357 433 334 421 305 410  curveto
+477 233 lineto
+482 260 484 289 485 321  curveto
+486 352 487 393 487 443  curveto
+582 443 lineto
+582 396 lineto
+582 365 578 330 570 291  curveto
+562 252 549 214 531 179  curveto
+705 0 lineto
+closepath
+438 146 moveto
+213 376 lineto
+205 371 197 365 189 358  curveto
+181 351 172 340 162 326  curveto
+154 314 147 299 141 281  curveto
+135 263 132 243 132 223  curveto
+132 176 146 138 174 109  curveto
+201 79 238 64 285 64  curveto
+316 64 345 71 370 84  curveto
+395 97 417 118 438 146  curveto
+closepath
+259 445 moveto
+277 451 293 459 304 470  curveto
+316 480 326 492 332 504  curveto
+338 515 342 527 345 540  curveto
+348 553 350 566 350 581  curveto
+350 613 340 637 322 654  curveto
+304 672 282 680 258 680  curveto
+229 680 206 670 189 651  curveto
+173 631 165 607 165 578  curveto
+165 565 166 553 168 544  curveto
+171 535 176 524 184 512  curveto
+190 502 200 491 212 479  curveto
+224 468 240 457 259 445  curveto
+closepath
+fill
+		} def
+
+	/quoteright
+		{
+159 759 moveto
+138 477 lineto
+72 477 lineto
+51 759 lineto
+159 759 lineto
+closepath
+fill
+		} def
+
+	/parenleft
+		{
+346 -201 moveto
+234 -201 lineto
+178 -133 133 -62 101 12  curveto
+68 87 52 176 52 279  curveto
+52 379 68 467 100 544  curveto
+132 620 177 692 234 759  curveto
+346 759 lineto
+346 754 lineto
+320 731 295 703 271 672  curveto
+247 641 225 605 204 563  curveto
+185 523 169 479 156 431  curveto
+144 383 138 332 138 279  curveto
+138 223 144 172 156 126  curveto
+168 80 184 36 204 -5  curveto
+224 -45 246 -81 271 -114  curveto
+296 -146 321 -173 346 -196  curveto
+346 -201 lineto
+closepath
+fill
+		} def
+
+	/parenright
+		{
+330 279 moveto
+330 178 313 90 281 14  curveto
+249 -62 204 -133 147 -201  curveto
+36 -201 lineto
+36 -196 lineto
+61 -173 86 -146 111 -113  curveto
+137 -80 159 -44 178 -5  curveto
+198 36 214 80 226 127  curveto
+238 174 244 224 244 279  curveto
+244 333 238 383 226 431  curveto
+214 479 198 523 178 563  curveto
+158 604 135 640 110 672  curveto
+85 705 60 732 36 754  curveto
+36 759 lineto
+147 759 lineto
+204 692 249 620 281 544  curveto
+313 469 330 380 330 279  curveto
+closepath
+fill
+		} def
+
+	/asterisk
+		{
+491 433 moveto
+459 379 lineto
+300 485 lineto
+303 307 lineto
+242 307 lineto
+245 485 lineto
+86 378 lineto
+54 432 lineto
+227 533 lineto
+54 634 lineto
+86 688 lineto
+246 581 lineto
+242 759 lineto
+303 759 lineto
+299 581 lineto
+459 687 lineto
+491 634 lineto
+318 534 lineto
+491 433 lineto
+closepath
+fill
+		} def
+
+	/plus
+		{
+650 279 moveto
+404 279 lineto
+404 32 lineto
+323 32 lineto
+323 279 lineto
+76 279 lineto
+76 357 lineto
+323 357 lineto
+323 604 lineto
+404 604 lineto
+404 357 lineto
+650 357 lineto
+650 279 lineto
+closepath
+fill
+		} def
+
+	/comma
+		{
+244 139 moveto
+107 -180 lineto
+36 -180 lineto
+122 139 lineto
+244 139 lineto
+closepath
+fill
+		} def
+
+	/hyphen
+		{
+319 273 moveto
+43 273 lineto
+43 362 lineto
+319 362 lineto
+319 273 lineto
+closepath
+fill
+		} def
+
+	/period
+		{
+209 0 moveto
+92 0 lineto
+92 139 lineto
+209 139 lineto
+209 0 lineto
+closepath
+fill
+		} def
+
+	/slash
+		{
+355 759 moveto
+70 -158 lineto
+-11 -158 lineto
+271 759 lineto
+355 759 lineto
+closepath
+fill
+		} def
+
+	/zero
+		{
+505 363 moveto
+505 233 486 137 448 76  curveto
+410 15 352 -15 272 -15  curveto
+192 -15 134 15 96 78  curveto
+59 140 40 235 40 362  curveto
+40 493 59 589 97 650  curveto
+135 711 193 741 272 741  curveto
+353 741 411 710 449 647  curveto
+486 584 505 490 505 363  curveto
+closepath
+380 142 moveto
+389 166 396 196 400 233  curveto
+404 270 406 313 406 363  curveto
+406 413 404 456 400 493  curveto
+396 530 389 561 379 585  curveto
+370 610 356 628 339 641  curveto
+322 654 300 661 272 661  curveto
+245 661 223 654 206 641  curveto
+188 628 175 609 165 584  curveto
+155 559 148 528 145 490  curveto
+141 452 139 410 139 362  curveto
+139 312 141 269 144 235  curveto
+147 201 154 170 164 143  curveto
+173 118 187 99 204 85  curveto
+222 72 244 65 272 65  curveto
+299 65 322 71 339 84  curveto
+357 97 370 116 380 142  curveto
+closepath
+fill
+		} def
+
+	/one
+		{
+464 0 moveto
+110 0 lineto
+110 74 lineto
+242 74 lineto
+242 561 lineto
+110 561 lineto
+110 627 lineto
+160 627 196 635 220 649  curveto
+244 663 257 690 260 729  curveto
+335 729 lineto
+335 74 lineto
+464 74 lineto
+464 0 lineto
+closepath
+fill
+		} def
+
+	/two
+		{
+501 0 moveto
+53 0 lineto
+53 102 lineto
+85 132 115 161 144 189  curveto
+173 217 201 247 228 277  curveto
+283 338 321 386 341 423  curveto
+361 460 372 498 372 537  curveto
+372 557 368 575 362 590  curveto
+356 605 347 618 336 628  curveto
+325 638 311 645 296 650  curveto
+281 655 265 657 247 657  curveto
+230 657 212 655 195 651  curveto
+177 646 160 641 144 634  curveto
+130 629 117 622 104 614  curveto
+91 606 81 600 73 594  curveto
+68 594 lineto
+68 698 lineto
+88 708 116 718 152 727  curveto
+188 737 222 742 254 742  curveto
+322 742 375 724 414 688  curveto
+452 652 471 603 471 542  curveto
+471 513 468 487 461 463  curveto
+454 439 445 416 434 396  curveto
+422 375 407 354 390 333  curveto
+373 312 355 292 336 271  curveto
+306 238 272 204 234 168  curveto
+197 132 166 104 144 83  curveto
+501 83 lineto
+501 0 lineto
+closepath
+fill
+		} def
+
+	/three
+		{
+249 657 moveto
+231 657 214 655 196 651  curveto
+179 647 161 641 145 634  curveto
+129 628 115 621 104 614  curveto
+92 607 82 600 73 594  curveto
+67 594 lineto
+67 697 lineto
+88 708 117 718 153 728  curveto
+189 737 224 742 257 742  curveto
+290 742 318 738 343 732  curveto
+368 725 390 715 410 701  curveto
+431 685 447 666 458 644  curveto
+469 622 475 596 475 566  curveto
+475 526 461 491 435 461  curveto
+409 431 377 411 340 403  curveto
+340 396 lineto
+356 394 372 388 389 381  curveto
+407 374 423 364 438 350  curveto
+453 336 465 318 475 296  curveto
+484 274 489 247 489 215  curveto
+489 182 483 152 472 125  curveto
+461 97 445 73 424 52  curveto
+403 30 378 13 348 1  curveto
+318 -9 284 -15 246 -15  curveto
+209 -15 173 -10 137 -1  curveto
+101 6 71 17 47 29  curveto
+47 132 lineto
+54 132 lineto
+74 117 102 103 136 89  curveto
+171 76 205 69 240 69  curveto
+260 69 280 72 300 78  curveto
+320 85 336 95 350 109  curveto
+363 124 373 139 379 157  curveto
+386 174 390 196 390 222  curveto
+390 249 386 270 378 287  curveto
+371 304 360 317 346 327  curveto
+333 337 316 344 298 347  curveto
+279 351 259 353 237 353  curveto
+195 353 lineto
+195 434 lineto
+228 434 lineto
+271 434 307 444 335 465  curveto
+362 486 376 516 376 556  curveto
+376 574 372 590 365 603  curveto
+358 616 349 627 338 635  curveto
+326 643 312 649 297 652  curveto
+282 656 266 657 249 657  curveto
+closepath
+fill
+		} def
+
+	/four
+		{
+521 250 moveto
+434 250 lineto
+434 0 lineto
+340 0 lineto
+340 250 lineto
+19 250 lineto
+19 352 lineto
+344 727 lineto
+434 727 lineto
+434 328 lineto
+521 328 lineto
+521 250 lineto
+closepath
+340 328 moveto
+340 612 lineto
+95 328 lineto
+340 328 lineto
+closepath
+fill
+		} def
+
+	/five
+		{
+493 231 moveto
+493 196 488 163 476 133  curveto
+465 103 449 77 429 56  curveto
+409 34 383 16 353 3  curveto
+322 -8 288 -15 250 -15  curveto
+216 -15 181 -11 148 -3  curveto
+114 3 85 14 60 26  curveto
+60 129 lineto
+67 129 lineto
+74 123 85 117 99 110  curveto
+113 103 129 97 146 90  curveto
+165 83 182 78 198 74  curveto
+214 71 232 69 252 69  curveto
+271 69 291 72 309 79  curveto
+328 86 344 98 357 113  curveto
+369 128 378 144 385 164  curveto
+391 183 394 205 394 231  curveto
+394 257 391 278 384 295  curveto
+377 312 366 325 353 336  curveto
+339 348 322 357 302 362  curveto
+281 367 258 370 233 370  curveto
+207 370 180 368 154 364  curveto
+127 359 106 356 90 352  curveto
+90 727 lineto
+489 727 lineto
+489 641 lineto
+184 641 lineto
+184 448 lineto
+196 449 207 450 219 451  curveto
+230 451 241 452 250 452  curveto
+287 452 319 449 344 442  curveto
+370 436 395 424 418 406  curveto
+443 388 461 365 474 338  curveto
+487 311 493 275 493 231  curveto
+closepath
+fill
+		} def
+
+	/six
+		{
+513 235 moveto
+513 198 507 163 494 132  curveto
+482 100 465 74 444 53  curveto
+423 30 398 13 371 2  curveto
+344 -9 314 -15 282 -15  curveto
+249 -15 219 -9 192 1  curveto
+165 12 142 28 121 50  curveto
+96 77 76 112 62 156  curveto
+48 200 41 254 41 319  curveto
+41 382 48 439 61 490  curveto
+74 541 94 585 121 623  curveto
+147 660 181 689 223 709  curveto
+264 730 312 740 367 740  curveto
+383 740 399 739 413 738  curveto
+427 736 439 734 450 730  curveto
+450 637 lineto
+445 637 lineto
+437 642 424 646 407 650  curveto
+391 654 373 656 354 656  curveto
+293 656 245 636 207 595  curveto
+170 554 148 493 141 413  curveto
+164 429 188 442 212 451  curveto
+237 459 264 464 292 464  curveto
+321 464 346 461 367 455  curveto
+388 450 410 438 434 421  curveto
+460 401 480 375 493 344  curveto
+506 313 513 277 513 235  curveto
+closepath
+414 231 moveto
+414 261 410 286 402 307  curveto
+394 327 381 344 364 358  curveto
+351 369 337 376 321 379  curveto
+304 382 288 384 271 384  curveto
+248 384 226 380 205 374  curveto
+183 367 162 357 141 344  curveto
+140 337 140 330 140 323  curveto
+139 316 139 308 139 298  curveto
+139 247 144 207 154 176  curveto
+164 145 176 121 191 105  curveto
+205 90 219 79 234 73  curveto
+249 67 265 64 282 64  curveto
+321 64 353 78 377 106  curveto
+401 134 414 176 414 231  curveto
+closepath
+fill
+		} def
+
+	/seven
+		{
+509 618 moveto
+195 0 lineto
+91 0 lineto
+424 641 lineto
+48 641 lineto
+48 727 lineto
+509 727 lineto
+509 618 lineto
+closepath
+fill
+		} def
+
+	/eight
+		{
+396 557 moveto
+396 590 385 617 363 639  curveto
+341 660 311 671 272 671  curveto
+236 671 207 662 185 642  curveto
+162 623 151 596 151 563  curveto
+151 539 157 519 168 502  curveto
+180 485 197 470 220 457  curveto
+230 451 246 444 266 434  curveto
+287 424 306 417 323 411  curveto
+351 433 370 455 380 478  curveto
+390 501 396 528 396 557  curveto
+closepath
+409 193 moveto
+409 223 403 247 392 264  curveto
+380 282 357 300 324 318  curveto
+313 324 298 331 280 338  curveto
+261 345 240 354 217 363  curveto
+190 345 170 323 155 297  curveto
+141 271 134 241 134 208  curveto
+134 164 147 127 174 99  curveto
+200 70 233 56 273 56  curveto
+314 56 347 68 372 93  curveto
+397 117 409 151 409 193  curveto
+closepath
+272 -16 moveto
+236 -16 203 -11 174 0  curveto
+144 10 119 25 98 45  curveto
+78 65 62 88 52 115  curveto
+41 142 36 170 36 200  curveto
+36 240 46 276 67 309  curveto
+88 342 119 368 159 388  curveto
+159 391 lineto
+123 411 96 434 79 459  curveto
+62 484 53 515 53 552  curveto
+53 606 74 652 115 688  curveto
+157 725 209 743 272 743  curveto
+339 743 392 726 431 691  curveto
+471 656 491 612 491 558  curveto
+491 526 482 493 463 461  curveto
+444 430 416 405 380 387  curveto
+380 384 lineto
+423 364 455 340 477 312  curveto
+498 283 509 247 509 202  curveto
+509 140 487 88 442 46  curveto
+397 4 340 -16 272 -16  curveto
+closepath
+fill
+		} def
+
+	/nine
+		{
+406 428 moveto
+406 477 401 517 392 549  curveto
+383 580 370 604 354 621  curveto
+340 636 326 647 311 653  curveto
+296 659 280 662 263 662  curveto
+223 662 191 647 167 619  curveto
+143 590 131 548 131 494  curveto
+131 464 135 438 143 418  curveto
+151 399 164 381 181 367  curveto
+194 357 208 350 223 347  curveto
+239 343 256 342 273 342  curveto
+294 342 317 345 341 353  curveto
+365 360 386 370 404 382  curveto
+404 387 405 393 405 401  curveto
+406 409 406 418 406 428  curveto
+closepath
+32 490 moveto
+32 528 38 562 51 593  curveto
+63 624 79 650 101 673  curveto
+121 694 145 711 175 723  curveto
+204 735 233 741 263 741  curveto
+297 741 327 736 354 724  curveto
+381 713 405 697 425 676  curveto
+450 649 469 614 483 571  curveto
+497 527 504 473 504 407  curveto
+504 347 497 289 484 236  curveto
+470 182 450 137 424 102  curveto
+396 64 362 35 323 15  curveto
+284 -4 235 -14 178 -14  curveto
+165 -14 151 -13 136 -11  curveto
+122 -10 108 -7 95 -3  curveto
+95 89 lineto
+100 89 lineto
+108 84 121 80 138 76  curveto
+155 71 173 69 191 69  curveto
+255 69 305 90 341 132  curveto
+378 174 398 234 403 312  curveto
+377 295 352 282 329 274  curveto
+305 266 280 262 252 262  curveto
+225 262 200 265 178 270  curveto
+156 276 134 288 111 305  curveto
+85 325 66 350 52 380  curveto
+39 411 32 447 32 490  curveto
+closepath
+fill
+		} def
+
+	/colon
+		{
+235 406 moveto
+118 406 lineto
+118 545 lineto
+235 545 lineto
+235 406 lineto
+closepath
+235 0 moveto
+118 0 lineto
+118 139 lineto
+235 139 lineto
+235 0 lineto
+closepath
+fill
+		} def
+
+	/semicolon
+		{
+235 406 moveto
+118 406 lineto
+118 545 lineto
+235 545 lineto
+235 406 lineto
+closepath
+267 139 moveto
+130 -180 lineto
+59 -180 lineto
+145 139 lineto
+267 139 lineto
+closepath
+fill
+		} def
+
+	/less
+		{
+622 38 moveto
+98 289 lineto
+98 347 lineto
+622 598 lineto
+622 511 lineto
+215 318 lineto
+622 125 lineto
+622 38 lineto
+closepath
+fill
+		} def
+
+	/equal
+		{
+633 381 moveto
+93 381 lineto
+93 459 lineto
+633 459 lineto
+633 381 lineto
+closepath
+633 176 moveto
+93 176 lineto
+93 254 lineto
+633 254 lineto
+633 176 lineto
+closepath
+fill
+		} def
+
+	/greater
+		{
+629 289 moveto
+104 38 lineto
+104 125 lineto
+511 318 lineto
+104 511 lineto
+104 598 lineto
+629 347 lineto
+629 289 lineto
+closepath
+fill
+		} def
+
+	/question
+		{
+445 556 moveto
+445 524 440 495 429 470  curveto
+418 446 404 424 387 405  curveto
+369 386 349 368 327 353  curveto
+305 337 281 321 256 306  curveto
+256 195 lineto
+169 195 lineto
+169 344 lineto
+187 355 208 368 233 384  curveto
+257 399 276 413 290 427  curveto
+307 443 321 462 331 481  curveto
+340 501 345 523 345 548  curveto
+345 585 334 613 311 631  curveto
+287 649 257 658 220 658  curveto
+188 658 157 652 128 641  curveto
+99 630 76 619 58 607  curveto
+53 607 lineto
+53 707 lineto
+75 716 102 724 135 731  curveto
+168 738 200 741 229 741  curveto
+296 741 349 724 387 690  curveto
+426 656 445 611 445 556  curveto
+closepath
+264 0 moveto
+165 0 lineto
+165 103 lineto
+264 103 lineto
+264 0 lineto
+closepath
+fill
+		} def
+
+	/at
+		{
+849 323 moveto
+849 278 842 234 830 192  curveto
+818 150 800 111 777 76  curveto
+571 76 lineto
+559 133 lineto
+537 114 517 100 499 89  curveto
+480 78 455 72 424 72  curveto
+374 72 333 92 301 133  curveto
+269 173 253 231 253 308  curveto
+253 384 273 444 312 486  curveto
+351 529 396 550 446 550  curveto
+470 550 490 547 507 541  curveto
+524 536 541 528 558 518  curveto
+558 542 lineto
+636 542 lineto
+636 130 lineto
+747 130 lineto
+759 153 768 183 773 220  curveto
+779 257 781 290 781 320  curveto
+781 427 754 512 700 577  curveto
+646 642 568 675 466 675  curveto
+370 675 290 640 228 570  curveto
+165 499 134 414 134 314  curveto
+134 207 164 120 225 53  curveto
+286 -12 366 -45 464 -45  curveto
+490 -45 518 -44 547 -40  curveto
+576 -36 604 -31 630 -23  curveto
+630 -92 lineto
+603 -99 575 -103 547 -106  curveto
+518 -109 491 -110 463 -110  curveto
+348 -110 253 -70 177 8  curveto
+102 87 64 189 64 315  curveto
+64 435 103 536 181 618  curveto
+259 700 354 741 466 741  curveto
+586 741 679 702 747 625  curveto
+815 547 849 447 849 323  curveto
+closepath
+557 199 moveto
+557 452 lineto
+539 461 522 468 507 472  curveto
+492 476 476 478 459 478  curveto
+422 478 393 464 370 437  curveto
+348 409 336 367 336 309  curveto
+336 257 345 217 362 189  curveto
+379 162 406 148 443 148  curveto
+463 148 482 153 502 162  curveto
+521 172 540 184 557 199  curveto
+closepath
+fill
+		} def
+
+	/A
+		{
+-4 0 moveto
+240 727 lineto
+359 727 lineto
+604 0 lineto
+502 0 lineto
+436 203 lineto
+158 203 lineto
+92 0 lineto
+-4 0 lineto
+closepath
+409 285 moveto
+297 628 lineto
+185 285 lineto
+409 285 lineto
+closepath
+fill
+		} def
+
+	/B
+		{
+566 223 moveto
+566 187 560 155 546 127  curveto
+532 99 514 76 491 59  curveto
+463 37 434 22 403 13  curveto
+372 4 331 0 282 0  curveto
+73 0 lineto
+73 727 lineto
+266 727 lineto
+318 727 357 725 383 721  curveto
+408 718 433 710 457 697  curveto
+483 683 502 665 514 642  curveto
+526 620 532 593 532 562  curveto
+532 528 523 498 505 471  curveto
+487 444 462 423 430 407  curveto
+430 403 lineto
+473 392 507 370 531 339  curveto
+555 308 566 269 566 223  curveto
+closepath
+432 549 moveto
+432 566 429 582 423 594  curveto
+417 607 408 618 395 625  curveto
+379 634 361 639 342 641  curveto
+323 643 297 644 263 644  curveto
+170 644 lineto
+170 431 lineto
+280 431 lineto
+310 431 332 433 347 436  curveto
+361 439 376 445 391 455  curveto
+406 465 416 477 422 492  curveto
+429 507 432 526 432 549  curveto
+closepath
+466 219 moveto
+466 246 462 269 454 286  curveto
+446 304 430 319 407 332  curveto
+391 340 375 345 357 347  curveto
+339 349 313 351 280 351  curveto
+170 351 lineto
+170 82 lineto
+249 82 lineto
+291 82 324 84 349 88  curveto
+373 92 395 100 413 113  curveto
+431 125 445 140 453 156  curveto
+462 172 466 193 466 219  curveto
+closepath
+fill
+		} def
+
+	/C
+		{
+357 -13 moveto
+310 -13 266 -5 226 10  curveto
+186 26 152 50 123 82  curveto
+94 113 72 152 56 200  curveto
+40 247 32 301 32 362  curveto
+32 423 39 476 55 521  curveto
+70 567 93 606 123 640  curveto
+152 672 186 697 226 714  curveto
+265 731 310 740 359 740  curveto
+383 740 406 738 427 734  curveto
+449 731 469 726 487 721  curveto
+502 716 518 710 535 702  curveto
+551 695 568 687 583 678  curveto
+583 562 lineto
+576 562 lineto
+567 569 556 579 543 590  curveto
+530 601 513 612 494 623  curveto
+476 633 455 641 434 647  curveto
+412 654 387 657 358 657  curveto
+327 657 298 651 270 638  curveto
+242 625 218 607 197 582  curveto
+177 557 161 526 149 489  curveto
+138 451 132 409 132 362  curveto
+132 312 138 270 150 234  curveto
+162 198 179 167 200 143  curveto
+220 118 244 100 271 88  curveto
+298 76 327 70 358 70  curveto
+386 70 412 73 436 80  curveto
+459 87 480 96 499 106  curveto
+517 116 532 126 545 137  curveto
+558 148 569 157 576 164  curveto
+583 164 lineto
+583 49 lineto
+568 41 552 34 538 27  curveto
+524 20 507 14 487 7  curveto
+466 0 446 -4 428 -7  curveto
+410 -11 386 -13 357 -13  curveto
+closepath
+fill
+		} def
+
+	/D
+		{
+646 362 moveto
+646 296 633 236 606 183  curveto
+579 129 543 88 498 58  curveto
+461 34 424 19 386 11  curveto
+348 3 300 0 241 0  curveto
+73 0 lineto
+73 727 lineto
+239 727 lineto
+307 727 361 721 400 711  curveto
+439 701 472 687 499 669  curveto
+546 638 582 597 608 546  curveto
+634 494 646 433 646 362  curveto
+closepath
+546 364 moveto
+546 420 537 468 518 507  curveto
+499 547 472 577 436 600  curveto
+410 615 382 626 353 633  curveto
+324 640 287 644 244 644  curveto
+170 644 lineto
+170 83 lineto
+244 83 lineto
+287 83 324 86 356 93  curveto
+389 100 418 112 445 131  curveto
+478 154 504 184 521 222  curveto
+537 260 546 307 546 364  curveto
+closepath
+fill
+		} def
+
+	/E
+		{
+73 0 moveto
+73 727 lineto
+528 727 lineto
+528 641 lineto
+170 641 lineto
+170 441 lineto
+503 441 lineto
+503 355 lineto
+170 355 lineto
+170 85 lineto
+528 85 lineto
+528 0 lineto
+73 0 lineto
+closepath
+fill
+		} def
+
+	/F
+		{
+508 641 moveto
+170 641 lineto
+170 436 lineto
+494 436 lineto
+494 350 lineto
+170 350 lineto
+170 0 lineto
+73 0 lineto
+73 727 lineto
+508 727 lineto
+508 641 lineto
+closepath
+fill
+		} def
+
+	/G
+		{
+377 -14 moveto
+326 -14 279 -6 236 9  curveto
+194 24 157 48 126 80  curveto
+96 112 72 152 56 200  curveto
+40 247 32 302 32 364  curveto
+32 422 40 475 56 521  curveto
+73 568 96 607 127 640  curveto
+157 672 193 697 236 714  curveto
+280 731 327 740 378 740  curveto
+403 740 426 738 449 734  curveto
+471 731 493 726 513 720  curveto
+529 715 548 708 568 699  curveto
+588 691 604 683 616 677  curveto
+616 561 lineto
+608 561 lineto
+596 571 583 581 571 591  curveto
+558 601 540 611 516 622  curveto
+497 632 474 640 449 646  curveto
+423 653 396 656 367 656  curveto
+297 656 240 630 197 577  curveto
+154 524 132 454 132 367  curveto
+132 318 138 275 149 239  curveto
+161 202 177 171 199 146  curveto
+220 121 245 102 274 89  curveto
+304 75 337 69 374 69  curveto
+401 69 428 71 455 75  curveto
+482 79 505 84 523 92  curveto
+523 280 lineto
+355 280 lineto
+355 365 lineto
+619 365 lineto
+619 48 lineto
+607 42 590 35 570 27  curveto
+549 18 530 12 512 7  curveto
+488 0 466 -5 447 -8  curveto
+428 -12 405 -14 377 -14  curveto
+closepath
+fill
+		} def
+
+	/H
+		{
+601 0 moveto
+504 0 lineto
+504 355 lineto
+170 355 lineto
+170 0 lineto
+73 0 lineto
+73 727 lineto
+170 727 lineto
+170 441 lineto
+504 441 lineto
+504 727 lineto
+601 727 lineto
+601 0 lineto
+closepath
+fill
+		} def
+
+	/I
+		{
+327 0 moveto
+45 0 lineto
+45 74 lineto
+138 74 lineto
+138 652 lineto
+45 652 lineto
+45 727 lineto
+327 727 lineto
+327 652 lineto
+234 652 lineto
+234 74 lineto
+327 74 lineto
+327 0 lineto
+closepath
+fill
+		} def
+
+	/J
+		{
+347 188 moveto
+347 125 328 76 289 41  curveto
+250 7 198 -10 132 -10  curveto
+117 -10 96 -8 70 -6  curveto
+43 -3 21 0 4 3  curveto
+4 96 lineto
+9 96 lineto
+23 91 39 86 59 81  curveto
+79 75 99 72 119 72  curveto
+149 72 173 76 191 83  curveto
+208 89 222 99 230 112  curveto
+239 125 244 141 247 160  curveto
+249 179 250 200 250 225  curveto
+250 649 lineto
+97 649 lineto
+97 727 lineto
+347 727 lineto
+347 188 lineto
+closepath
+fill
+		} def
+
+	/K
+		{
+603 0 moveto
+478 0 lineto
+212 338 lineto
+170 290 lineto
+170 0 lineto
+73 0 lineto
+73 727 lineto
+170 727 lineto
+170 392 lineto
+468 727 lineto
+585 727 lineto
+285 402 lineto
+603 0 lineto
+closepath
+fill
+		} def
+
+	/L
+		{
+495 0 moveto
+73 0 lineto
+73 727 lineto
+170 727 lineto
+170 85 lineto
+495 85 lineto
+495 0 lineto
+closepath
+fill
+		} def
+
+	/M
+		{
+696 0 moveto
+600 0 lineto
+600 626 lineto
+410 200 lineto
+352 200 lineto
+164 626 lineto
+164 0 lineto
+73 0 lineto
+73 727 lineto
+205 727 lineto
+387 322 lineto
+562 727 lineto
+696 727 lineto
+696 0 lineto
+closepath
+fill
+		} def
+
+	/N
+		{
+593 0 moveto
+485 0 lineto
+164 626 lineto
+164 0 lineto
+73 0 lineto
+73 727 lineto
+210 727 lineto
+503 151 lineto
+503 727 lineto
+593 727 lineto
+593 0 lineto
+closepath
+fill
+		} def
+
+	/O
+		{
+587 643 moveto
+615 611 637 572 652 524  curveto
+667 477 675 423 675 363  curveto
+675 304 667 251 652 203  curveto
+637 156 616 116 587 83  curveto
+558 50 523 25 484 9  curveto
+444 -7 401 -15 353 -15  curveto
+304 -15 260 -6 220 9  curveto
+181 26 147 51 119 83  curveto
+91 116 69 155 54 203  curveto
+39 250 32 303 32 363  curveto
+32 424 39 478 54 524  curveto
+70 570 91 610 119 643  curveto
+147 675 181 700 220 717  curveto
+260 733 304 742 353 742  curveto
+402 742 447 733 487 716  curveto
+527 699 560 674 587 643  curveto
+closepath
+574 363 moveto
+574 411 569 454 559 491  curveto
+548 528 534 559 515 583  curveto
+495 608 472 627 445 639  curveto
+418 652 387 658 354 658  curveto
+318 658 288 652 261 640  curveto
+235 628 212 609 192 583  curveto
+173 558 158 527 148 490  curveto
+137 452 132 410 132 363  curveto
+132 267 152 194 192 144  curveto
+232 93 286 68 354 68  curveto
+421 68 475 93 514 144  curveto
+554 194 574 267 574 363  curveto
+closepath
+fill
+		} def
+
+	/P
+		{
+532 507 moveto
+532 476 527 446 515 418  curveto
+504 390 489 366 469 346  curveto
+444 321 414 302 380 290  curveto
+347 277 304 271 252 271  curveto
+170 271 lineto
+170 0 lineto
+73 0 lineto
+73 727 lineto
+256 727 lineto
+299 727 335 723 366 716  curveto
+396 709 423 697 446 681  curveto
+473 663 494 639 509 611  curveto
+525 582 532 548 532 507  curveto
+closepath
+432 505 moveto
+432 530 427 552 419 570  curveto
+410 589 397 604 379 616  curveto
+364 626 346 633 326 637  curveto
+306 641 280 644 250 644  curveto
+170 644 lineto
+170 353 lineto
+236 353 lineto
+275 353 306 356 331 363  curveto
+355 369 375 380 391 396  curveto
+405 411 415 427 422 444  curveto
+428 462 432 482 432 505  curveto
+closepath
+fill
+		} def
+
+	/Q
+		{
+677 -177 moveto
+660 -182 641 -185 622 -187  curveto
+602 -190 583 -191 564 -191  curveto
+510 -191 465 -176 431 -145  curveto
+397 -114 379 -71 375 -14  curveto
+371 -14 367 -14 363 -14  curveto
+359 -14 356 -14 353 -14  curveto
+304 -14 260 -6 220 10  curveto
+180 27 147 51 119 83  curveto
+91 116 69 155 54 203  curveto
+39 250 32 303 32 363  curveto
+32 424 39 478 54 524  curveto
+70 570 91 610 119 643  curveto
+147 675 181 700 220 717  curveto
+260 733 304 742 353 742  curveto
+402 742 447 733 487 716  curveto
+527 699 560 674 587 643  curveto
+615 611 637 572 652 524  curveto
+667 477 675 423 675 363  curveto
+675 269 656 191 620 130  curveto
+583 69 533 27 469 5  curveto
+470 -12 474 -28 478 -43  curveto
+483 -57 489 -69 497 -77  curveto
+505 -87 516 -95 529 -99  curveto
+541 -104 558 -106 580 -106  curveto
+593 -106 608 -104 626 -100  curveto
+644 -96 656 -93 664 -89  curveto
+677 -89 lineto
+677 -177 lineto
+closepath
+574 363 moveto
+574 411 569 454 559 491  curveto
+548 528 534 559 515 583  curveto
+495 608 472 627 445 639  curveto
+418 652 387 658 354 658  curveto
+318 658 288 652 261 640  curveto
+235 628 212 609 192 583  curveto
+173 558 158 527 148 490  curveto
+137 452 132 410 132 363  curveto
+132 267 152 194 192 144  curveto
+232 93 286 67 354 67  curveto
+421 67 475 93 514 144  curveto
+554 194 574 267 574 363  curveto
+closepath
+fill
+		} def
+
+	/R
+		{
+636 0 moveto
+511 0 lineto
+280 289 lineto
+170 289 lineto
+170 0 lineto
+73 0 lineto
+73 727 lineto
+261 727 lineto
+302 727 337 724 365 720  curveto
+394 715 420 705 446 688  curveto
+471 672 491 651 506 625  curveto
+521 599 528 567 528 529  curveto
+528 476 515 431 488 395  curveto
+461 360 424 333 377 316  curveto
+636 0 lineto
+closepath
+427 522 moveto
+427 543 423 562 416 578  curveto
+409 595 397 608 381 619  curveto
+368 628 352 634 333 638  curveto
+315 642 293 644 266 644  curveto
+170 644 lineto
+170 369 lineto
+255 369 lineto
+283 369 307 372 330 376  curveto
+352 381 371 391 386 407  curveto
+400 420 411 437 417 456  curveto
+424 474 427 497 427 522  curveto
+closepath
+fill
+		} def
+
+	/S
+		{
+276 -13 moveto
+223 -13 178 -7 141 3  curveto
+104 14 70 27 37 43  curveto
+37 164 lineto
+44 164 lineto
+76 134 112 111 152 94  curveto
+193 78 232 70 269 70  curveto
+322 70 363 81 390 103  curveto
+417 126 431 155 431 191  curveto
+431 220 424 244 410 262  curveto
+395 280 373 294 341 303  curveto
+319 309 298 315 280 319  curveto
+261 323 238 329 210 336  curveto
+185 342 162 351 143 361  curveto
+123 371 105 384 90 400  curveto
+75 416 63 435 55 457  curveto
+47 478 42 503 42 532  curveto
+42 591 65 640 111 680  curveto
+157 720 216 740 287 740  curveto
+328 740 366 736 403 728  curveto
+439 719 472 708 503 693  curveto
+503 577 lineto
+496 577 lineto
+473 598 443 617 407 633  curveto
+371 648 333 656 293 656  curveto
+249 656 212 646 185 625  curveto
+157 604 143 576 143 542  curveto
+143 511 151 486 167 468  curveto
+184 450 207 437 238 428  curveto
+259 423 284 416 313 409  curveto
+343 402 368 396 387 390  curveto
+437 375 474 352 497 321  curveto
+520 290 532 252 532 207  curveto
+532 178 526 150 514 123  curveto
+503 95 487 71 466 52  curveto
+442 31 416 15 386 3  curveto
+357 -7 320 -13 276 -13  curveto
+closepath
+fill
+		} def
+
+	/T
+		{
+243 0 moveto
+243 641 lineto
+0 641 lineto
+0 727 lineto
+584 727 lineto
+584 641 lineto
+340 641 lineto
+340 0 lineto
+243 0 lineto
+closepath
+fill
+		} def
+
+	/U
+		{
+327 -15 moveto
+284 -15 247 -9 215 1  curveto
+183 12 156 29 134 51  curveto
+108 77 90 107 80 142  curveto
+70 178 64 221 64 273  curveto
+64 727 lineto
+161 727 lineto
+161 273 lineto
+161 239 163 211 167 188  curveto
+172 165 180 145 192 126  curveto
+205 107 223 92 245 82  curveto
+268 72 295 67 327 67  curveto
+357 67 384 72 408 82  curveto
+431 92 449 107 462 126  curveto
+474 145 483 166 487 188  curveto
+491 210 494 238 494 271  curveto
+494 727 lineto
+590 727 lineto
+590 273 lineto
+590 222 585 179 575 143  curveto
+565 107 547 76 521 51  curveto
+498 29 471 12 440 1  curveto
+409 -9 372 -15 327 -15  curveto
+closepath
+fill
+		} def
+
+	/V
+		{
+600 727 moveto
+350 0 lineto
+246 0 lineto
+-3 727 lineto
+99 727 lineto
+300 123 lineto
+501 727 lineto
+600 727 lineto
+closepath
+fill
+		} def
+
+	/W
+		{
+889 727 moveto
+706 0 lineto
+597 0 lineto
+449 603 lineto
+305 0 lineto
+198 0 lineto
+12 727 lineto
+111 727 lineto
+258 122 lineto
+403 727 lineto
+501 727 lineto
+648 116 lineto
+794 727 lineto
+889 727 lineto
+closepath
+fill
+		} def
+
+	/X
+		{
+576 0 moveto
+465 0 lineto
+288 291 lineto
+108 0 lineto
+3 0 lineto
+234 363 lineto
+10 727 lineto
+121 727 lineto
+294 441 lineto
+471 727 lineto
+576 727 lineto
+348 368 lineto
+576 0 lineto
+closepath
+fill
+		} def
+
+	/Y
+		{
+582 727 moveto
+336 321 lineto
+336 0 lineto
+240 0 lineto
+240 311 lineto
+-5 727 lineto
+102 727 lineto
+289 406 lineto
+479 727 lineto
+582 727 lineto
+closepath
+fill
+		} def
+
+	/Z
+		{
+537 0 moveto
+29 0 lineto
+29 89 lineto
+418 641 lineto
+46 641 lineto
+46 727 lineto
+527 727 lineto
+527 639 lineto
+133 85 lineto
+537 85 lineto
+537 0 lineto
+closepath
+fill
+		} def
+
+	/bracketleft
+		{
+334 -191 moveto
+81 -191 lineto
+81 759 lineto
+334 759 lineto
+334 689 lineto
+166 689 lineto
+166 -121 lineto
+334 -121 lineto
+334 -191 lineto
+closepath
+fill
+		} def
+
+	/backslash
+		{
+392 -158 moveto
+310 -158 lineto
+25 759 lineto
+109 759 lineto
+392 -158 lineto
+closepath
+fill
+		} def
+
+	/bracketright
+		{
+301 -191 moveto
+47 -191 lineto
+47 -121 lineto
+216 -121 lineto
+216 689 lineto
+47 689 lineto
+47 759 lineto
+301 759 lineto
+301 -191 lineto
+closepath
+fill
+		} def
+
+	/asciicircum
+		{
+662 333 moveto
+565 333 lineto
+363 639 lineto
+161 333 lineto
+64 333 lineto
+333 727 lineto
+394 727 lineto
+662 333 lineto
+closepath
+fill
+		} def
+
+	/underscore
+		{
+553 -146 moveto
+-7 -146 lineto
+-7 -83 lineto
+553 -83 lineto
+553 -146 lineto
+closepath
+fill
+		} def
+
+	/quoteleft
+		{
+327 635 moveto
+254 635 lineto
+121 818 lineto
+239 818 lineto
+327 635 lineto
+closepath
+fill
+		} def
+
+	/a
+		{
+371 134 moveto
+371 285 lineto
+349 283 321 281 288 277  curveto
+254 274 228 269 207 263  curveto
+183 255 162 244 146 228  curveto
+131 213 123 191 123 164  curveto
+123 132 131 109 149 93  curveto
+166 77 192 69 226 69  curveto
+255 69 281 75 305 88  curveto
+328 100 350 116 371 134  curveto
+closepath
+371 58 moveto
+363 52 353 44 341 34  curveto
+328 24 316 17 304 11  curveto
+288 2 272 -3 257 -8  curveto
+242 -12 221 -15 193 -15  curveto
+171 -15 150 -10 129 -2  curveto
+109 6 91 17 76 33  curveto
+62 48 50 66 41 88  curveto
+32 110 28 133 28 158  curveto
+28 195 36 228 52 254  curveto
+68 281 93 302 127 317  curveto
+158 331 194 341 236 346  curveto
+277 352 322 356 371 358  curveto
+371 376 lineto
+371 397 367 415 361 428  curveto
+354 441 345 451 333 458  curveto
+322 466 307 471 291 473  curveto
+274 476 256 477 238 477  curveto
+217 477 192 474 164 468  curveto
+135 461 106 452 78 440  curveto
+72 440 lineto
+72 533 lineto
+89 538 113 543 145 549  curveto
+177 555 208 558 239 558  curveto
+276 558 308 555 333 549  curveto
+359 543 382 533 403 518  curveto
+423 503 437 483 447 459  curveto
+457 436 462 407 462 373  curveto
+462 0 lineto
+371 0 lineto
+371 58 lineto
+closepath
+fill
+		} def
+
+	/b
+		{
+429 274 moveto
+429 339 419 388 399 422  curveto
+379 456 347 473 303 473  curveto
+278 473 253 467 227 455  curveto
+202 443 179 429 158 411  curveto
+158 98 lineto
+181 87 201 79 219 74  curveto
+237 69 257 67 278 67  curveto
+325 67 362 83 389 117  curveto
+415 150 429 202 429 274  curveto
+closepath
+523 281 moveto
+523 192 502 120 458 66  curveto
+415 12 361 -15 296 -15  curveto
+266 -15 241 -11 220 -4  curveto
+199 3 178 13 158 25  curveto
+152 0 lineto
+66 0 lineto
+66 759 lineto
+158 759 lineto
+158 488 lineto
+181 509 206 526 233 540  curveto
+260 553 291 560 325 560  curveto
+386 560 435 535 470 486  curveto
+506 437 523 368 523 281  curveto
+closepath
+fill
+		} def
+
+	/c
+		{
+283 -12 moveto
+245 -12 211 -6 180 5  curveto
+148 16 122 34 99 57  curveto
+77 81 59 110 47 146  curveto
+34 181 28 223 28 271  curveto
+28 319 35 361 48 396  curveto
+60 430 78 460 99 483  curveto
+121 507 147 525 179 538  curveto
+212 551 246 558 283 558  curveto
+313 558 342 553 369 545  curveto
+397 536 422 527 444 516  curveto
+444 413 lineto
+438 413 lineto
+432 418 424 424 413 432  curveto
+403 439 391 446 376 454  curveto
+363 460 348 466 331 471  curveto
+314 476 297 478 281 478  curveto
+234 478 196 460 167 424  curveto
+138 388 124 337 124 271  curveto
+124 207 137 157 165 121  curveto
+193 85 232 67 281 67  curveto
+311 67 340 73 367 85  curveto
+394 98 418 114 438 133  curveto
+444 133 lineto
+444 30 lineto
+435 26 423 21 410 15  curveto
+396 9 384 4 373 1  curveto
+357 -2 343 -6 331 -8  curveto
+318 -10 302 -12 283 -12  curveto
+closepath
+fill
+		} def
+
+	/d
+		{
+486 0 moveto
+394 0 lineto
+394 55 lineto
+380 43 367 33 357 25  curveto
+347 18 334 10 320 4  curveto
+307 -1 294 -6 280 -10  curveto
+266 -13 250 -15 231 -15  curveto
+201 -15 174 -8 149 3  curveto
+123 15 102 33 84 57  curveto
+67 81 53 111 43 146  curveto
+33 182 28 222 28 268  curveto
+28 316 34 357 47 392  curveto
+59 427 76 458 98 484  curveto
+118 508 142 526 170 540  curveto
+198 553 228 560 259 560  curveto
+286 560 310 557 330 551  curveto
+350 545 372 536 394 523  curveto
+394 759 lineto
+486 759 lineto
+486 0 lineto
+closepath
+394 132 moveto
+394 447 lineto
+371 458 351 465 333 470  curveto
+315 474 295 476 274 476  curveto
+227 476 190 458 163 423  curveto
+136 388 123 337 123 270  curveto
+123 206 133 157 154 123  curveto
+174 89 207 72 252 72  curveto
+277 72 301 77 325 88  curveto
+350 99 373 114 394 132  curveto
+closepath
+fill
+		} def
+
+	/e
+		{
+303 -12 moveto
+216 -12 148 11 100 60  curveto
+52 109 28 179 28 269  curveto
+28 358 52 429 98 481  curveto
+145 534 206 560 281 560  curveto
+315 560 345 555 371 545  curveto
+397 536 419 520 439 500  curveto
+458 479 473 453 484 423  curveto
+494 393 500 356 500 312  curveto
+500 263 lineto
+122 263 lineto
+122 199 138 151 169 117  curveto
+201 84 245 67 302 67  curveto
+322 67 342 69 361 74  curveto
+380 78 398 84 414 91  curveto
+430 99 444 106 456 113  curveto
+467 120 476 127 484 133  curveto
+489 133 lineto
+489 33 lineto
+479 28 465 23 449 17  curveto
+433 10 419 6 406 2  curveto
+388 -2 372 -6 358 -8  curveto
+343 -11 325 -12 303 -12  curveto
+closepath
+410 333 moveto
+409 358 407 379 401 397  curveto
+396 415 389 430 379 442  curveto
+368 456 354 466 338 474  curveto
+321 481 300 484 275 484  curveto
+251 484 230 481 213 473  curveto
+196 466 180 455 167 441  curveto
+153 427 142 411 135 394  curveto
+128 376 124 356 122 333  curveto
+410 333 lineto
+closepath
+fill
+		} def
+
+	/f
+		{
+353 671 moveto
+348 671 lineto
+340 674 328 677 313 680  curveto
+298 683 284 684 272 684  curveto
+233 684 206 675 189 658  curveto
+173 641 165 609 165 563  curveto
+165 545 lineto
+316 545 lineto
+316 469 lineto
+167 469 lineto
+167 0 lineto
+76 0 lineto
+76 469 lineto
+14 469 lineto
+14 545 lineto
+76 545 lineto
+76 563 lineto
+76 629 91 679 123 713  curveto
+155 747 200 764 259 764  curveto
+276 764 292 763 309 761  curveto
+325 760 340 758 353 755  curveto
+353 671 lineto
+closepath
+fill
+		} def
+
+	/g
+		{
+394 147 moveto
+394 447 lineto
+371 458 350 466 331 470  curveto
+311 475 292 478 273 478  curveto
+226 478 190 460 163 426  curveto
+136 392 123 343 123 279  curveto
+123 219 133 173 154 141  curveto
+174 110 207 94 252 94  curveto
+276 94 301 98 326 108  curveto
+351 117 374 131 394 147  curveto
+closepath
+85 -87 moveto
+92 -90 101 -93 113 -97  curveto
+125 -102 138 -106 154 -110  curveto
+171 -114 186 -118 201 -120  curveto
+215 -123 231 -124 248 -124  curveto
+276 -124 300 -120 320 -113  curveto
+339 -105 355 -95 366 -82  curveto
+376 -68 383 -53 388 -35  curveto
+392 -18 394 1 394 24  curveto
+394 72 lineto
+369 50 345 34 321 24  curveto
+298 14 268 9 232 9  curveto
+170 9 120 32 83 78  curveto
+47 124 28 191 28 277  curveto
+28 323 35 363 47 398  curveto
+60 433 77 462 99 487  curveto
+119 510 143 528 171 541  curveto
+199 554 228 560 258 560  curveto
+287 560 311 557 332 550  curveto
+352 543 373 534 394 521  curveto
+399 545 lineto
+486 545 lineto
+486 62 lineto
+486 -30 466 -98 425 -141  curveto
+385 -184 323 -206 240 -206  curveto
+214 -206 186 -204 158 -200  curveto
+131 -195 105 -190 81 -183  curveto
+81 -87 lineto
+85 -87 lineto
+closepath
+fill
+		} def
+
+	/h
+		{
+495 0 moveto
+403 0 lineto
+403 310 lineto
+403 335 402 358 399 380  curveto
+397 402 392 419 385 432  curveto
+378 446 367 456 354 463  curveto
+341 469 322 473 299 473  curveto
+277 473 253 467 229 454  curveto
+205 442 181 426 158 407  curveto
+158 0 lineto
+66 0 lineto
+66 759 lineto
+158 759 lineto
+158 484 lineto
+185 509 212 527 239 541  curveto
+265 554 294 560 323 560  curveto
+377 560 419 542 449 507  curveto
+479 472 495 421 495 354  curveto
+495 0 lineto
+closepath
+fill
+		} def
+
+	/i
+		{
+160 0 moveto
+68 0 lineto
+68 545 lineto
+160 545 lineto
+160 0 lineto
+closepath
+166 636 moveto
+62 636 lineto
+62 731 lineto
+166 731 lineto
+166 636 lineto
+closepath
+fill
+		} def
+
+	/j
+		{
+215 -15 moveto
+215 -77 198 -125 165 -157  curveto
+131 -190 85 -206 27 -206  curveto
+17 -206 5 -206 -6 -205  curveto
+-19 -204 -31 -202 -43 -200  curveto
+-43 -118 lineto
+-38 -118 lineto
+-31 -120 -23 -121 -14 -123  curveto
+-6 -124 1 -125 9 -125  curveto
+34 -125 54 -122 70 -116  curveto
+85 -110 97 -100 105 -87  curveto
+112 -76 117 -61 119 -43  curveto
+122 -25 123 -3 123 21  curveto
+123 469 lineto
+24 469 lineto
+24 545 lineto
+215 545 lineto
+215 -15 lineto
+closepath
+215 636 moveto
+111 636 lineto
+111 731 lineto
+215 731 lineto
+215 636 lineto
+closepath
+fill
+		} def
+
+	/k
+		{
+518 0 moveto
+397 0 lineto
+194 263 lineto
+158 228 lineto
+158 0 lineto
+66 0 lineto
+66 759 lineto
+158 759 lineto
+158 314 lineto
+374 545 lineto
+488 545 lineto
+264 317 lineto
+518 0 lineto
+closepath
+fill
+		} def
+
+	/l
+		{
+160 0 moveto
+68 0 lineto
+68 759 lineto
+160 759 lineto
+160 0 lineto
+closepath
+fill
+		} def
+
+	/m
+		{
+685 0 moveto
+685 315 lineto
+685 340 684 363 682 385  curveto
+680 406 676 423 670 435  curveto
+663 448 654 457 642 463  curveto
+630 470 614 473 593 473  curveto
+574 473 554 467 532 455  curveto
+511 444 488 427 465 405  curveto
+466 400 466 393 467 385  curveto
+467 378 467 369 467 358  curveto
+467 0 lineto
+375 0 lineto
+375 315 lineto
+375 340 375 363 373 385  curveto
+371 406 367 423 360 435  curveto
+354 448 345 457 333 463  curveto
+320 470 304 473 284 473  curveto
+264 473 243 466 221 454  curveto
+199 442 178 426 158 407  curveto
+158 0 lineto
+66 0 lineto
+66 545 lineto
+158 545 lineto
+158 484 lineto
+182 508 206 527 229 540  curveto
+253 553 279 560 307 560  curveto
+339 560 368 553 393 538  curveto
+418 523 437 499 450 466  curveto
+477 497 504 520 531 536  curveto
+557 552 586 560 617 560  curveto
+640 560 661 556 681 549  curveto
+700 542 717 530 731 514  curveto
+746 497 757 476 765 452  curveto
+773 427 777 396 777 358  curveto
+777 0 lineto
+685 0 lineto
+closepath
+fill
+		} def
+
+	/n
+		{
+495 0 moveto
+403 0 lineto
+403 310 lineto
+403 335 402 358 399 380  curveto
+397 402 392 419 385 432  curveto
+378 446 367 456 354 463  curveto
+341 469 322 473 299 473  curveto
+277 473 253 467 229 454  curveto
+205 442 181 426 158 407  curveto
+158 0 lineto
+66 0 lineto
+66 545 lineto
+158 545 lineto
+158 484 lineto
+185 509 212 527 239 541  curveto
+265 554 294 560 323 560  curveto
+377 560 419 542 449 507  curveto
+479 472 495 421 495 354  curveto
+495 0 lineto
+closepath
+fill
+		} def
+
+	/o
+		{
+515 272 moveto
+515 180 493 109 448 59  curveto
+404 9 345 -15 271 -15  curveto
+196 -15 136 10 93 62  curveto
+49 113 27 183 27 272  curveto
+27 363 50 434 94 484  curveto
+139 535 198 560 271 560  curveto
+345 560 404 535 448 485  curveto
+493 434 515 363 515 272  curveto
+closepath
+420 272 moveto
+420 343 407 395 381 429  curveto
+356 464 319 481 271 481  curveto
+224 481 187 464 161 429  curveto
+135 395 122 343 122 272  curveto
+122 204 135 152 161 116  curveto
+187 81 224 63 271 63  curveto
+319 63 355 81 381 115  curveto
+407 150 420 202 420 272  curveto
+closepath
+fill
+		} def
+
+	/p
+		{
+523 287 moveto
+523 196 502 123 458 70  curveto
+415 16 360 -10 293 -10  curveto
+266 -10 243 -7 222 -1  curveto
+201 4 180 14 158 27  curveto
+158 -201 lineto
+66 -201 lineto
+66 545 lineto
+158 545 lineto
+158 488 lineto
+180 508 206 525 234 539  curveto
+261 553 292 560 325 560  curveto
+387 560 436 535 471 486  curveto
+506 436 523 370 523 287  curveto
+closepath
+429 276 moveto
+429 339 419 387 399 421  curveto
+379 455 347 473 302 473  curveto
+276 473 251 467 227 455  curveto
+203 444 180 429 158 411  curveto
+158 102 lineto
+182 90 202 82 219 78  curveto
+237 73 256 71 278 71  curveto
+326 71 363 89 389 124  curveto
+416 158 429 209 429 276  curveto
+closepath
+fill
+		} def
+
+	/q
+		{
+486 -201 moveto
+394 -201 lineto
+394 59 lineto
+367 35 341 17 316 6  curveto
+291 -5 262 -10 231 -10  curveto
+170 -10 120 14 83 63  curveto
+47 113 28 182 28 271  curveto
+28 317 35 359 48 395  curveto
+60 431 77 461 99 485  curveto
+119 509 143 527 171 541  curveto
+199 554 228 560 258 560  curveto
+286 560 311 557 331 550  curveto
+352 544 373 534 394 521  curveto
+400 545 lineto
+486 545 lineto
+486 -201 lineto
+closepath
+394 136 moveto
+394 447 lineto
+371 458 350 466 332 471  curveto
+314 475 294 478 273 478  curveto
+225 478 188 460 162 425  curveto
+136 390 123 340 123 275  curveto
+123 211 133 162 154 128  curveto
+175 93 208 76 251 76  curveto
+277 76 302 82 327 93  curveto
+351 104 374 118 394 136  curveto
+closepath
+fill
+		} def
+
+	/r
+		{
+355 446 moveto
+350 446 lineto
+343 448 336 449 328 450  curveto
+321 450 312 451 301 451  curveto
+276 451 251 445 227 435  curveto
+203 424 180 408 158 387  curveto
+158 0 lineto
+66 0 lineto
+66 545 lineto
+158 545 lineto
+158 464 lineto
+191 493 220 514 245 527  curveto
+270 539 294 545 318 545  curveto
+327 545 334 545 339 544  curveto
+344 544 349 543 355 542  curveto
+355 446 lineto
+closepath
+fill
+		} def
+
+	/s
+		{
+213 -13 moveto
+177 -13 143 -8 111 1  curveto
+79 11 53 21 32 32  curveto
+32 135 lineto
+37 135 lineto
+45 129 54 122 65 115  curveto
+75 107 89 99 107 91  curveto
+123 84 140 78 158 72  curveto
+177 67 197 64 217 64  curveto
+231 64 247 66 264 69  curveto
+280 72 293 77 301 82  curveto
+312 90 320 97 325 106  curveto
+330 114 333 127 333 144  curveto
+333 166 327 182 315 193  curveto
+303 204 282 214 252 221  curveto
+240 224 225 228 206 231  curveto
+187 235 170 240 154 244  curveto
+112 256 82 275 63 300  curveto
+44 325 35 356 35 392  curveto
+35 441 53 481 90 512  curveto
+127 543 177 558 238 558  curveto
+269 558 299 554 330 547  curveto
+360 539 386 530 407 519  curveto
+407 420 lineto
+402 420 lineto
+378 439 352 454 323 464  curveto
+295 475 266 480 236 480  curveto
+206 480 180 474 160 461  curveto
+139 449 128 430 128 404  curveto
+128 381 135 364 147 353  curveto
+159 342 179 332 207 325  curveto
+220 322 235 318 252 315  curveto
+269 311 287 307 305 303  curveto
+346 293 376 276 396 252  curveto
+417 229 427 197 427 157  curveto
+427 133 422 111 413 90  curveto
+404 69 390 51 372 36  curveto
+353 20 330 7 306 0  curveto
+281 -8 250 -13 213 -13  curveto
+closepath
+fill
+		} def
+
+	/t
+		{
+231 -10 moveto
+181 -10 142 3 114 31  curveto
+86 60 72 105 72 167  curveto
+72 469 lineto
+10 469 lineto
+10 545 lineto
+72 545 lineto
+72 702 lineto
+164 702 lineto
+164 545 lineto
+333 545 lineto
+333 469 lineto
+164 469 lineto
+164 209 lineto
+164 182 164 160 165 145  curveto
+166 131 170 117 176 104  curveto
+182 92 191 84 203 78  curveto
+215 72 232 69 253 69  curveto
+268 69 283 72 297 76  curveto
+311 80 321 84 327 87  curveto
+333 87 lineto
+333 4 lineto
+315 0 298 -3 280 -6  curveto
+262 -9 246 -10 231 -10  curveto
+closepath
+fill
+		} def
+
+	/u
+		{
+491 0 moveto
+399 0 lineto
+399 60 lineto
+371 35 344 17 318 4  curveto
+293 -8 265 -15 233 -15  curveto
+210 -15 187 -11 166 -3  curveto
+145 4 127 16 111 33  curveto
+96 50 84 71 75 97  curveto
+66 123 62 154 62 191  curveto
+62 545 lineto
+154 545 lineto
+154 234 lineto
+154 205 155 181 157 162  curveto
+159 143 164 127 171 112  curveto
+179 98 189 88 202 82  curveto
+215 75 233 72 257 72  curveto
+280 72 304 78 329 91  curveto
+354 104 378 119 399 138  curveto
+399 545 lineto
+491 545 lineto
+491 0 lineto
+closepath
+fill
+		} def
+
+	/v
+		{
+495 545 moveto
+289 0 lineto
+207 0 lineto
+2 545 lineto
+102 545 lineto
+251 124 lineto
+399 545 lineto
+495 545 lineto
+closepath
+fill
+		} def
+
+	/w
+		{
+727 545 moveto
+589 0 lineto
+504 0 lineto
+371 420 lineto
+238 0 lineto
+154 0 lineto
+14 545 lineto
+110 545 lineto
+206 123 lineto
+335 545 lineto
+411 545 lineto
+544 123 lineto
+635 545 lineto
+727 545 lineto
+closepath
+fill
+		} def
+
+	/x
+		{
+490 0 moveto
+377 0 lineto
+245 206 lineto
+108 0 lineto
+4 0 lineto
+194 270 lineto
+6 545 lineto
+119 545 lineto
+250 341 lineto
+385 545 lineto
+490 545 lineto
+301 276 lineto
+490 0 lineto
+closepath
+fill
+		} def
+
+	/y
+		{
+495 545 moveto
+201 -201 lineto
+103 -201 lineto
+201 26 lineto
+2 545 lineto
+102 545 lineto
+250 141 lineto
+399 545 lineto
+495 545 lineto
+closepath
+fill
+		} def
+
+	/z
+		{
+424 0 moveto
+23 0 lineto
+23 67 lineto
+309 469 lineto
+35 469 lineto
+35 545 lineto
+419 545 lineto
+419 479 lineto
+132 76 lineto
+424 76 lineto
+424 0 lineto
+closepath
+fill
+		} def
+
+	/braceleft
+		{
+432 -191 moveto
+375 -191 lineto
+317 -191 272 -175 239 -143  curveto
+205 -111 189 -64 189 -2  curveto
+189 70 lineto
+189 92 187 115 183 138  curveto
+178 160 170 180 158 196  curveto
+146 213 130 225 111 233  curveto
+92 241 68 246 39 246  curveto
+29 246 lineto
+29 322 lineto
+39 322 lineto
+68 322 92 326 111 334  curveto
+130 343 146 355 158 371  curveto
+170 387 178 407 183 430  curveto
+187 452 189 475 189 498  curveto
+189 570 lineto
+189 632 205 679 239 711  curveto
+272 743 317 759 375 759  curveto
+432 759 lineto
+432 692 lineto
+393 692 lineto
+374 692 357 690 343 686  curveto
+329 682 317 675 307 666  curveto
+297 656 289 643 284 625  curveto
+279 608 276 587 276 562  curveto
+276 477 lineto
+276 450 273 427 267 409  curveto
+261 391 252 374 240 358  curveto
+229 344 215 330 198 319  curveto
+180 307 163 297 144 290  curveto
+144 278 lineto
+163 270 180 261 198 249  curveto
+215 237 229 224 240 209  curveto
+252 194 261 176 267 158  curveto
+273 140 276 118 276 91  curveto
+276 5 lineto
+276 -19 279 -40 284 -57  curveto
+289 -74 297 -88 307 -98  curveto
+317 -107 329 -114 343 -118  curveto
+357 -122 374 -124 393 -124  curveto
+432 -124 lineto
+432 -191 lineto
+closepath
+fill
+		} def
+
+	/bar
+		{
+231 -191 moveto
+150 -191 lineto
+150 759 lineto
+231 759 lineto
+231 -191 lineto
+closepath
+fill
+		} def
+
+	/braceright
+		{
+451 246 moveto
+440 246 lineto
+412 246 388 241 368 233  curveto
+349 225 333 213 321 196  curveto
+309 180 301 160 297 138  curveto
+293 115 291 92 291 70  curveto
+291 -2 lineto
+291 -64 274 -111 241 -143  curveto
+208 -175 162 -191 104 -191  curveto
+47 -191 lineto
+47 -124 lineto
+86 -124 lineto
+106 -124 122 -122 136 -118  curveto
+150 -114 162 -107 172 -98  curveto
+183 -88 191 -74 196 -57  curveto
+201 -40 203 -19 203 5  curveto
+203 91 lineto
+203 118 206 140 212 158  curveto
+219 176 228 194 240 209  curveto
+250 224 264 237 282 249  curveto
+299 261 317 270 335 278  curveto
+335 290 lineto
+317 297 299 307 282 319  curveto
+264 330 250 344 240 358  curveto
+228 374 219 391 212 409  curveto
+206 427 203 450 203 477  curveto
+203 562 lineto
+203 587 201 608 196 625  curveto
+191 643 183 656 172 666  curveto
+162 675 150 682 136 686  curveto
+122 690 106 692 86 692  curveto
+47 692 lineto
+47 759 lineto
+104 759 lineto
+162 759 208 743 241 711  curveto
+274 679 291 632 291 570  curveto
+291 498 lineto
+291 475 293 452 297 430  curveto
+301 407 309 387 321 371  curveto
+333 355 349 343 368 334  curveto
+388 326 412 322 440 322  curveto
+451 322 lineto
+451 246 lineto
+closepath
+fill
+		} def
+
+	/asciitilde
+		{
+662 452 moveto
+661 419 658 387 651 356  curveto
+645 325 635 298 622 273  curveto
+609 250 592 230 572 215  curveto
+552 200 527 193 495 193  curveto
+476 193 459 195 445 200  curveto
+430 205 417 212 405 220  curveto
+394 228 383 238 373 250  curveto
+362 261 353 271 345 281  curveto
+336 292 327 303 319 314  curveto
+310 325 302 335 294 343  curveto
+285 352 276 360 267 365  curveto
+257 371 246 374 234 374  curveto
+218 374 205 369 194 361  curveto
+183 352 174 339 167 322  curveto
+160 306 155 286 153 264  curveto
+150 241 148 217 147 192  curveto
+65 192 lineto
+66 226 69 259 75 290  curveto
+82 320 91 348 104 371  curveto
+117 396 134 415 156 430  curveto
+177 444 203 452 232 452  curveto
+251 452 269 449 283 444  curveto
+298 439 311 432 323 424  curveto
+334 416 345 406 354 396  curveto
+364 386 373 375 382 363  curveto
+389 354 398 344 408 331  curveto
+418 318 426 308 433 301  curveto
+443 291 452 284 462 279  curveto
+471 274 481 271 492 271  curveto
+508 271 522 276 533 285  curveto
+545 294 553 306 560 322  curveto
+566 338 571 357 574 379  curveto
+577 401 579 425 580 452  curveto
+662 452 lineto
+closepath
+fill
+		} def
+
+	/exclamdown
+		{
+215 624 moveto
+116 624 lineto
+116 727 lineto
+215 727 lineto
+215 624 lineto
+closepath
+220 0 moveto
+111 0 lineto
+125 526 lineto
+206 526 lineto
+220 0 lineto
+closepath
+fill
+		} def
+
+	/cent
+		{
+271 0 moveto
+201 9 148 36 111 83  curveto
+74 130 55 193 55 271  curveto
+55 349 74 412 113 460  curveto
+151 508 204 536 271 544  curveto
+271 720 lineto
+327 720 lineto
+327 544 lineto
+355 543 383 539 409 531  curveto
+435 524 457 515 476 506  curveto
+476 408 lineto
+471 408 lineto
+451 425 429 439 406 452  curveto
+383 464 357 472 327 477  curveto
+327 68 lineto
+343 70 359 74 375 80  curveto
+391 85 405 92 416 98  curveto
+428 105 438 112 447 118  curveto
+456 125 464 131 471 137  curveto
+476 137 lineto
+476 40 lineto
+454 30 432 22 409 14  curveto
+386 6 359 2 327 0  curveto
+327 -176 lineto
+271 -176 lineto
+271 0 lineto
+closepath
+271 71 moveto
+271 474 lineto
+234 467 204 446 182 412  curveto
+160 378 149 331 149 271  curveto
+149 210 161 163 183 130  curveto
+205 97 235 77 271 71  curveto
+closepath
+fill
+		} def
+
+	/sterling
+		{
+503 0 moveto
+43 0 lineto
+43 101 lineto
+79 111 105 132 119 163  curveto
+134 194 142 239 142 299  curveto
+63 299 lineto
+63 366 lineto
+142 366 lineto
+142 522 lineto
+142 588 160 641 198 681  curveto
+236 721 285 741 345 741  curveto
+377 741 404 738 426 733  curveto
+449 728 469 723 488 717  curveto
+488 617 lineto
+483 617 lineto
+465 630 444 640 420 648  curveto
+397 655 375 659 354 659  curveto
+314 659 285 647 265 622  curveto
+245 597 235 560 235 513  curveto
+235 366 lineto
+413 366 lineto
+413 299 lineto
+235 299 lineto
+235 269 lineto
+235 231 226 196 207 165  curveto
+188 134 161 109 127 88  curveto
+127 83 lineto
+503 83 lineto
+503 0 lineto
+closepath
+fill
+		} def
+
+	/fraction
+		{
+447 727 moveto
+66 0 lineto
+-14 0 lineto
+366 727 lineto
+447 727 lineto
+closepath
+fill
+		} def
+
+	/yen
+		{
+517 727 moveto
+317 331 lineto
+317 282 lineto
+484 282 lineto
+484 214 lineto
+318 214 lineto
+318 0 lineto
+227 0 lineto
+227 214 lineto
+61 214 lineto
+61 282 lineto
+228 282 lineto
+228 320 lineto
+27 727 lineto
+129 727 lineto
+273 415 lineto
+418 727 lineto
+517 727 lineto
+closepath
+fill
+		} def
+
+	/florin
+		{
+530 644 moveto
+525 644 lineto
+517 647 504 651 487 656  curveto
+470 660 456 662 443 662  curveto
+407 662 381 652 364 633  curveto
+348 613 336 578 329 528  curveto
+315 431 lineto
+458 431 lineto
+458 364 lineto
+306 364 lineto
+272 114 lineto
+262 39 239 -14 205 -48  curveto
+171 -81 124 -98 65 -98  curveto
+53 -98 39 -97 23 -96  curveto
+8 -94 -7 -92 -23 -89  curveto
+-23 -1 lineto
+-19 -1 lineto
+-9 -4 2 -8 18 -12  curveto
+34 -17 49 -19 62 -19  curveto
+99 -19 125 -9 142 10  curveto
+159 30 170 64 177 114  curveto
+212 364 lineto
+125 364 lineto
+125 431 lineto
+221 431 lineto
+234 528 lineto
+239 568 248 601 260 629  curveto
+272 656 287 678 305 695  curveto
+322 711 343 723 366 730  curveto
+390 738 415 741 440 741  curveto
+457 741 472 740 485 739  curveto
+498 738 513 735 530 732  curveto
+530 644 lineto
+closepath
+fill
+		} def
+
+	/section
+		{
+370 195 moveto
+378 207 384 218 388 228  curveto
+393 239 395 253 395 271  curveto
+395 286 393 300 388 312  curveto
+383 324 377 333 369 341  curveto
+361 348 352 355 341 360  curveto
+331 365 319 369 305 374  curveto
+294 377 282 380 268 385  curveto
+253 389 237 394 219 399  curveto
+213 396 206 391 199 385  curveto
+192 379 184 371 176 360  curveto
+169 351 163 340 158 326  curveto
+153 311 150 297 150 282  curveto
+150 256 156 235 168 219  curveto
+181 204 205 190 240 180  curveto
+251 176 263 173 278 168  curveto
+292 164 308 159 325 153  curveto
+331 157 339 163 347 169  curveto
+355 176 363 185 370 195  curveto
+closepath
+88 -64 moveto
+97 -69 107 -73 120 -79  curveto
+132 -84 145 -88 156 -92  curveto
+172 -97 186 -101 199 -103  curveto
+212 -106 228 -107 248 -107  curveto
+285 -107 316 -99 341 -84  curveto
+366 -69 378 -47 378 -17  curveto
+378 0 375 14 369 25  curveto
+363 36 354 45 340 54  curveto
+327 62 310 69 290 74  curveto
+270 80 248 86 224 93  curveto
+195 101 172 110 153 118  curveto
+134 127 116 138 101 152  curveto
+86 165 76 181 68 198  curveto
+61 216 58 236 58 260  curveto
+58 290 66 319 82 347  curveto
+97 374 122 398 155 418  curveto
+155 422 lineto
+125 438 104 458 91 481  curveto
+78 504 72 530 72 560  curveto
+72 614 93 658 134 691  curveto
+176 725 233 741 306 741  curveto
+334 741 359 739 383 735  curveto
+406 731 432 723 461 713  curveto
+461 619 lineto
+457 619 lineto
+427 633 400 644 375 651  curveto
+350 658 323 661 296 661  curveto
+259 661 229 654 203 639  curveto
+178 624 166 602 166 574  curveto
+166 555 169 540 176 528  curveto
+182 517 192 507 205 500  curveto
+217 492 233 485 253 479  curveto
+273 472 295 466 320 459  curveto
+380 443 423 422 448 397  curveto
+474 371 487 337 487 293  curveto
+487 258 478 227 460 201  curveto
+442 174 419 152 390 135  curveto
+390 131 lineto
+418 116 439 97 452 75  curveto
+466 52 473 25 473 -4  curveto
+473 -28 468 -52 457 -75  curveto
+447 -98 432 -118 414 -133  curveto
+393 -151 369 -164 341 -173  curveto
+313 -183 279 -187 239 -187  curveto
+213 -187 187 -185 162 -181  curveto
+137 -176 111 -169 83 -159  curveto
+83 -64 lineto
+88 -64 lineto
+closepath
+fill
+		} def
+
+	/currency
+		{
+516 132 moveto
+464 81 lineto
+359 184 lineto
+345 175 331 169 318 165  curveto
+306 161 291 159 273 159  curveto
+258 159 243 161 228 166  curveto
+213 171 199 177 187 185  curveto
+83 80 lineto
+31 133 lineto
+135 237 lineto
+127 250 120 264 116 279  curveto
+112 294 109 309 109 322  curveto
+109 337 112 351 116 365  curveto
+120 380 127 394 135 407  curveto
+31 513 lineto
+83 564 lineto
+188 460 lineto
+200 468 214 474 229 479  curveto
+243 484 258 486 273 486  curveto
+290 486 306 483 321 478  curveto
+335 473 348 467 359 461  curveto
+462 564 lineto
+516 513 lineto
+411 408 lineto
+420 394 426 380 431 367  curveto
+435 354 437 339 437 322  curveto
+437 308 435 293 430 278  curveto
+425 262 419 249 411 237  curveto
+516 132 lineto
+closepath
+367 322 moveto
+367 348 357 371 339 390  curveto
+321 409 299 418 273 418  curveto
+248 418 226 409 207 390  curveto
+189 372 179 349 179 322  curveto
+179 296 188 274 207 255  curveto
+225 236 247 226 273 226  curveto
+298 226 320 235 339 254  curveto
+357 273 367 296 367 322  curveto
+closepath
+fill
+		} def
+
+	/quotesingle
+		{
+159 759 moveto
+138 477 lineto
+72 477 lineto
+51 759 lineto
+159 759 lineto
+closepath
+fill
+		} def
+
+	/quotedblleft
+		{
+354 486 moveto
+288 486 lineto
+161 759 lineto
+277 759 lineto
+354 486 lineto
+closepath
+161 486 moveto
+96 486 lineto
+-31 759 lineto
+84 759 lineto
+161 486 lineto
+closepath
+fill
+		} def
+
+	/guillemotleft
+		{
+509 93 moveto
+271 297 lineto
+271 339 lineto
+509 543 lineto
+509 451 lineto
+354 318 lineto
+509 185 lineto
+509 93 lineto
+closepath
+299 79 moveto
+50 296 lineto
+50 340 lineto
+299 557 lineto
+299 461 lineto
+137 318 lineto
+299 174 lineto
+299 79 lineto
+closepath
+fill
+		} def
+
+	/guilsinglleft
+		{
+309 83 moveto
+60 296 lineto
+60 340 lineto
+309 552 lineto
+309 455 lineto
+147 318 lineto
+309 181 lineto
+309 83 lineto
+closepath
+fill
+		} def
+
+	/guilsinglright
+		{
+322 296 moveto
+73 83 lineto
+73 181 lineto
+235 318 lineto
+73 455 lineto
+73 552 lineto
+322 340 lineto
+322 296 lineto
+closepath
+fill
+		} def
+
+	/fi
+		{
+465 0 moveto
+374 0 lineto
+374 470 lineto
+167 470 lineto
+167 0 lineto
+76 0 lineto
+76 469 lineto
+14 469 lineto
+14 545 lineto
+76 545 lineto
+76 573 lineto
+76 632 91 679 123 713  curveto
+155 747 195 764 245 764  curveto
+262 764 277 763 291 761  curveto
+305 760 317 758 326 757  curveto
+326 673 lineto
+321 673 lineto
+316 675 307 677 295 680  curveto
+283 683 270 684 256 684  curveto
+222 684 198 675 185 657  curveto
+171 640 165 612 165 573  curveto
+165 545 lineto
+465 545 lineto
+465 0 lineto
+closepath
+465 636 moveto
+367 636 lineto
+367 731 lineto
+465 731 lineto
+465 636 lineto
+closepath
+fill
+		} def
+
+	/fl
+		{
+462 0 moveto
+371 0 lineto
+371 685 lineto
+362 686 351 687 338 687  curveto
+325 688 315 688 307 688  curveto
+254 688 217 680 196 662  curveto
+175 645 165 613 165 568  curveto
+165 545 lineto
+283 545 lineto
+283 469 lineto
+167 469 lineto
+167 0 lineto
+76 0 lineto
+76 469 lineto
+14 469 lineto
+14 545 lineto
+76 545 lineto
+76 569 lineto
+76 602 81 631 91 655  curveto
+102 679 116 700 135 716  curveto
+153 732 176 744 205 752  curveto
+233 760 264 764 296 764  curveto
+316 764 337 763 360 761  curveto
+383 758 402 757 415 755  curveto
+462 759 lineto
+462 0 lineto
+closepath
+fill
+		} def
+
+	/endash
+		{
+319 273 moveto
+43 273 lineto
+43 362 lineto
+319 362 lineto
+319 273 lineto
+closepath
+fill
+		} def
+
+	/dagger
+		{
+479 504 moveto
+302 507 lineto
+305 65 lineto
+240 65 lineto
+243 507 lineto
+65 504 lineto
+65 567 lineto
+243 565 lineto
+240 759 lineto
+305 759 lineto
+302 565 lineto
+479 567 lineto
+479 504 lineto
+closepath
+fill
+		} def
+
+	/daggerdbl
+		{
+479 247 moveto
+302 250 lineto
+305 60 lineto
+240 60 lineto
+243 250 lineto
+65 247 lineto
+65 310 lineto
+243 308 lineto
+243 512 lineto
+65 509 lineto
+65 572 lineto
+243 570 lineto
+240 759 lineto
+305 759 lineto
+302 570 lineto
+479 572 lineto
+479 509 lineto
+302 512 lineto
+302 308 lineto
+479 310 lineto
+479 247 lineto
+closepath
+fill
+		} def
+
+	/periodcentered
+		{
+235 406 moveto
+118 406 lineto
+118 545 lineto
+235 545 lineto
+235 406 lineto
+closepath
+fill
+		} def
+
+	/paragraph
+		{
+479 -177 moveto
+411 -177 lineto
+411 663 lineto
+319 663 lineto
+319 -177 lineto
+251 -177 lineto
+251 289 lineto
+184 291 130 312 89 352  curveto
+48 392 27 446 27 512  curveto
+27 580 48 632 91 670  curveto
+133 708 194 727 273 727  curveto
+479 727 lineto
+479 -177 lineto
+closepath
+fill
+		} def
+
+	/bullet
+		{
+398 323 moveto
+398 276 382 235 348 202  curveto
+314 168 274 151 227 151  curveto
+179 151 139 168 105 202  curveto
+72 235 55 276 55 323  curveto
+55 370 72 410 105 444  curveto
+139 477 179 494 227 494  curveto
+274 494 314 477 348 444  curveto
+382 410 398 370 398 323  curveto
+closepath
+fill
+		} def
+
+	/quotesinglbase
+		{
+188 138 moveto
+61 -134 lineto
+-6 -134 lineto
+70 138 lineto
+188 138 lineto
+closepath
+fill
+		} def
+
+	/quotedblbase
+		{
+381 138 moveto
+253 -134 lineto
+188 -134 lineto
+265 138 lineto
+381 138 lineto
+closepath
+188 138 moveto
+61 -134 lineto
+-3 -134 lineto
+72 138 lineto
+188 138 lineto
+closepath
+fill
+		} def
+
+	/quotedblright
+		{
+437 759 moveto
+310 486 lineto
+244 486 lineto
+321 759 lineto
+437 759 lineto
+closepath
+245 759 moveto
+117 486 lineto
+52 486 lineto
+128 759 lineto
+245 759 lineto
+closepath
+fill
+		} def
+
+	/guillemotright
+		{
+522 296 moveto
+273 79 lineto
+273 174 lineto
+435 318 lineto
+273 461 lineto
+273 557 lineto
+522 340 lineto
+522 296 lineto
+closepath
+302 297 moveto
+63 93 lineto
+63 185 lineto
+218 318 lineto
+63 451 lineto
+63 543 lineto
+302 339 lineto
+302 297 lineto
+closepath
+fill
+		} def
+
+	/ellipsis
+		{
+730 0 moveto
+631 0 lineto
+631 108 lineto
+730 108 lineto
+730 0 lineto
+closepath
+458 0 moveto
+358 0 lineto
+358 108 lineto
+458 108 lineto
+458 0 lineto
+closepath
+186 0 moveto
+86 0 lineto
+86 108 lineto
+186 108 lineto
+186 0 lineto
+closepath
+fill
+		} def
+
+	/perthousand
+		{
+394 525 moveto
+394 452 379 397 349 362  curveto
+320 327 277 309 222 309  curveto
+165 309 122 327 93 363  curveto
+64 399 49 452 49 524  curveto
+49 597 64 652 94 687  curveto
+123 722 166 740 222 740  curveto
+278 740 321 722 350 687  curveto
+379 651 394 597 394 525  curveto
+closepath
+719 727 moveto
+338 0 lineto
+257 0 lineto
+638 727 lineto
+719 727 lineto
+closepath
+926 201 moveto
+926 128 911 74 882 38  curveto
+852 3 810 -14 754 -14  curveto
+697 -14 654 3 625 39  curveto
+596 75 582 129 582 201  curveto
+582 274 596 328 626 363  curveto
+656 399 698 417 754 417  curveto
+811 417 853 399 882 363  curveto
+911 327 926 273 926 201  curveto
+closepath
+307 525 moveto
+307 574 301 612 289 637  curveto
+278 663 255 675 222 675  curveto
+188 675 166 662 154 637  curveto
+142 611 136 574 136 524  curveto
+136 476 142 438 153 413  curveto
+164 387 187 374 222 374  curveto
+255 374 278 387 289 413  curveto
+301 438 307 476 307 525  curveto
+closepath
+839 201 moveto
+839 251 833 288 822 313  curveto
+810 339 787 352 754 352  curveto
+720 352 698 339 686 313  curveto
+674 287 668 250 668 201  curveto
+668 152 674 115 685 89  curveto
+696 63 719 50 754 50  curveto
+787 50 810 63 822 89  curveto
+833 115 839 152 839 201  curveto
+closepath
+1338 201 moveto
+1338 128 1323 74 1294 38  curveto
+1264 3 1222 -14 1166 -14  curveto
+1109 -14 1066 3 1037 39  curveto
+1008 75 994 129 994 201  curveto
+994 274 1008 328 1038 363  curveto
+1068 399 1110 417 1166 417  curveto
+1223 417 1265 399 1294 363  curveto
+1323 327 1338 273 1338 201  curveto
+closepath
+1251 201 moveto
+1251 251 1245 288 1234 313  curveto
+1222 339 1200 352 1166 352  curveto
+1132 352 1110 339 1098 313  curveto
+1086 287 1081 250 1081 201  curveto
+1081 152 1086 115 1097 89  curveto
+1108 63 1131 50 1166 50  curveto
+1200 50 1222 63 1234 89  curveto
+1245 115 1251 152 1251 201  curveto
+closepath
+fill
+		} def
+
+	/questiondown
+		{
+308 624 moveto
+208 624 lineto
+208 727 lineto
+308 727 lineto
+308 624 lineto
+closepath
+420 19 moveto
+394 9 367 1 338 -4  curveto
+310 -11 278 -14 243 -14  curveto
+176 -14 124 2 85 36  curveto
+47 70 28 115 28 170  curveto
+28 201 33 228 42 252  curveto
+52 277 67 299 86 321  curveto
+103 340 123 358 146 373  curveto
+168 389 192 404 216 420  curveto
+216 531 lineto
+304 531 lineto
+304 382 lineto
+281 368 259 355 239 343  curveto
+220 330 201 316 183 299  curveto
+166 284 153 266 143 246  curveto
+133 226 127 203 127 178  curveto
+127 141 139 114 162 95  curveto
+185 77 215 68 252 68  curveto
+285 68 316 74 346 85  curveto
+376 96 399 108 415 119  curveto
+420 119 lineto
+420 19 lineto
+closepath
+fill
+		} def
+
+	/grave
+		{
+327 635 moveto
+254 635 lineto
+121 818 lineto
+239 818 lineto
+327 635 lineto
+closepath
+fill
+		} def
+
+	/acute
+		{
+425 818 moveto
+292 635 lineto
+219 635 lineto
+306 818 lineto
+425 818 lineto
+closepath
+fill
+		} def
+
+	/circumflex
+		{
+439 633 moveto
+362 633 lineto
+271 758 lineto
+182 633 lineto
+106 633 lineto
+217 818 lineto
+328 818 lineto
+439 633 lineto
+closepath
+fill
+		} def
+
+	/tilde
+		{
+468 796 moveto
+465 746 453 708 432 682  curveto
+411 657 383 644 348 644  curveto
+331 644 316 647 301 653  curveto
+287 660 273 669 259 682  curveto
+245 695 233 706 222 713  curveto
+212 720 201 723 191 723  curveto
+175 723 164 716 158 701  curveto
+152 687 148 667 146 642  curveto
+78 642 lineto
+80 692 93 730 115 756  curveto
+138 781 165 794 198 794  curveto
+214 794 230 791 244 784  curveto
+258 778 272 769 286 756  curveto
+300 744 312 734 323 727  curveto
+335 721 345 717 354 717  curveto
+370 717 381 725 388 739  curveto
+395 754 399 773 400 796  curveto
+468 796 lineto
+closepath
+fill
+		} def
+
+	/macron
+		{
+553 810 moveto
+-7 810 lineto
+-7 873 lineto
+553 873 lineto
+553 810 lineto
+closepath
+fill
+		} def
+
+	/breve
+		{
+434 798 moveto
+434 770 430 745 423 722  curveto
+416 699 407 680 394 664  curveto
+379 647 363 634 344 625  curveto
+326 617 302 612 273 612  curveto
+246 612 223 617 203 626  curveto
+183 635 166 647 152 664  curveto
+139 680 129 700 122 723  curveto
+115 745 112 771 112 798  curveto
+191 798 lineto
+191 754 198 723 211 703  curveto
+225 684 246 674 273 674  curveto
+299 674 319 684 333 703  curveto
+347 722 354 754 354 798  curveto
+434 798 lineto
+closepath
+fill
+		} def
+
+	/dotaccent
+		{
+325 636 moveto
+220 636 lineto
+220 731 lineto
+325 731 lineto
+325 636 lineto
+closepath
+fill
+		} def
+
+	/dieresis
+		{
+423 636 moveto
+325 636 lineto
+325 731 lineto
+423 731 lineto
+423 636 lineto
+closepath
+221 636 moveto
+123 636 lineto
+123 731 lineto
+221 731 lineto
+221 636 lineto
+closepath
+fill
+		} def
+
+	/ring
+		{
+422 693 moveto
+422 651 407 616 379 588  curveto
+350 560 314 546 272 546  curveto
+231 546 195 560 166 589  curveto
+138 617 123 652 123 693  curveto
+123 735 138 770 166 798  curveto
+195 826 231 840 272 840  curveto
+314 840 350 826 379 798  curveto
+407 770 422 735 422 693  curveto
+closepath
+350 693 moveto
+350 717 343 737 328 753  curveto
+314 769 295 777 272 777  curveto
+250 777 231 769 217 753  curveto
+202 737 195 717 195 693  curveto
+195 669 202 649 217 633  curveto
+231 617 250 609 272 609  curveto
+295 609 314 617 328 634  curveto
+343 650 350 669 350 693  curveto
+closepath
+fill
+		} def
+
+	/cedilla
+		{
+374 9 moveto
+374 3 375 -3 376 -12  curveto
+377 -21 377 -31 377 -43  curveto
+377 -96 363 -136 334 -164  curveto
+306 -192 270 -206 227 -206  curveto
+215 -206 201 -205 185 -203  curveto
+168 -201 154 -198 141 -194  curveto
+141 -116 lineto
+145 -116 lineto
+153 -120 163 -123 176 -127  curveto
+188 -131 201 -133 214 -133  curveto
+245 -133 267 -126 280 -114  curveto
+293 -101 299 -80 299 -52  curveto
+299 -43 299 -34 299 -24  curveto
+298 -14 298 -2 297 9  curveto
+374 9 lineto
+closepath
+fill
+		} def
+
+	/hungarumlaut
+		{
+276 727 moveto
+131 424 lineto
+66 424 lineto
+161 727 lineto
+276 727 lineto
+closepath
+469 727 moveto
+323 424 lineto
+259 424 lineto
+354 727 lineto
+469 727 lineto
+closepath
+fill
+		} def
+
+	/ogonek
+		{
+289 0 moveto
+275 -11 262 -26 252 -43  curveto
+241 -61 236 -77 236 -92  curveto
+236 -103 239 -112 245 -118  curveto
+251 -125 260 -128 272 -128  curveto
+279 -128 286 -128 292 -126  curveto
+298 -125 303 -123 307 -122  curveto
+312 -122 lineto
+312 -190 lineto
+303 -194 293 -197 282 -198  curveto
+272 -200 262 -201 253 -201  curveto
+224 -201 202 -194 185 -178  curveto
+169 -163 161 -142 161 -115  curveto
+161 -94 166 -73 178 -52  curveto
+189 -31 202 -13 216 0  curveto
+289 0 lineto
+closepath
+fill
+		} def
+
+	/caron
+		{
+437 818 moveto
+326 633 lineto
+215 633 lineto
+104 818 lineto
+182 818 lineto
+272 693 lineto
+362 818 lineto
+437 818 lineto
+closepath
+fill
+		} def
+
+	/emdash
+		{
+319 273 moveto
+43 273 lineto
+43 362 lineto
+319 362 lineto
+319 273 lineto
+closepath
+fill
+		} def
+
+	/AE
+		{
+879 0 moveto
+434 0 lineto
+434 271 lineto
+187 271 lineto
+82 0 lineto
+-19 0 lineto
+275 727 lineto
+879 727 lineto
+879 641 lineto
+530 641 lineto
+530 441 lineto
+855 441 lineto
+855 355 lineto
+530 355 lineto
+530 85 lineto
+879 85 lineto
+879 0 lineto
+closepath
+434 353 moveto
+434 646 lineto
+339 646 lineto
+220 353 lineto
+434 353 lineto
+closepath
+fill
+		} def
+
+	/ordfeminine
+		{
+426 276 moveto
+345 276 lineto
+345 320 lineto
+339 315 331 309 320 302  curveto
+310 294 300 288 290 283  curveto
+276 277 263 272 250 269  curveto
+237 265 220 264 197 264  curveto
+156 264 123 277 96 304  curveto
+69 332 55 367 55 409  curveto
+55 443 62 471 76 492  curveto
+90 513 110 530 136 542  curveto
+161 554 191 562 229 567  curveto
+266 572 305 576 345 578  curveto
+345 587 lineto
+345 604 343 618 337 628  curveto
+332 638 324 646 313 652  curveto
+304 658 292 662 278 663  curveto
+264 665 250 666 235 666  curveto
+209 666 184 662 157 655  curveto
+131 647 112 641 99 636  curveto
+92 636 lineto
+92 719 lineto
+106 723 128 728 156 733  curveto
+184 739 211 741 235 741  curveto
+298 741 345 729 378 704  curveto
+410 679 426 639 426 583  curveto
+426 276 lineto
+closepath
+345 391 moveto
+345 510 lineto
+324 508 299 506 271 504  curveto
+243 501 221 498 205 493  curveto
+185 487 169 478 157 466  curveto
+145 453 139 436 139 414  curveto
+139 390 146 371 161 358  curveto
+175 346 196 339 225 339  curveto
+249 339 272 345 291 355  curveto
+311 366 329 378 345 391  curveto
+closepath
+fill
+		} def
+
+	/Lslash
+		{
+515 0 moveto
+93 0 lineto
+93 265 lineto
+11 197 lineto
+11 276 lineto
+93 342 lineto
+93 727 lineto
+190 727 lineto
+190 412 lineto
+350 542 lineto
+350 464 lineto
+190 335 lineto
+190 85 lineto
+515 85 lineto
+515 0 lineto
+closepath
+fill
+		} def
+
+	/Oslash
+		{
+675 363 moveto
+675 243 646 150 587 84  curveto
+528 17 450 -15 353 -15  curveto
+317 -15 284 -10 253 0  curveto
+222 8 194 21 169 39  curveto
+105 -56 lineto
+33 -56 lineto
+125 79 lineto
+96 111 73 151 56 198  curveto
+40 246 32 301 32 363  curveto
+32 483 61 576 120 642  curveto
+179 708 256 742 353 742  curveto
+390 742 423 737 452 728  curveto
+482 719 509 706 535 688  curveto
+591 771 lineto
+664 771 lineto
+580 649 lineto
+610 616 633 577 650 530  curveto
+666 483 675 428 675 363  curveto
+closepath
+485 615 moveto
+468 629 449 640 427 647  curveto
+405 655 380 658 354 658  curveto
+286 658 232 633 192 583  curveto
+151 533 131 459 131 363  curveto
+131 319 136 280 144 246  curveto
+153 212 164 182 180 158  curveto
+485 615 lineto
+closepath
+575 363 moveto
+575 408 571 448 562 483  curveto
+553 518 541 547 526 570  curveto
+219 113 lineto
+238 98 257 87 278 79  curveto
+299 72 324 68 354 68  curveto
+421 68 474 93 515 144  curveto
+555 194 575 267 575 363  curveto
+closepath
+fill
+		} def
+
+	/OE
+		{
+943 0 moveto
+439 0 lineto
+380 0 329 4 289 12  curveto
+249 21 212 36 179 57  curveto
+132 88 96 129 70 181  curveto
+45 232 32 293 32 364  curveto
+32 432 45 492 73 545  curveto
+100 597 136 638 181 668  curveto
+210 687 244 702 283 712  curveto
+322 722 374 727 438 727  curveto
+943 727 lineto
+943 641 lineto
+590 641 lineto
+590 441 lineto
+918 441 lineto
+918 355 lineto
+590 355 lineto
+590 85 lineto
+943 85 lineto
+943 0 lineto
+closepath
+494 83 moveto
+494 643 lineto
+436 643 lineto
+387 643 348 639 318 632  curveto
+287 625 259 612 233 595  curveto
+200 573 175 542 158 503  curveto
+141 464 132 417 132 362  curveto
+132 306 142 259 160 219  curveto
+179 179 206 149 243 126  curveto
+270 110 298 99 327 93  curveto
+357 86 393 83 435 83  curveto
+494 83 lineto
+closepath
+fill
+		} def
+
+	/ordmasculine
+		{
+452 502 moveto
+452 426 433 367 395 326  curveto
+356 284 307 263 247 263  curveto
+184 263 134 285 97 327  curveto
+60 370 41 429 41 502  curveto
+41 578 60 637 98 679  curveto
+136 721 186 742 247 742  curveto
+307 742 357 721 395 680  curveto
+433 638 452 579 452 502  curveto
+closepath
+364 502 moveto
+364 559 353 600 332 628  curveto
+311 655 283 668 247 668  curveto
+210 668 182 655 161 628  curveto
+139 601 129 559 129 502  curveto
+129 447 139 406 160 378  curveto
+181 350 210 336 247 336  curveto
+283 336 311 350 332 378  curveto
+353 406 364 447 364 502  curveto
+closepath
+fill
+		} def
+
+	/ae
+		{
+398 145 moveto
+392 163 388 182 384 203  curveto
+381 225 379 248 379 272  curveto
+348 271 318 270 287 268  curveto
+256 266 229 262 204 255  curveto
+180 248 160 238 145 223  curveto
+130 208 122 187 122 161  curveto
+122 130 131 107 149 92  curveto
+168 76 195 69 231 69  curveto
+261 69 291 76 321 90  curveto
+351 105 377 123 398 145  curveto
+closepath
+654 67 moveto
+675 67 695 69 715 74  curveto
+735 79 752 84 767 91  curveto
+784 99 798 106 809 113  curveto
+820 120 830 127 837 133  curveto
+843 133 lineto
+843 33 lineto
+832 28 819 23 802 17  curveto
+786 10 772 6 759 2  curveto
+741 -2 725 -6 711 -8  curveto
+696 -11 678 -12 655 -12  curveto
+602 -12 557 -4 520 12  curveto
+483 29 452 54 428 88  curveto
+421 82 410 72 396 59  curveto
+382 46 367 34 352 25  curveto
+330 13 309 3 286 -3  curveto
+263 -10 234 -14 198 -14  curveto
+151 -14 110 1 77 33  curveto
+44 64 28 105 28 154  curveto
+28 196 36 229 54 254  curveto
+71 278 95 297 127 311  curveto
+157 324 195 332 240 336  curveto
+285 341 333 343 383 344  curveto
+383 373 lineto
+383 394 380 411 373 425  curveto
+366 439 356 450 343 458  curveto
+332 465 317 470 301 473  curveto
+284 476 265 478 244 478  curveto
+217 478 189 474 157 465  curveto
+126 456 102 448 83 440  curveto
+76 440 lineto
+76 533 lineto
+92 538 116 543 150 550  curveto
+183 556 215 559 244 559  curveto
+296 559 339 551 371 536  curveto
+404 520 429 498 446 469  curveto
+467 496 494 517 526 534  curveto
+559 552 594 560 632 560  curveto
+705 560 760 538 798 494  curveto
+835 451 854 390 854 312  curveto
+854 272 lineto
+469 272 lineto
+469 235 474 204 483 177  curveto
+493 150 507 129 524 112  curveto
+541 96 561 84 583 77  curveto
+604 70 628 67 654 67  curveto
+closepath
+765 343 moveto
+763 362 760 380 755 398  curveto
+750 415 742 430 731 443  curveto
+721 455 708 465 690 473  curveto
+672 481 652 484 628 484  curveto
+603 484 581 481 565 474  curveto
+548 467 533 457 519 443  curveto
+506 431 495 416 487 398  curveto
+479 380 473 362 470 343  curveto
+765 343 lineto
+closepath
+fill
+		} def
+
+	/dotlessi
+		{
+160 0 moveto
+68 0 lineto
+68 545 lineto
+160 545 lineto
+160 0 lineto
+closepath
+fill
+		} def
+
+	/lslash
+		{
+263 417 moveto
+183 354 lineto
+183 0 lineto
+91 0 lineto
+91 287 lineto
+11 222 lineto
+11 299 lineto
+91 363 lineto
+91 759 lineto
+183 759 lineto
+183 429 lineto
+263 495 lineto
+263 417 lineto
+closepath
+fill
+		} def
+
+	/oslash
+		{
+515 272 moveto
+515 180 493 109 448 60  curveto
+404 10 345 -14 271 -14  curveto
+246 -14 222 -11 201 -4  curveto
+179 2 159 11 140 22  curveto
+80 -71 lineto
+20 -71 lineto
+102 55 lineto
+78 80 60 110 47 146  curveto
+34 183 27 224 27 272  curveto
+27 363 50 434 94 484  curveto
+139 534 198 560 271 560  curveto
+296 560 319 556 341 550  curveto
+363 543 383 534 401 522  curveto
+454 605 lineto
+515 605 lineto
+441 490 lineto
+464 465 482 434 495 399  curveto
+508 363 515 321 515 272  curveto
+closepath
+358 455 moveto
+347 463 335 470 320 474  curveto
+306 479 290 481 271 481  curveto
+224 481 187 463 160 428  curveto
+134 393 121 341 121 272  curveto
+121 240 123 213 128 189  curveto
+132 166 139 145 149 127  curveto
+358 455 lineto
+closepath
+421 272 moveto
+421 304 419 332 414 356  curveto
+410 381 403 401 394 417  curveto
+184 91 lineto
+196 81 209 74 223 70  curveto
+236 66 253 63 271 63  curveto
+319 63 355 81 382 115  curveto
+408 150 421 202 421 272  curveto
+closepath
+fill
+		} def
+
+	/oe
+		{
+793 333 moveto
+792 384 780 422 758 447  curveto
+736 472 704 484 660 484  curveto
+618 484 583 471 555 444  curveto
+527 418 511 381 507 333  curveto
+793 333 lineto
+closepath
+417 272 moveto
+417 343 405 395 379 429  curveto
+354 464 317 481 270 481  curveto
+222 481 185 463 160 427  curveto
+135 391 122 339 122 272  curveto
+122 204 135 152 160 116  curveto
+186 81 222 63 270 63  curveto
+317 63 353 81 379 116  curveto
+405 151 417 203 417 272  curveto
+closepath
+685 67 moveto
+705 67 725 69 744 74  curveto
+763 78 781 84 796 91  curveto
+813 99 827 106 838 113  curveto
+850 120 859 127 867 133  curveto
+872 133 lineto
+872 33 lineto
+861 28 848 23 832 17  curveto
+816 10 802 6 789 2  curveto
+771 -2 755 -6 740 -8  curveto
+726 -11 708 -12 686 -12  curveto
+638 -12 595 -4 556 12  curveto
+518 30 487 54 464 87  curveto
+443 53 416 28 384 10  curveto
+352 -6 314 -15 270 -15  curveto
+195 -15 136 10 92 62  curveto
+49 113 27 183 27 272  curveto
+27 362 49 433 93 484  curveto
+137 535 196 560 270 560  curveto
+313 560 351 551 385 533  curveto
+418 515 445 490 466 457  curveto
+488 490 516 515 551 533  curveto
+585 551 623 560 665 560  curveto
+735 560 789 538 826 495  curveto
+864 452 882 391 882 312  curveto
+882 263 lineto
+507 263 lineto
+507 200 523 152 554 118  curveto
+586 84 629 67 685 67  curveto
+closepath
+fill
+		} def
+
+	/germandbls
+		{
+521 234 moveto
+521 163 499 105 455 58  curveto
+411 11 354 -11 284 -11  curveto
+276 -11 265 -11 253 -10  curveto
+241 -9 231 -8 224 -6  curveto
+224 74 lineto
+229 74 lineto
+238 71 248 69 258 68  curveto
+268 66 278 65 288 65  curveto
+313 65 334 70 352 79  curveto
+370 88 384 100 395 115  curveto
+406 132 414 150 419 169  curveto
+423 189 426 212 426 238  curveto
+426 293 409 334 375 360  curveto
+342 385 292 398 227 398  curveto
+227 475 lineto
+277 475 315 484 341 503  curveto
+368 522 381 553 381 596  curveto
+381 607 379 618 376 630  curveto
+373 641 367 652 359 661  curveto
+352 670 341 678 329 683  curveto
+317 689 301 692 282 692  curveto
+264 692 249 690 235 685  curveto
+221 680 208 671 195 658  curveto
+184 646 174 629 168 608  curveto
+161 586 158 560 158 530  curveto
+158 0 lineto
+66 0 lineto
+66 527 lineto
+66 569 71 605 83 633  curveto
+94 662 109 686 129 707  curveto
+148 726 172 741 198 750  curveto
+225 759 254 764 284 764  curveto
+338 764 384 750 420 723  curveto
+456 695 475 656 475 605  curveto
+475 569 463 536 440 507  curveto
+417 478 387 459 350 448  curveto
+350 444 lineto
+403 432 445 408 476 372  curveto
+506 336 521 290 521 234  curveto
+closepath
+fill
+		} def
+
+	/.notdef
+		{
+0 0 moveto
+1000 0 lineto
+1000 1000 lineto
+0 1000 lineto
+0 0 lineto
+closepath
+50 50 moveto
+950 50 lineto
+950 950 lineto
+50 950 lineto
+50 50 lineto
+closepath
+fill
+		} def
+
+	end				% close glyph dict. 
+	currentdict			% actually put dict on the stack
+	end			% close the dictionary now
+	/Tahoma exch definefont pop
+/Tahoma findfont 11.0 scalefont setfont
+(dynamic) show
+Q
+Q
+Q
+Q
+q
+3.0 66.0 translate
+0 0 62 14 rc
+q
+q
+gsave /DeviceRGB setcolorspace
+[ 19.0 0.0 0.0 12.0 0.0 1.0 ] concat
+<<
+/ImageType 1
+/Width 19  /Height 12
+/BitsPerComponent 8
+/Decode [0 1 0 1 0 1]
+/ImageMatrix [19 0 0 12 0 0]
+/DataSource currentfile /ASCII85Decode filter /FlateDecode filter 
+>> image
+Gar8O+<UM/*RI>%*[:u+`$L71,=EB`7Yo/3,4%33Mda"-X%'0k&FW-eJ3o7V!<<]$^/+~>
+grestore
+23.0 11.0 moveto
+q 1 -1 scale
+/Tahoma findfont 11.0 scalefont setfont
+(static) show
+Q
+Q
+Q
+Q
+Q
+Q
+q
+0.0 0.0 translate
+0 0 171 161 rc
+q
+q
+1.0 1.0 1.0 RG
+0.0 0.0 171.0 161.0 rf
+Q
+36.241699 158.0 moveto
+q 1 -1 scale
+/Tahoma findfont 11.0 scalefont setfont
+(energy consumption) show
+Q
+[ 0.0 -1.0 1.0 0.0 -114.835693 134.835693 ] concat
+10.0 124.835693 moveto
+q 1 -1 scale
+/Tahoma findfont 11.0 scalefont setfont
+(probability density) show
+Q
+[ 1.0 0.0 0.0 1.0 0.0 0.0 ] defaultmatrix matrix concatmatrix setmatrix
+0.99 w
+28.995117 134.300003 moveto
+q 1 -1 scale
+/Tahoma findfont 11.0 scalefont setfont
+(0) show
+Q
+13.655273 112.416267 moveto
+q 1 -1 scale
+/Tahoma findfont 11.0 scalefont setfont
+(0.03) show
+Q
+0.752941 0.752941 0.752941 RG
+1.0 w
+0 J
+1 j
+1.0 M
+[ 1.0 2.0 ] 0.0 d
+newpath
+36.0 109.116264 m
+170.0 109.116264 l
+S
+0.99 w
+2 J
+0 j
+10.0 M
+[ ] 0.0 d
+0.0 0.0 0.0 RG
+13.655273 90.532532 moveto
+q 1 -1 scale
+/Tahoma findfont 11.0 scalefont setfont
+(0.06) show
+Q
+0.752941 0.752941 0.752941 RG
+1.0 w
+0 J
+1 j
+1.0 M
+[ 1.0 2.0 ] 0.0 d
+newpath
+36.0 87.232528 m
+170.0 87.232528 l
+S
+0.99 w
+2 J
+0 j
+10.0 M
+[ ] 0.0 d
+0.0 0.0 0.0 RG
+13.655273 68.648788 moveto
+q 1 -1 scale
+/Tahoma findfont 11.0 scalefont setfont
+(0.09) show
+Q
+0.752941 0.752941 0.752941 RG
+1.0 w
+0 J
+1 j
+1.0 M
+[ 1.0 2.0 ] 0.0 d
+newpath
+36.0 65.348785 m
+170.0 65.348785 l
+S
+0.99 w
+2 J
+0 j
+10.0 M
+[ ] 0.0 d
+0.0 0.0 0.0 RG
+13.655273 46.765049 moveto
+q 1 -1 scale
+/Tahoma findfont 11.0 scalefont setfont
+(0.12) show
+Q
+0.752941 0.752941 0.752941 RG
+1.0 w
+0 J
+1 j
+1.0 M
+[ 1.0 2.0 ] 0.0 d
+newpath
+36.0 43.465049 m
+170.0 43.465049 l
+S
+0.99 w
+2 J
+0 j
+10.0 M
+[ ] 0.0 d
+0.0 0.0 0.0 RG
+13.655273 24.881306 moveto
+q 1 -1 scale
+/Tahoma findfont 11.0 scalefont setfont
+(0.15) show
+Q
+0.752941 0.752941 0.752941 RG
+1.0 w
+0 J
+1 j
+1.0 M
+[ 1.0 2.0 ] 0.0 d
+newpath
+36.0 21.581306 m
+170.0 21.581306 l
+S
+0.99 w
+2 J
+0 j
+10.0 M
+[ ] 0.0 d
+0.0 0.0 0.0 RG
+27.992676 146.300003 moveto
+q 1 -1 scale
+/Tahoma findfont 11.0 scalefont setfont
+(228) show
+Q
+68.682968 146.300003 moveto
+q 1 -1 scale
+/Tahoma findfont 11.0 scalefont setfont
+(287) show
+Q
+0.752941 0.752941 0.752941 RG
+1.0 w
+0 J
+1 j
+1.0 M
+[ 1.0 2.0 ] 0.0 d
+newpath
+77.690292 0.0 m
+77.690292 132.0 l
+S
+0.99 w
+2 J
+0 j
+10.0 M
+[ ] 0.0 d
+0.0 0.0 0.0 RG
+109.37326 146.300003 moveto
+q 1 -1 scale
+/Tahoma findfont 11.0 scalefont setfont
+(346) show
+Q
+0.752941 0.752941 0.752941 RG
+1.0 w
+0 J
+1 j
+1.0 M
+[ 1.0 2.0 ] 0.0 d
+newpath
+118.380584 0.0 m
+118.380584 132.0 l
+S
+0.99 w
+2 J
+0 j
+10.0 M
+[ ] 0.0 d
+0.0 0.0 0.0 RG
+150.063553 146.300003 moveto
+q 1 -1 scale
+/Tahoma findfont 11.0 scalefont setfont
+(405) show
+Q
+0.752941 0.752941 0.752941 RG
+1.0 w
+0 J
+1 j
+1.0 M
+[ 1.0 2.0 ] 0.0 d
+newpath
+159.070877 0.0 m
+159.070877 132.0 l
+S
+0.99 w
+2 J
+0 j
+10.0 M
+[ ] 0.0 d
+0.0 0.0 0.0 RG
+newpath
+36.0 0.0 m
+170.0 0.0 l
+170.0 132.0 l
+36.0 132.0 l
+36.0 0.0 l
+h
+S
+0.0 0.0 1.0 RG
+1.0 w
+0 J
+1 j
+1.0 M
+newpath
+149.692799 129.326805 m
+150.100391 131.0 l
+151.322480 131.0 l
+151.730072 122.633992 l
+152.137665 125.980410 l
+152.952160 122.633992 l
+153.359753 124.307216 l
+153.767345 122.633992 l
+154.174248 114.268058 l
+154.581841 92.516497 l
+154.989434 79.130944 l
+155.397026 84.150490 l
+155.803929 59.052541 l
+156.211522 55.706080 l
+156.619114 28.934973 l
+157.026707 33.954373 l
+157.433610 15.549420 l
+157.841202 7.183267 l
+158.248795 33.954373 l
+158.656388 10.530020 l
+159.063290 27.261597 l
+159.470883 60.725772 l
+159.878476 90.843267 l
+160.286068 114.268058 l
+160.692971 127.653604 l
+S
+0.99 w
+2 J
+0 j
+10.0 M
+newpath
+149.692799 126.326805 m
+152.290875 130.826805 l
+147.094723 130.826805 l
+h
+S
+newpath
+150.100391 128.0 m
+152.698468 132.5 l
+147.502315 132.5 l
+h
+S
+newpath
+150.507984 128.0 m
+153.106060 132.5 l
+147.909908 132.5 l
+h
+S
+newpath
+150.915577 128.0 m
+153.513653 132.5 l
+148.317500 132.5 l
+h
+S
+newpath
+151.322480 128.0 m
+153.920556 132.5 l
+148.724403 132.5 l
+h
+S
+newpath
+151.730072 119.633992 m
+154.328148 124.133992 l
+149.131996 124.133992 l
+h
+S
+newpath
+152.137665 122.980410 m
+154.735741 127.480410 l
+149.539589 127.480410 l
+h
+S
+newpath
+152.545257 122.980410 m
+155.143334 127.480410 l
+149.947181 127.480410 l
+h
+S
+newpath
+152.952160 119.633992 m
+155.550236 124.133992 l
+150.354084 124.133992 l
+h
+S
+newpath
+153.359753 121.307216 m
+155.957829 125.807216 l
+150.761677 125.807216 l
+h
+S
+newpath
+153.767345 119.633992 m
+156.365422 124.133992 l
+151.169269 124.133992 l
+h
+S
+newpath
+154.174248 111.268058 m
+156.772325 115.768058 l
+151.576172 115.768058 l
+h
+S
+newpath
+154.581841 89.516497 m
+157.179917 94.016497 l
+151.983765 94.016497 l
+h
+S
+newpath
+154.989434 76.130944 m
+157.587510 80.630944 l
+152.391357 80.630944 l
+h
+S
+newpath
+155.397026 81.150490 m
+157.995102 85.650490 l
+152.798950 85.650490 l
+h
+S
+newpath
+155.803929 56.052541 m
+158.402005 60.552541 l
+153.205853 60.552541 l
+h
+S
+newpath
+156.211522 52.706080 m
+158.809598 57.206080 l
+153.613445 57.206080 l
+h
+S
+newpath
+156.619114 25.934973 m
+159.217190 30.434973 l
+154.021038 30.434973 l
+h
+S
+newpath
+157.026707 30.954373 m
+159.624783 35.454373 l
+154.428631 35.454373 l
+h
+S
+newpath
+157.433610 12.549420 m
+160.031686 17.049420 l
+154.835534 17.049420 l
+h
+S
+newpath
+157.841202 4.183267 m
+160.439279 8.683267 l
+155.243126 8.683267 l
+h
+S
+newpath
+158.248795 30.954373 m
+160.846871 35.454373 l
+155.650719 35.454373 l
+h
+S
+newpath
+158.656388 7.530020 m
+161.254464 12.030020 l
+156.058311 12.030020 l
+h
+S
+newpath
+159.063290 24.261597 m
+161.661367 28.761597 l
+156.465214 28.761597 l
+h
+S
+newpath
+159.470883 57.725772 m
+162.068959 62.225772 l
+156.872807 62.225772 l
+h
+S
+newpath
+159.878476 87.843267 m
+162.476552 92.343267 l
+157.280399 92.343267 l
+h
+S
+newpath
+160.286068 111.268058 m
+162.884144 115.768058 l
+157.687992 115.768058 l
+h
+S
+newpath
+160.692971 124.653604 m
+163.291047 129.153604 l
+158.094895 129.153604 l
+h
+S
+0.0 0.8 0.2 RG
+1.0 w
+0 J
+1 j
+1.0 M
+[ 5.0 3.0 ] 2.0 d
+newpath
+37.013793 129.633725 m
+38.510368 129.178302 l
+40.006943 129.178302 l
+41.504208 125.534915 l
+43.000783 122.802351 l
+44.497358 123.713218 l
+45.994623 123.713218 l
+47.491198 122.802351 l
+48.987773 120.980676 l
+50.485038 113.238428 l
+51.981613 115.060176 l
+53.478189 111.416753 l
+54.975453 107.773402 l
+56.472029 100.942028 l
+57.968604 108.228803 l
+59.465869 105.496253 l
+60.962444 107.773402 l
+62.459019 102.308303 l
+63.956284 111.872226 l
+65.452859 111.416753 l
+66.949434 117.792726 l
+68.446699 122.346950 l
+69.943274 122.346950 l
+71.439849 127.356605 l
+72.937114 127.812035 l
+74.433689 130.089155 l
+75.930264 130.544576 l
+77.427529 130.544576 l
+S
+0.99 w
+2 J
+0 j
+10.0 M
+[ ] 0.0 d
+[ 1.0 0.0 0.0 1.0 0.0 0.0 ] defaultmatrix matrix concatmatrix setmatrix
+Q
+Q
+Q
+end end restore showpage
+
+%%Trailer
+%%EOF
