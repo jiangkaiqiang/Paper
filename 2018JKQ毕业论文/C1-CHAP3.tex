@@ -1,6 +1,6 @@
 \chapter{异构系统协同行为的正确性验证}
 \label{ch3}
-在本章节，我们首先用SysML建模语言对整个异构系统的架构进行建模，其中用SysML的BDD图来建模系统的组件，用SysML的IBD图来建模系统中各个组件之间的关联关系。由于SysML只是用来建模系统的架构，该建模语言得到的模型不可执行。因此，我们基于FMI标准，将SysML的BDD描述的组件用FMU进行实现，将SysML的IBD图转化为FMU之间的接口配置文件。因此，我们只需要设计协同仿真主算法就可以完成异构系统基于FMI的协同仿真。然而，在我们将基于FMI的可仿真模型输入到协同仿真引擎之中进行仿真之前，我们需要确保该模型的协同行为的正确性，即要保证该模型可以正确的进行协同仿真。为了解决这个问题，我们需要进行两个方面的验证：（1）我们要验证协同仿真主算法的正确性，即算法没有出现死锁以及其他一些特性；（2）我们要验证系统之间各个组件之间关联顺序及数据交互的正确性，其中最主要的要保证多个FMU没有出现环路依赖。在接下来的内容中，我们重点描述如何基于时间自动机理论来验证整个可仿真模型的协同行为的正确性。在第一小节，我们给出整个验证过程的技术框架；第二小节介绍如何对上述的第一个方面进行验证，即协同仿真的主算法的验证；在第三小节中，我们使用一个具体的案例来描述如何对上述的第二个方面进行验证，即异构系统协同行为的验证。
+在本章节，我们首先用SysML建模语言对整个异构系统的架构进行建模，其中用SysML的BDD图来建模系统的组件，用SysML的IBD图来建模系统中各个组件之间的关联关系。由于SysML只是用来建模系统的架构，该建模语言得到的模型不可执行。因此，我们基于FMI标准，将SysML的BDD描述的组件用FMU进行实现，将SysML的IBD图转化为FMU之间的接口配置文件。因此，我们只需要设计协同仿真主算法就可以完成异构系统基于FMI的协同仿真。然而，在我们将基于FMI的可仿真模型输入到协同仿真引擎之中进行仿真之前，我们需要确保该模型的协同行为的正确性，即要保证该模型可以正确的进行协同仿真。为了解决这个问题，我们需要进行两个方面的验证：（1）我们要验证协同仿真主算法的正确性，即算法没有出现死锁以及其他一些特性；（2）我们要验证系统之间各个组件之间关联顺序及数据交互的正确性，其中最主要的要保证多个FMU没有出现环路依赖。由于FMU的执行时基于时间的，而时间自动机在建模时间有较大的优势，且时间自动机的验证有着良好的工具支持，因此，在接下来的内容中，我们重点描述如何基于时间自动机理论来验证整个可仿真模型的协同行为的正确性。在第一小节，我们给出整个验证过程的技术框架；第二小节介绍如何对上述的第一个方面进行验证，即协同仿真的主算法的验证；在第三小节中，我们使用一个具体的案例来描述如何对上述的第二个方面进行验证，即异构系统协同行为的验证。
 \section{技术框架}
 \begin{figure}[htbp]
 	\centering
@@ -34,15 +34,16 @@ FMI2.0相对于FMI1.0添加了几个重要的特性，它支持了对于FMU状�
 \subsubsection{可预测步长算法}
 如果可以预测FMU下一步能执行的最大步长（FMU在不错过事件时，能执行的仿真的最长时间），则可以大大提高协同仿真的效率。因此，论文\cite{BromanBGLMTW13}提出了$GetMaxStepSize$函数来预测FMU下一步能执行的最大步长，有了该函数的支持，就出现了可预测步长算法。图\ref{sd-pre}为可预测步长算法的活动图，首先，所有的FMU进行初始化，然后支持$GetMaxStepSize$函数的FMU在$getMinStepFromCP$活动中预测他们下一步能执行的最大步长，并且在所有的最大步长中选择最小的一个$h$作为所有FMU下一步执行的步长，之后所有的FMU执行$h$步长，如果所有的FMU都接受了该步长，则所有的FMU仿真该步长然后进行下一步。如果有FMU拒绝了该步长，则将所有的FMU回滚到上一个时间点，然后选择一个更小的步长进行仿真。
 \subsection{协同仿真主算法的建模和验证} 
+\label{sec:ma}
 我们用时间自动机将三种不同类型的主算法进行形式化建模，图\ref{ta-master}是三种主算法的时间自动机模型。固定步长算法的时间自动机模型包含$Init$和$doStep$两个状态，且与$FMU$通过$continue$信道进行通信。 可回滚算法包括$Init$、$DoStep$和$Continue$三个状态。如果所有的FMU都接受了下一步要进行仿真的步长，则可回滚算法对应的时间自动机将发送$continue$信号，且迁移到$Continue$状态；否则，将发送$rollback$信号，且返回到上一个状态。可预测步长算法包括$Init$, $find \_ CP \_ MIN$, $DoStep$, $writeCP$四个状态。首先他们获得支持预测步长算法的多个FMU的最大步长，然后取所有最大步长的最小值$step1$ 。然后执行该步长，如果所有的FMU都接受则发送$continue$信号并迁移到下一个状态，否则发送$rollback$信号并回滚到$DoStep$ 状态。
 \begin{figure}[htbp]
 \centering{
-		\subfigure[固定步长算法的时间自动机模型]{\includegraphics[width=2.0in,height=1.2in]{fig/3/fixedstep_master.png}
+		\subfigure[固定步长算法的时间自动机模型]{\includegraphics[width=1.5in,height=1.0in]{fig/3/fixedstep_master.png}
 			\label{ta_fixedstep}}
 		\hfil
-		\subfigure[可回滚算法的时间自动机模型]{\includegraphics[width=3.0in,height=1.6in]{fig/3/rollback_master.png}
+		\subfigure[可回滚算法的时间自动机模型]{\includegraphics[width=2.5in,height=1.3in]{fig/3/rollback_master.png}
 			\label{ta-rollback}}	
-		\subfigure[可预测步长算法的时间自动机模型]{\includegraphics[width=5.0in,height=2.0in]{fig/3/pma_master.png}
+		\subfigure[可预测步长算法的时间自动机模型]{\includegraphics[width=4.5in,height=1.5in]{fig/3/pma_master.png}
 			\label{ta-pre}}		
 	\caption{三种不同主算法的时间自动机模型。}
 	\label{ta-master}
@@ -90,6 +91,7 @@ $A[] not deadlock$ 是死锁的验证, 用来验证主算法是否存在死锁�
 \section{异构系统协同行为的验证}
 在本小节，我们使用一个水箱的案例对整个协同行为的验证过程进行详细的描述。由于，在验证过程中，需要用时间自动机对FMU进行形式化描述，我们首先给出了从FMU到时间自动机的映射规则，然后我们使用SysML对整个系统进行架构设计，之后基于FMI标准对系统的各个组件进行实现，并给出多个FMU之间的连接关系配置，最后我们用时间自动机建模了FMU的形式化模型，并输入到UPPAAL工具中针对验证属性进行验证分析。
 \subsection{FMU到时间自动机的映射} 
+\label{sec:encode}
 在本文的第二章的预备知识中，我们给出了FMU和时间自动机的语法及语义，下面我们根据第二章的语法语义给出FMU和时间自动机的映射关系。我们发现FMU和时间自动机的语义之间存在一定的关联。FMU的语义关注于FMU的执行序列，也就是状态随着时间的不断迁移；因此，时间自动机的执行迹跟FMU的执行序列十分相似，也是状态随着时间的迁移序列。因此，我们使用时间自动机来对FMU进行形式化描述，从而来分析多个FMU之间的协同行为。
 给定一个FMU$F=(S,U,Y,D,s_{0},set,get,doStep)$, 我们可以根据他们执行语义之间的关联，将FMU用时间自动机$\textit{A}=(L,l_{0},E,I)$进行形式化描述：
 \begin{itemize}
@@ -144,32 +146,143 @@ FMU的输出变量$y \in Y$可以看做为时间自动机的$Act_{o} \cup \{abse
 
 SysML是为模型驱动式软件开发（Model-Based Systems Engineering，MBSE）\cite{Dori16}而提出的一种通用的领域建模语言（ Domain-Specific Language，DSL）\cite{SemerathBHSV17} ，它起源于国际系统工程委员会（INCOSE）的倡议\ cite {Pepper2015International}并于2001年1月发布 。SysML的BDD图用块来描述系统中组件的结构；IBD图用来描述各个块之间的关联关系。各个块的接口由连接器进行关联，因此，系统各个组件的依赖关系可以用各个块的接口之间的连接进行表示。
 
-图\ref{myad}是水箱案例的SysML BDD图，其中包含三个块： $Valve$, $Tank$ 和 $Controller$。 $Valve$ and $Tank$ are physical components. $Controller$ is the cyber component. Each component has its own input and output. For instance, the input interface of $Valve$ is named as $vin$, which is used to input the $OpenClosed$ signal. 
+图\ref{myad}是水箱案例的SysML BDD图，其中包含三个块： $Valve$, $Tank$ 和 $Controller$。 $Valve$和$Tank$是物理组件；$Controller$是信息组件。每一个组件都有自己的输入和输出接口，例如：$Valve$的输入接口是$vin$，它用来输入阀门的开关$OpenClosed$信号。
 \begin{figure}[htbp]
 	\centering	{\includegraphics[width=4.5in,height=3.0in]{fig/3/AD.jpg}}
-	\caption{SysML BDD for water tank.}
+	\caption{水箱系统的SysML BDD}
 	\label{myad}
 \end{figure}
 
-Fig.~\ref{cd} shows the connection diagram for the system. There are three cases for connections. The first case is that the system has one valve, one controller and one tank. The controller sends stochastic signals to control the valve on/off leading to various rates of water flow. The second case is that the signal from the controller is affected by the water level of the tank. The last case is modified based on the first case and added another $waterTank2$ which is affected by the flow rate of the $waterTank1$.
+图\ref{cd} 是SysML的IBD图，在这里我们给出了三种连接情形。在第一种情形中，系统包含一个阀门、一个控制器和一个水箱，控制器随机的给阀门发送开关信息，导致水箱中的水位不断的变化；在第二种情形中，控制器信号的发送受到水箱水位的影响，控制器根据水箱的水位发送开关信号；在第三种情形中，我们添加了一个水箱$waterTank2$，水箱$waterTank1$中的水通过管道先流入$waterTank2$中，最后流入水池。
 
 \begin{figure}[htbp]
 \centering{
-		\subfigure[Connection case 1]{\includegraphics[width=4.5in,height=1.0in]{fig/3/CD1.png}
+		\subfigure[情形1]{\includegraphics[width=4.5in,height=1.0in]{fig/3/CD1.png}
 			\label{cd1}}
 		\hfil
-		\subfigure[Connection case 2]{\includegraphics[width=4.5in,height=1.0in]{fig/3/CD2.png}
+		\subfigure[情形2]{\includegraphics[width=4.5in,height=1.0in]{fig/3/CD2.png}
 			\label{cd2}}
 		\hfil
-		\subfigure[Connection case 3]{\includegraphics[width=4.5in,height=1.0in]{fig/3/CD3.png}
+		\subfigure[情形3]{\includegraphics[width=4.5in,height=1.0in]{fig/3/CD3.png}
 			\label{cd3}}
-	\caption{SysML IBD for water tank.}
+	\caption{水箱系统的SysML IBD}
 	\label{cd}
 	}
 \end{figure}
-The SysML BDD shows the blocks of system and SysML IBD shows the connection between blocks. In next section, we abstract each block as an FMU, and model SysML IBD as the connector configuration.
+在本小节我们用SysML BDD图描述了系统组件的结构，并用SysML的IBD图描述了各个组件之间的连接。在下一个小节，我们基于FMI标准用FMU来实现每一个系统组件，并将SysML IBD中描述的关联关系用一个FMU之间的接口配置文件进行表示。
 \subsection{基于FMI的连接关系配置} 
+\label{sec:case}
+图\ref{fmu-con}描述的是水箱系统中的FMU组件及各个FMU之间的连接。根据图\ref{cd}给定的SysML IBD，我们也得到了三种FMU的情形。第一种情形如图\ref{fmu-con1}所示，系统中有三个FMU组件：$Controller$, $Valve$ 和$WaterTank1$和两个接口$v \_ vin$及$w \_ win$。 $Controller$ 和 $Valve$由$v \_ vin$接口连接； $Valve$ 和 $WaterTank1$ 由 $w \_ win$接口连接。第二种情形如图 \ref{fmu-con2}所示，其中在第一种情形上添加了$WaterTank1$ 和$Controller$的接口$sout \_ s$，表示控制器信号的发送受到水箱$WaterTank1$的水位影响。 图\ref{fmu-con3}是第三种情形，在第一种情形上添加了另一个水箱$WaterTank2$, 水箱$WaterTank1$ 和$WaterTank2$由接口$w \_ out$连接。 
+\begin{figure}[htbp]
+\centering{
+		\subfigure[情形1]{\includegraphics[width=1.5in,height=0.9in]{fig/3/fmuc1.png}
+			\label{fmu-con1}}
+		\hfil
+		\subfigure[情形2]{\includegraphics[width=1.5in,height=0.9in]{fig/3/fmuc2.png}
+			\label{fmu-con2}}
+		\hfil
+		\subfigure[情形3]{\includegraphics[width=1.5in,height=0.9in]{fig/3/fmuc3.png}
+			\label{fmu-con3}}
+	\caption{水箱系统中FMU的三种连接情形}
+	\label{fmu-con}
+	}
+\end{figure}
 
+在本小节我们设计了FMU及FMU之间的连接，我们只需要添加一个协同仿真的主算法就可以在协同仿真引擎当中对整个异构系统进行协同仿真并得到仿真迹。但是，在进行仿真之前，我们要保证各个FMU之间协同行为的正确性，因此，我们在下一个小节基于时间自动机理论对系统的协同行为进行验证，这也是我们本文的主要贡献点之一。
 \subsection{协同行为的验证分析} 
-\section{本章小结}
+\label{sec:mauppaal}
+在本小节我们基于时间自动机理论对水箱系统中组件之间的协同行为的正确性进行验证。首先我们根据小节\ref{sec:encode}中提出的映射规则，将水箱系统中的FMU用时间自动机进行形式化描述，并取小节\ref{sec:ma}中建模的一个主算法（在此，采用可回滚算法作为主算法，其他算法的验证分析与该算法类似，在此不做描述），FMU之间的接口配置文件我们用时间自动机之间的信道进行描述。由此，我们得到了一个由主算法、FMU的时间自动机模型及由配置文件转化得到的信道组成的时间自动机网络。图\ref{tk-arch1}为上述小节中情形1的时间自动机网络模型。
 
+\begin{figure}[htbp]
+\centering{
+		\subfigure[FMU\_controller 的时间自动机模型]{\includegraphics[width=1.6in,height=1.0in]{fig/3/2signal_controller.png}
+			\label{tk_controller}}
+		\hfil
+		\subfigure[FMU\_valve 的时间自动机模型]{\includegraphics[width=1.6in,height=1.0in]{fig/3/2signal_v.png}
+			\label{tk_v}}
+			
+	    \subfigure[FMU\_WaterTank1 的时间自动机模型]{\includegraphics[width=1.5in,height=1.2in]{fig/3/2signal_wt1.png}
+			\label{tk_wt1}}
+		\hfil
+		 \subfigure[可回滚主算法的时间自动机模型]{\includegraphics[width=1.7in,height=1.2in]{fig/3/2signal_master.png}
+			\label{tk_ma}}		
+	\caption{情形1的时间自动机网络: $controller$ $\vert\vert$ $valve$ $\vert\vert$ $WaterTank1$ $\vert\vert$ $MA$.}
+	\label{tk-arch1}
+	}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering{
+		\subfigure[部分迹]{\includegraphics[width=1.6in,height=2.0in]{fig/3/trs.png}
+			\label{trs}}
+		\hfil
+		\subfigure[执行序列图]{\includegraphics[width=1.6in,height=2.0in]{fig/3/seq.png}
+			\label{seq}}
+	\caption{协同过程在UPPAAL中的执行序列。}
+	\label{trs-seq}
+	}
+\end{figure}
+
+图\ref{tk_controller}, \ref{tk_v}, \ref{tk_wt1}分别是$controller$, $valve$ 和 $WaterTank1$的时间自动机模型。这些自动机都有四个主要的位置：$start$, $dostep$, $Rollback$和$reset$。图\ref{tk_controller}是 $controller$的时间自动机模型，它首先通过信道 $v$与$valve$的时间自动机模型进行交互并到达$Rollback$状态，然后等待主算法的信号，直到它收到了来自主算法的$continue$信号再与其他的FMU进行数据交互并到达$start$状态；否则，它收到$rollback$信号，并回到$Rollback$状态。$valve$和$WaterTank1$的时间自动机中位置和迁移与 $controller$类似。图\ref{tk_ma} 是主算法的时间自动机模型，首先主算法先进性参数初始化，然后根据条件来判断发出  $continue$信号或是$rollback$信号。
+
+图\ref{trs-seq}是协同过程在UPPAAL中的执行片段，我们可以看到 $valve$ 首先发送了信号$w$ 来与 $WaterTank1$进行数据交换，然后，$WaterTank1$ 到达了 $dostep$ 状态，之后主算法广播  $rollback$信号导致FMU到达$reset$状态，最后主算法发送$continue$ 信号使得所有的FMU到达 $start$状态并开始下一步仿真。通过对执行序列的分析，我们发现模型可以正确仿真。
+
+为了比较小节\ref{sec:case}中描述的三种情形的协同行为，我们同时用时间自动机形式化描述了其他两种情形。对于第二种情形，我们在第一种情形基础上添加了$controller$ 和 $WaterTank1$之间的信道$s$如图\ref{tk-arch2}所示；对于第三种情形我们建模了$WaterTank2$的模型并添加了信道$w2$ 如图Fig.\ref{arc3}所示。其他的模型与第一种情形中的模型类似，我们在此只给出了新增加的或有改动的模型。接下来我们将对这三种情形进行验证。
+\begin{figure}[htbp]
+\centering{
+		\subfigure[TA for FMU\_controller]{\includegraphics[width=1.8in,height=1.2in]{fig/3/2signal_cycle_controller.png}
+			\label{tk2_controller}}
+		\hfil
+		\subfigure[TA for FMU\_WaterTank1]{\includegraphics[width=1.5in,height=1.2in]{fig/3/2signal_cycle_wt1.png}
+			\label{tk2_v}}		
+	\caption{TA for connection case 2.}
+	\label{tk-arch2}
+	}
+\end{figure}
+\begin{figure}[htbp]
+	\centering	{\includegraphics[width=3.5in,height=1.2in]{fig/3/4signal_wt2.png}}
+	\caption{TA for FMU\_WaterTank2 of connection case 3.}\label{arc3}
+\end{figure}
+
+我们对每一种情形都验证了以下属性：
+\begin{itemize}
+\item
+$E\langle\rangle~WT1.Rollback$和 $E\langle\rangle~master.Continue$ 为可达性验证，它表示$WaterTank1$将到达$Rollback$状态 且主算法会到达 $Continue$状态。
+\item
+$master.start -> master.Continue$为活性验证，它表示一旦主算法开始，它最早会到达 $Continue$状态.
+\item 
+$A[]~not~deadlock$为死锁的验证，它用来验证系统有无死锁。
+\end{itemize}
+
+验证结果如表\ref{rs}所示，我们发现情形1和情形3的验证属性都满足，它表示该情形的协同是正确的。然而情形2的可达性和活性不满足，是由于在该模型中出现了环路依赖，我们需要消除该环路依赖再进行下一步的仿真，在本文中我们只关注协同行为的验证，对于如何消除环路依赖在接下来的工作中我们会做进一步研究。 
+\begin{table}
+\caption{三种情形的验证结果}
+\centering
+\begin{tabular}{c c c} 
+        \hline  
+        情形 & 验证属性 & 结果\\
+        \hline
+        \multirow{2}{2.0cm}{情形1}  
+                & $E\langle\rangle~WT1.Rollback$ & True\\ 
+                & $E\langle\rangle~master.Continue$ & True\\ 
+                & $master.start -> master.Continue$ & True\\ 
+                & $A[]~not~deadlock$ & True\\   
+        \hline 
+        \multirow{2}{2.0cm}{情形2}  
+                & $E\langle\rangle~WT1.Rollback$ & True\\ 
+                & $E\langle\rangle~master.Continue$ & False\\ 
+                & $master.start -> master.Continue$ & False\\ 
+                & $A[]~not~deadlock$ & True\\   
+        \hline 
+        \multirow{2}{2.0cm}{情形3}  
+                & $E\langle\rangle~WT1.Rollback$ & True\\ 
+                & $E\langle\rangle~master.Continue$ & True\\ 
+                & $master.start -> master.Continue$ & True\\ 
+                & $A[]~not~deadlock$ & True\\   
+        \hline 
+\end{tabular} 
+\label{rs}
+\end{table}
+
+\section{本章小结}
+在本小节我们提出了一种新的方法来验证异构系统协同行为的正确性，我们首先用SysML建模语言建模了整个系统的架构，然后基于FMI标准对整个架构进行实现。之后提出了一种映射规则将FMU用时间自动机进行了形式化描述，最后基于时间自动机理论对整个系统的协同行为的正确性进行了验证。经过本小节的验证，我们可以得到通过验证的基于FMI标准的模型，该模型可以在协同仿真引擎中直接仿真并得到仿真迹，在下一个小节，我们将提出一种高效的统计模型检测方法，针对某些验证属性对协同仿真的迹进行定量的评估。
