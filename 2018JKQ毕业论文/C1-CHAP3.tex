@@ -148,7 +148,7 @@ SysML是为模型驱动式软件开发（Model-Based Systems Engineering，MBSE�
 
 图\ref{myad}是水箱案例的SysML BDD图，其中包含三个块： $Valve$, $Tank$ 和 $Controller$。 $Valve$和$Tank$是物理组件；$Controller$是信息组件。每一个组件都有自己的输入和输出接口，例如：$Valve$的输入接口是$vin$，它用来输入阀门的开关$OpenClosed$信号。
 \begin{figure}[htbp]
-	\centering	{\includegraphics[width=4.5in,height=3.0in]{fig/3/AD.jpg}}
+	\centering	{\includegraphics[width=4.0in,height=2.5in]{fig/3/AD.jpg}}
 	\caption{水箱系统的SysML BDD}
 	\label{myad}
 \end{figure}
@@ -157,13 +157,13 @@ SysML是为模型驱动式软件开发（Model-Based Systems Engineering，MBSE�
 
 \begin{figure}[htbp]
 \centering{
-		\subfigure[情形1]{\includegraphics[width=4.5in,height=1.0in]{fig/3/CD1.png}
+		\subfigure[情形1]{\includegraphics[width=4.0in,height=0.8in]{fig/3/CD1.png}
 			\label{cd1}}
 		\hfil
-		\subfigure[情形2]{\includegraphics[width=4.5in,height=1.0in]{fig/3/CD2.png}
+		\subfigure[情形2]{\includegraphics[width=4.0in,height=0.8in]{fig/3/CD2.png}
 			\label{cd2}}
 		\hfil
-		\subfigure[情形3]{\includegraphics[width=4.5in,height=1.0in]{fig/3/CD3.png}
+		\subfigure[情形3]{\includegraphics[width=4.0in,height=0.8in]{fig/3/CD3.png}
 			\label{cd3}}
 	\caption{水箱系统的SysML IBD}
 	\label{cd}
@@ -244,17 +244,6 @@ SysML是为模型驱动式软件开发（Model-Based Systems Engineering，MBSE�
 	\caption{TA for FMU\_WaterTank2 of connection case 3.}\label{arc3}
 \end{figure}
 
-我们对每一种情形都验证了以下属性：
-\begin{itemize}
-\item
-$E\langle\rangle~WT1.Rollback$和 $E\langle\rangle~master.Continue$ 为可达性验证，它表示$WaterTank1$将到达$Rollback$状态 且主算法会到达 $Continue$状态。
-\item
-$master.start -> master.Continue$为活性验证，它表示一旦主算法开始，它最早会到达 $Continue$状态.
-\item 
-$A[]~not~deadlock$为死锁的验证，它用来验证系统有无死锁。
-\end{itemize}
-
-验证结果如表\ref{rs}所示，我们发现情形1和情形3的验证属性都满足，它表示该情形的协同是正确的。然而情形2的可达性和活性不满足，是由于在该模型中出现了环路依赖，我们需要消除该环路依赖再进行下一步的仿真，在本文中我们只关注协同行为的验证，对于如何消除环路依赖在接下来的工作中我们会做进一步研究。 
 \begin{table}
 \caption{三种情形的验证结果}
 \centering
@@ -283,6 +272,19 @@ $A[]~not~deadlock$为死锁的验证，它用来验证系统有无死锁。
 \end{tabular} 
 \label{rs}
 \end{table}
+
+我们对每一种情形都验证了以下属性：
+\begin{itemize}
+\item
+$E\langle\rangle~WT1.Rollback$和 $E\langle\rangle~master.Continue$ 为可达性验证，它表示$WaterTank1$将到达$Rollback$状态 且主算法会到达 $Continue$状态。
+\item
+$master.start -> master.Continue$为活性验证，它表示一旦主算法开始，它最早会到达 $Continue$状态.
+\item 
+$A[]~not~deadlock$为死锁的验证，它用来验证系统有无死锁。
+\end{itemize}
+
+验证结果如表\ref{rs}所示，我们发现情形1和情形3的验证属性都满足，它表示该情形的协同是正确的。然而情形2的可达性和活性不满足，是由于在该模型中出现了环路依赖，我们需要消除该环路依赖再进行下一步的仿真，在本文中我们只关注协同行为的验证，对于如何消除环路依赖在接下来的工作中我们会做进一步研究。 
+
 
 \section{本章小结}
 在本小节我们提出了一种新的方法来验证异构系统协同行为的正确性，我们首先用SysML建模语言建模了整个系统的架构，然后基于FMI标准对整个架构进行实现。之后提出了一种映射规则将FMU用时间自动机进行了形式化描述，最后基于时间自动机理论对整个系统的协同行为的正确性进行了验证。经过本小节的验证，我们可以得到通过验证的基于FMI标准的模型，该模型可以在协同仿真引擎中直接仿真并得到仿真迹，在下一个小节，我们将提出一种高效的统计模型检测方法，针对某些验证属性对协同仿真的迹进行定量的评估。

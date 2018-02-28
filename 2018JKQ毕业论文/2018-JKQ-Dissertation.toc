@@ -25,30 +25,39 @@
 \contentsline {section}{\numberline {3.3}异构系统协同行为的验证}{21}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}FMU到时间自动机的映射}{22}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}基于SysML的架构建模}{25}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}基于FMI的连接关系配置}{28}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.3}基于FMI的连接关系配置}{26}{subsection.3.3.3}
 \contentsline {subsection}{\numberline {3.3.4}协同行为的验证分析}{28}{subsection.3.3.4}
 \contentsline {section}{\numberline {3.4}本章小结}{31}{section.3.4}
-\contentsline {chapter}{\numberline {第四章\hspace {.3em}}基于分布式统计模型检测的异构系统验证分析}{33}{chapter.4}
-\contentsline {section}{\numberline {4.1}基于抽象和学习的分布式统计模型检测方法}{33}{section.4.1}
-\contentsline {section}{\numberline {4.2}异构系统验证分析}{33}{section.4.2}
-\contentsline {section}{\numberline {4.3}本章小结}{33}{section.4.3}
-\contentsline {chapter}{\numberline {第五章\hspace {.3em}}工具实现}{34}{chapter.5}
-\contentsline {section}{\numberline {5.1}MODANA平台介绍}{34}{section.5.1}
-\contentsline {section}{\numberline {5.2}基于MODANA平台的Co-SMC工具介绍}{34}{section.5.2}
-\contentsline {section}{\numberline {5.3}基于统计模型检测的异构系统验证程序实现}{34}{section.5.3}
-\contentsline {section}{\numberline {5.4}本章小结}{34}{section.5.4}
-\contentsline {chapter}{\numberline {第六章\hspace {.3em}}案例分析与实验评估}{35}{chapter.6}
-\contentsline {section}{\numberline {6.1}案例一建模与分析：XXX系统}{35}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}XXX系统建模及验证属性}{35}{subsection.6.1.1}
-\contentsline {subsection}{\numberline {6.1.2}XXX系统验证分析}{35}{subsection.6.1.2}
-\contentsline {subsection}{\numberline {6.1.3}模型检测算法效率评估}{35}{subsection.6.1.3}
-\contentsline {section}{\numberline {6.2}案例二建模与分析：XXX系统}{35}{section.6.2}
-\contentsline {subsection}{\numberline {6.2.1}XXX系统建模及验证属性}{35}{subsection.6.2.1}
-\contentsline {subsection}{\numberline {6.2.2}XXX系统验证分析}{35}{subsection.6.2.2}
-\contentsline {subsection}{\numberline {6.2.3}模型检测算法效率评估}{35}{subsection.6.2.3}
-\contentsline {section}{\numberline {6.3}本章小结}{35}{section.6.3}
-\contentsline {chapter}{\numberline {第七章\hspace {.3em}}总结与展望}{36}{chapter.7}
-\contentsline {chapter}{参考文献}{37}{section*.21}
-\contentsline {chapter}{致谢}{37}{section*.22}
-\contentsline {chapter}{发表论文和科研情况}{38}{section*.24}
+\contentsline {chapter}{\numberline {第四章\hspace {.3em}}基于抽象和学习的分布式统计模型检测方法}{32}{chapter.4}
+\contentsline {section}{\numberline {4.1}技术路线及分布式架构设计}{32}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}技术路线}{32}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}分布式架构设计}{33}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}分布式的贝叶斯区间估计算法设计}{35}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}贝叶斯区间估计算法介绍}{35}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}分布式的贝叶斯区间估计算法}{35}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}基于抽象和学习的分布式统计模型检测算法设计}{35}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}基于抽象和学习的统计模型检测算法}{35}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}基于抽象和学习的统计模型检测算法的分布式实现}{35}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}参数优化}{35}{subsection.4.3.3}
+\contentsline {section}{\numberline {4.4}算法分析}{35}{section.4.4}
+\contentsline {section}{\numberline {4.5}本章小结}{35}{section.4.5}
+\contentsline {chapter}{\numberline {第五章\hspace {.3em}}工具实现}{36}{chapter.5}
+\contentsline {section}{\numberline {5.1}MODANA平台介绍}{36}{section.5.1}
+\contentsline {section}{\numberline {5.2}基于MODANA平台的Co-SMC工具介绍}{36}{section.5.2}
+\contentsline {section}{\numberline {5.3}基于统计模型检测的异构系统验证程序实现}{36}{section.5.3}
+\contentsline {section}{\numberline {5.4}本章小结}{36}{section.5.4}
+\contentsline {chapter}{\numberline {第六章\hspace {.3em}}案例分析与实验评估}{37}{chapter.6}
+\contentsline {section}{\numberline {6.1}案例一建模与分析：XXX系统}{37}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}XXX系统建模及验证属性}{37}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}XXX系统验证分析}{37}{subsection.6.1.2}
+\contentsline {subsection}{\numberline {6.1.3}模型检测算法效率评估}{37}{subsection.6.1.3}
+\contentsline {section}{\numberline {6.2}案例二建模与分析：XXX系统}{37}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}XXX系统建模及验证属性}{37}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}XXX系统验证分析}{37}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}模型检测算法效率评估}{37}{subsection.6.2.3}
+\contentsline {section}{\numberline {6.3}本章小结}{37}{section.6.3}
+\contentsline {chapter}{\numberline {第七章\hspace {.3em}}总结与展望}{38}{chapter.7}
+\contentsline {chapter}{参考文献}{39}{section*.23}
+\contentsline {chapter}{致谢}{39}{section*.24}
+\contentsline {chapter}{发表论文和科研情况}{40}{section*.26}
 \contentsfinish 
