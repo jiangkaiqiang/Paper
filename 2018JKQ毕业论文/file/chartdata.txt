@@ -1,0 +1,94 @@
+smart building /trace number
+       var data = google.visualization.arrayToDataTable([
+         ['property id','DAL-SMC opt.', 'DAL-SMC', 'DBIE','DAPMC/10'],
+         ['phi1',  95.79,103,      600,14700],
+         ['phi2',  11040,12000,      20000,21193.2],
+         ['phi3',  1091,1137,      2100,195.0]
+      ]);
+         var options = {
+      title : 'Trace Number needed for every Property  ',
+      vAxis: {title: 'trace number'},
+      hAxis: {title: 'property id'},
+      seriesType: 'line'
+
+    smart building /  time
+
+          function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+     
+       var data = google.visualization.arrayToDataTable([
+         ['property id','DAL-SMC opt.', 'DAL-SMC', 'DBIE','DAPMC/10','BIE'],
+         ['phi1',  35.016,45.48,63.16,1547.454,175.44],
+         ['phi2',  971.4,1214.25,2074.2,2119.32,5730.67],
+         ['phi3',  149.84,182.73,304.46,30.4464,845.73]
+      ]);
+         var options = {
+      title : 'Time needed for every Property ',
+      vAxis: {title: 'time'},
+      hAxis: {title: 'property id'},
+      seriesType: 'line'
+
+      sm    probability
+
+             var data = google.visualization.arrayToDataTable([
+         ['property id','DAL-SMC opt.', 'DAL-SMC', 'DBIE','DAPMC','Standard'],
+         ['phi1',  0.1897,0.1911,0.2209,0.1891,0.1778],
+         ['phi2',  0.4831,0.4826,0.4610,0.4811,0.4861],
+         ['phi3',  0.4089,0.3936,0.4367,0.4015,0.4535]
+      ]);
+         var options = {
+      title : 'satisfied probability for every Property ',
+      vAxis: {title: 'probability'},
+      hAxis: {title: 'property id'},
+      seriesType: 'bars'
+
+
+
+
+
+      robot trace number
+
+       var data = google.visualization.arrayToDataTable([
+         ['property id','DAL-SMC opt.', 'DAL-SMC', 'DBIE','DAPMC/10'],
+         ['phi1',  7569,8318,15000,21193.2],
+         ['phi2',  349,384,702,14755.5],
+         ['phi3',  494,520,1120,184.5]
+      ]);
+         var options = {
+      title : 'Trace Number needed for every Property  ',
+      vAxis: {title: 'trace number'},
+      hAxis: {title: 'property id'},
+      seriesType: 'line'
+
+
+      robot time
+
+             var data = google.visualization.arrayToDataTable([
+         ['property id','DAL-SMC opt.', 'DAL-SMC', 'DBIE','DAPMC/10','BIE'],
+         ['phi1',  372.102,413.447,442.248,610.263,1202.467],
+         ['phi2',  14.481,18.566,19.87,417.652,55.221],
+         ['phi3',  25.371,28.812,33.814,8.478,91.98]
+      ]);
+         var options = {
+      title : 'Time needed for every Property ',
+      vAxis: {title: 'time'},
+      hAxis: {title: 'property id'},
+      seriesType: 'line'
+
+
+      robot probability
+
+
+
+                 var data = google.visualization.arrayToDataTable([
+         ['property id','DAL-SMC opt.', 'DAL-SMC', 'DBIE','DAPMC','Standard'],
+         ['phi1',  0.2637,0.2429,0.2724,0.2699,0.2675],
+         ['phi2',  0.4191,0.3916,0.4829,0.4512,0.5211],
+         ['phi3',  0.4521,0.4345,0.5374,0.5322,0.5296]
+      ]);
+         var options = {
+      title : 'satisfied probability for every Property ',
+      vAxis: {title: 'probability'},
+      hAxis: {title: 'property id'},
+      seriesType: 'bars'
+
