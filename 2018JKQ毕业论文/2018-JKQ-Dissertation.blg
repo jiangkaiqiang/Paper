@@ -1,0 +1,71 @@
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: 2018-JKQ-Dissertation.aux
+The style file: GBT7714-2005.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Database file #1: bib/tex.bib
+Repeated entry---line 117 of file bib/tex.bib
+ : @inproceedings{legay2010statistical
+ :                                    ,
+I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "•"
+Warning--I didn't find a database entry for "BehrmannDLHPYH06"
+Warning--I didn't find a database entry for "BromanBGLMTW13"
+Warning--I didn't find a database entry for "Tripakis15"
+Warning--I didn't find a database entry for "Dori16"
+Warning--I didn't find a database entry for "SemerathBHSV17"
+Warning--I didn't find a database entry for "Bulychev2012Checking"
+Warning--I didn't find a database entry for "jiangkaiqiang2016"
+Warning--I didn't find a database entry for "DBLP:books/daglib/0019871"
+Warning--Require journal: Legay2010Statistical
+Warning--Require address: younes2005verification
+Warning--Require address: bogdoll2011partial
+Warning--Require address: henriques2012statistical
+Warning--Require address: basu2010statistical
+Warning--Require address: boyer2013plasma
+Warning--Require address: dunteman1989principal
+Warning--Require address: carrasco1994learning
+You've used 31 entries,
+            3050 wiz_defined-function locations,
+            896 strings with 11776 characters,
+and the built_in function-call counts, 59285 in all, are:
+= -- 6579
+> -- 107
+< -- 245
++ -- 5198
+- -- 382
+* -- 1516
+:= -- 6547
+add.period$ -- 0
+call.type$ -- 31
+change.case$ -- 152
+chr.to.int$ -- 0
+cite$ -- 39
+duplicate$ -- 8514
+empty$ -- 2304
+format.name$ -- 304
+if$ -- 15870
+int.to.chr$ -- 0
+int.to.str$ -- 31
+missing$ -- 0
+newline$ -- 120
+num.names$ -- 31
+pop$ -- 844
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 516
+stack$ -- 0
+substring$ -- 7174
+swap$ -- 1536
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 8
+while$ -- 764
+width$ -- 33
+write$ -- 439
+(There was 1 error message)

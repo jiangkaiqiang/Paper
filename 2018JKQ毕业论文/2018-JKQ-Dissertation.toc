@@ -1,19 +1,18 @@
 \contentsline {chapter}{\numberline {第一章\hspace {.3em}}绪\hskip 0.4cm 论}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}研究背景及意义}{1}{section.1.1}
 \contentsline {section}{\numberline {1.2}国内外研究现状}{2}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}CPS的形式化建模}{2}{subsection.1.2.1}
-\contentsline {subsection}{\numberline {1.2.2}分布式技术(Distributed technology)}{2}{subsection.1.2.2}
-\contentsline {subsection}{\numberline {1.2.3}协同仿真(Co-simulation)}{3}{subsection.1.2.3}
-\contentsline {subsection}{\numberline {1.2.4}统计模型检测(Statistical Model Checking)}{3}{subsection.1.2.4}
-\contentsline {section}{\numberline {1.3}本文技术路线及主要研究内容}{5}{section.1.3}
-\contentsline {section}{\numberline {1.4}本文组织结构}{8}{section.1.4}
-\contentsline {section}{\numberline {1.5}本章小结}{9}{section.1.5}
-\contentsline {chapter}{\numberline {第二章\hspace {.3em}}预备知识与概念}{10}{chapter.2}
-\contentsline {section}{\numberline {2.1}信息物理融合系统及异构性}{10}{section.2.1}
-\contentsline {section}{\numberline {2.2}FMI功能模型接口及FMU}{10}{section.2.2}
-\contentsline {section}{\numberline {2.3}时间自动机}{12}{section.2.3}
-\contentsline {section}{\numberline {2.4}概率有界线性时态逻辑}{13}{section.2.4}
-\contentsline {section}{\numberline {2.5}本章小结}{15}{section.2.5}
+\contentsline {subsection}{\numberline {1.2.1}信息物理融合系统}{2}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}分布式技术}{3}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}协同仿真}{4}{subsection.1.2.3}
+\contentsline {subsection}{\numberline {1.2.4}统计模型检测}{4}{subsection.1.2.4}
+\contentsline {section}{\numberline {1.3}本文技术路线及主要研究内容}{6}{section.1.3}
+\contentsline {section}{\numberline {1.4}本文组织结构}{9}{section.1.4}
+\contentsline {section}{\numberline {1.5}本章小结}{10}{section.1.5}
+\contentsline {chapter}{\numberline {第二章\hspace {.3em}}预备知识与概念}{11}{chapter.2}
+\contentsline {section}{\numberline {2.1}FMI功能模型接口及FMU}{11}{section.2.1}
+\contentsline {section}{\numberline {2.2}时间自动机}{12}{section.2.2}
+\contentsline {section}{\numberline {2.3}概率有界线性时态逻辑}{14}{section.2.3}
+\contentsline {section}{\numberline {2.4}本章小结}{15}{section.2.4}
 \contentsline {chapter}{\numberline {第三章\hspace {.3em}}异构系统协同行为的正确性验证}{16}{chapter.3}
 \contentsline {section}{\numberline {3.1}技术框架}{16}{section.3.1}
 \contentsline {section}{\numberline {3.2}协同仿真主算法的验证}{18}{section.3.2}
@@ -44,22 +43,21 @@
 \contentsline {subsection}{\numberline {4.4.2}误差分析}{41}{subsection.4.4.2}
 \contentsline {section}{\numberline {4.5}本章小结}{41}{section.4.5}
 \contentsline {chapter}{\numberline {第五章\hspace {.3em}}工具实现}{46}{chapter.5}
-\contentsline {section}{\numberline {5.1}MODANA平台介绍}{46}{section.5.1}
-\contentsline {section}{\numberline {5.2}基于MODANA平台的Co-SMC工具介绍}{46}{section.5.2}
-\contentsline {section}{\numberline {5.3}基于统计模型检测的异构系统验证程序实现}{46}{section.5.3}
-\contentsline {section}{\numberline {5.4}本章小结}{46}{section.5.4}
-\contentsline {chapter}{\numberline {第六章\hspace {.3em}}案例分析与实验评估}{47}{chapter.6}
-\contentsline {section}{\numberline {6.1}案例一：智能温控系统}{47}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}系统建模与设计}{47}{subsection.6.1.1}
-\contentsline {subsection}{\numberline {6.1.2}系统验证分析}{47}{subsection.6.1.2}
-\contentsline {subsection}{\numberline {6.1.3}算法评估分析}{48}{subsection.6.1.3}
-\contentsline {section}{\numberline {6.2}案例二：机器人路径规划系统}{49}{section.6.2}
-\contentsline {subsection}{\numberline {6.2.1}系统建模与设计}{49}{subsection.6.2.1}
-\contentsline {subsection}{\numberline {6.2.2}系统验证分析}{49}{subsection.6.2.2}
-\contentsline {subsection}{\numberline {6.2.3}算法评估分析}{50}{subsection.6.2.3}
-\contentsline {section}{\numberline {6.3}本章小结}{51}{section.6.3}
-\contentsline {chapter}{\numberline {第七章\hspace {.3em}}总结与展望}{53}{chapter.7}
-\contentsline {chapter}{参考文献}{54}{section*.30}
-\contentsline {chapter}{致谢}{54}{section*.31}
-\contentsline {chapter}{发表论文和科研情况}{55}{section*.33}
+\contentsline {section}{\numberline {5.1}异构系统验证分析工具（Co-SMC）介绍}{46}{section.5.1}
+\contentsline {section}{\numberline {5.2}Co-SMC程序实现}{46}{section.5.2}
+\contentsline {section}{\numberline {5.3}本章小结}{46}{section.5.3}
+\contentsline {chapter}{\numberline {第六章\hspace {.3em}}案例分析与实验评估}{48}{chapter.6}
+\contentsline {section}{\numberline {6.1}案例一：智能温控系统}{48}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}系统建模与设计}{48}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}系统验证分析}{48}{subsection.6.1.2}
+\contentsline {subsection}{\numberline {6.1.3}算法评估分析}{49}{subsection.6.1.3}
+\contentsline {section}{\numberline {6.2}案例二：机器人路径规划系统}{50}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}系统建模与设计}{50}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}系统验证分析}{50}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}算法评估分析}{51}{subsection.6.2.3}
+\contentsline {section}{\numberline {6.3}本章小结}{52}{section.6.3}
+\contentsline {chapter}{\numberline {第七章\hspace {.3em}}总结与展望}{54}{chapter.7}
+\contentsline {chapter}{参考文献}{55}{section*.33}
+\contentsline {chapter}{致谢}{59}{section*.35}
+\contentsline {chapter}{发表论文和科研情况}{60}{section*.37}
 \contentsfinish 
