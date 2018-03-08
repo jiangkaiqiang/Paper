@@ -65,11 +65,62 @@
   \bibvolume{10}\bibnumber{(4)}\thinspace{}\textnormal{:
   }\bibpages{2364\thinspace{}\textnormal{--}\thinspace{}2373}\@.
 
+\bibitem{Bastian2011Master}
+\bibauthor{BASTIAN J\@, CLAUß C\@, WOLF S, et~al}\@. \bibtitle{Master for
+  co-simulation using FMI}\bibmark{[C]} //\thinspace{}\@. \bibyear{2011}\@.
+
 \bibitem{Legay2010Statistical}
 \bibauthor{LEGAY A\@, DELAHAYE B\@, BENSALEM S}\@. \bibtitle{Statistical Model
   Checking: An Overview}\bibmark{[J]}\@, \bibyear{2010}\@,
   \bibvolume{6418}\bibnumber{(2)}\thinspace{}\textnormal{:
   }\bibpages{122\thinspace{}\textnormal{--}\thinspace{}135}\@.
+
+\bibitem{Arnold2011FMI}
+\bibauthor{ARNOLD M\@, SCHIERZ T\@, BLOCHWITZ T, et~al}\@.
+  \bibtitle{FMI-for-CoSimulation}\bibmark{[J]}\@, \bibyear{2011}\@.
+
+\bibitem{Tripakis15}
+\bibauthor{TRIPAKIS S}\@. \bibtitle{Bridging the semantic gap between
+  heterogeneous modeling formalisms and FMI}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{International Conference on Embedded Computer
+  Systems: Architectures, Modeling, and Simulation}\@.
+  \bibyear{2015}\thinspace{}\textnormal{:
+  }\bibpages{60\thinspace{}\textnormal{--}\thinspace{}69}\@.
+
+\bibitem{Broman2013Determinate}
+\bibauthor{BROMAN D\@, BROOKS C\@, GREENBERG L, et~al}\@. \bibtitle{Determinate
+  composition of FMUs for co-simulation}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{Proceedings of the International Conference on
+  Embedded Software}\@. \bibyear{2013}\thinspace{}\textnormal{:
+  }\bibpages{1\thinspace{}\textnormal{--}\thinspace{}12}\@.
+
+\bibitem{Cremona2016FIDE}
+\bibauthor{CREMONA F\@, LOHSTROH M\@, TRIPAKIS S, et~al}\@. \bibtitle{FIDE:an
+  FMI integrated development environment}\bibmark{[J]}\@,
+  \bibyear{2016}\thinspace{}\textnormal{:
+  }\bibpages{1759\thinspace{}\textnormal{--}\thinspace{}1766}\@.
+
+\bibitem{LiuJWCD16}
+\bibauthor{XXX}\@. \bibtitle{Improved Co-Simulation with Event Detection for
+  Stochastic Behaviors of CPSs}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{Computer Software and Applications Conference}\@.
+  \bibyear{2016}\thinspace{}\textnormal{:
+  }\bibpages{209\thinspace{}\textnormal{--}\thinspace{}214}\@.
+
+\bibitem{Larsen2016Integrated}
+\bibauthor{LARSEN P~G\@, FITZGERALD J\@, WOODCOCK J, et~al}\@.
+  \bibtitle{Integrated tool chain for model-based design of Cyber-Physical
+  Systems: The INTO-CPS project}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{International Workshop on Modelling, Analysis,
+  and Control of Complex Cps}\@. \bibyear{2016}\thinspace{}\textnormal{:
+  }\bibpages{1\thinspace{}\textnormal{--}\thinspace{}6}\@.
+
+\bibitem{Grosu2005Monte}
+\bibauthor{GROSU R\@, SMOLKA S~A}\@. \bibtitle{Monte Carlo Model
+  Checking}\bibmark{[C]} //\thinspace{}\bibbooktitle{International Conference
+  on TOOLS and Algorithms for the Construction and Analysis of Systems}\@.
+  \bibyear{2005}\thinspace{}\textnormal{:
+  }\bibpages{271\thinspace{}\textnormal{--}\thinspace{}286}\@.
 
 \bibitem{sen2004statistical}
 \bibauthor{SEN K\@, VISWANATHAN M\@, AGHA G}\@. \bibtitle{Statistical model
@@ -78,18 +129,18 @@
   \bibyear{2004}\thinspace{}\textnormal{:
   }\bibpages{202\thinspace{}\textnormal{--}\thinspace{}215}\@.
 
-\bibitem{younes2005verification}
-\bibauthor{YOUNES H~L}\@. \bibtitle{Verification and planning for stochastic
-  processes with asynchronous events}\bibmark{[R]}\@.
-  \bibaddress{[S.l.]}\thinspace{}\textnormal{: }\bibinstitution{DTIC
-  Document}\@, \bibyear{2005}\@.
-
 \bibitem{wald1945sequential}
 \bibauthor{WALD A}\@. \bibtitle{Sequential tests of statistical
   hypotheses}\bibmark{[J]}\@. \bibjournal{The Annals of Mathematical
   Statistics}\@, \bibyear{1945}\@,
   \bibvolume{16}\bibnumber{(2)}\thinspace{}\textnormal{:
   }\bibpages{117\thinspace{}\textnormal{--}\thinspace{}186}\@.
+
+\bibitem{younes2005verification}
+\bibauthor{YOUNES H~L}\@. \bibtitle{Verification and planning for stochastic
+  processes with asynchronous events}\bibmark{[R]}\@.
+  \bibaddress{[S.l.]}\thinspace{}\textnormal{: }\bibinstitution{DTIC
+  Document}\@, \bibyear{2005}\@.
 
 \bibitem{younes2006statistical}
 \bibauthor{YOUNES H~L\@, SIMMONS R~G}\@. \bibtitle{Statistical probabilistic
@@ -112,64 +163,15 @@
   \bibyear{2009}\thinspace{}\textnormal{:
   }\bibpages{218\thinspace{}\textnormal{--}\thinspace{}234}\@.
 
-\bibitem{bogdoll2011partial}
-\bibauthor{BOGDOLL J\@, FIORITI L~M~F\@, HARTMANNS A, et~al}\@.
-  \bibtitle{Partial order methods for statistical model checking and
-  simulation}\bibmark{[G]} //\thinspace{}\bibbooktitle{Formal Techniques for
-  Distributed Systems}\@. \bibaddress{[S.l.]}\thinspace{}\textnormal{:
-  }\bibpublisher{Springer}\@, \bibyear{2011}\thinspace{}\textnormal{:
-  }\bibpages{59\thinspace{}\textnormal{--}\thinspace{}74}\@.
+\bibitem{Kim2012Statistical}
+\bibauthor{KIM Y\@, KIM M\@, KIM T~H}\@. \bibbooktitle{Statistical Model
+  Checking for Safety Critical Hybrid Systems: An Empirical
+  Evaluation}\bibmark{[M]}\@. \bibaddress{[S.l.]}\thinspace{}\textnormal{:
+  }\bibpublisher{Springer Berlin Heidelberg}\@,
+  \bibyear{2012}\thinspace{}\textnormal{:
+  }\bibpages{162\thinspace{}\textnormal{--}\thinspace{}177}\@.
 
-\bibitem{pavese2013automated}
-\bibauthor{PAVESE E\@, BRABERMAN V\@, UCHITEL S}\@. \bibtitle{Automated
-  reliability estimation over partial systematic explorations}\bibmark{[C]}
-  //\thinspace{}\bibbooktitle{Software Engineering (ICSE), 2013 35th
-  International Conference on}\@. \bibyear{2013}\thinspace{}\textnormal{:
-  }\bibpages{602\thinspace{}\textnormal{--}\thinspace{}611}\@.
-
-\bibitem{henriques2012statistical}
-\bibauthor{HENRIQUES D}\@. \bibtitle{Statistical model checking for markov
-  decision processes}\bibmark{[D]}\@.
-  \bibaddress{[S.l.]}\thinspace{}\textnormal{: }\bibschool{General Motors}\@,
-  \bibyear{2012}\@.
-
-\bibitem{he2010bounded}
-\bibauthor{HE R\@, JENNINGS P\@, BASU S, et~al}\@. \bibtitle{A bounded
-  statistical approach for model checking of unbounded until
-  properties}\bibmark{[C]} //\thinspace{}\bibbooktitle{Proceedings of the
-  IEEE/ACM international conference on Automated software engineering}\@.
-  \bibyear{2010}\thinspace{}\textnormal{:
-  }\bibpages{225\thinspace{}\textnormal{--}\thinspace{}234}\@.
-
-\bibitem{jennings2012two}
-\bibauthor{JENNINGS P\@, GHOSH A~P\@, BASU S}\@. \bibtitle{A two-phase
-  approximation for model checking probabilistic unbounded until properties of
-  probabilistic systems}\bibmark{[J]}\@. \bibjournal{ACM Transactions on
-  Software Engineering and Methodology (TOSEM)}\@, \bibyear{2012}\@,
-  \bibvolume{21}\bibnumber{(3)}\thinspace{}\textnormal{: }\bibpages{18}\@.
-
-\bibitem{jegourel2012cross}
-\bibauthor{JEGOUREL C\@, LEGAY A\@, SEDWARDS S}\@. \bibtitle{Cross-entropy
-  optimisation of importance sampling parameters for statistical model
-  checking}\bibmark{[C]} //\thinspace{}\bibbooktitle{Computer Aided
-  Verification}\@. \bibyear{2012}\thinspace{}\textnormal{:
-  }\bibpages{327\thinspace{}\textnormal{--}\thinspace{}342}\@.
-
-\bibitem{jegourel2013importance}
-\bibauthor{JEGOUREL C\@, LEGAY A\@, SEDWARDS S}\@. \bibtitle{Importance
-  splitting for statistical model checking rare properties}\bibmark{[C]}
-  //\thinspace{}\bibbooktitle{Computer Aided Verification}\@.
-  \bibyear{2013}\thinspace{}\textnormal{:
-  }\bibpages{576\thinspace{}\textnormal{--}\thinspace{}591}\@.
-
-\bibitem{du2015smc4rare}
-\bibauthor{杜德慧\@, 程贝\@, 刘静}\@.
-  \bibtitle{面向安全攸关系统中小概率事件的统计模型检测}\bibmark{[J]}\@.
-  \bibjournal{软件学报}\@,
-  \bibyear{2015}\bibnumber{(2)}\thinspace{}\textnormal{:
-  }\bibpages{305\thinspace{}\textnormal{--}\thinspace{}320}\@.
-
-\bibitem{kumar2014efficient}
+\bibitem{Kumar2014Efficient}
 \bibauthor{KUMAR J~A\@, AHMADYAN S~N\@, VASUDEVAN S}\@. \bibtitle{Efficient
   Statistical Model Checking of Hardware Circuits With Multiple Failure
   Regions}\bibmark{[J]}\@. \bibjournal{Computer-Aided Design of Integrated
@@ -177,26 +179,33 @@
   \bibvolume{33}\bibnumber{(6)}\thinspace{}\textnormal{:
   }\bibpages{945\thinspace{}\textnormal{--}\thinspace{}958}\@.
 
-\bibitem{basu2010statistical}
+\bibitem{Basu2012Statistical}
 \bibauthor{BASU A\@, BENSALEM S\@, BOZGA M, et~al}\@. \bibtitle{Statistical
-  abstraction and model-checking of large heterogeneous systems}\bibmark{[G]}
-  //\thinspace{}\bibbooktitle{Formal Techniques for Distributed Systems}\@.
-  \bibaddress{[S.l.]}\thinspace{}\textnormal{: }\bibpublisher{Springer}\@,
-  \bibyear{2010}\thinspace{}\textnormal{:
-  }\bibpages{32\thinspace{}\textnormal{--}\thinspace{}46}\@.
+  abstraction and model-checking of large heterogeneous
+  systems}\bibmark{[J]}\@. \bibjournal{International Journal on Software Tools
+  for Technology Transfer}\@, \bibyear{2012}\@,
+  \bibvolume{14}\bibnumber{(1)}\thinspace{}\textnormal{:
+  }\bibpages{53\thinspace{}\textnormal{--}\thinspace{}72}\@.
 
-\bibitem{vodenvcarevic2012learning}
-\bibauthor{VODEN{\v{C}}AREVI{\'C} A}\@. \bibtitle{Learning behavior models of
-  hybrid systems using wavelets for autonomous jumps detection}\bibmark{[C]}
-  //\thinspace{}\bibbooktitle{Industrial Informatics (INDIN), 2012 10th IEEE
-  International Conference on}\@. \bibyear{2012}\thinspace{}\textnormal{:
-  }\bibpages{151\thinspace{}\textnormal{--}\thinspace{}156}\@.
+\bibitem{jiangkaiqiang2016}
+\bibauthor{XXX}\@. \bibtitle{AL-SMC: Optimizing Statistical Model Checking by
+  Automatic Abstraction and Learning}\bibmark{[J]}\@. \bibjournal{International
+  Journal of Software and Informatics}\@, \bibyear{2016}\@,
+  \bibvolume{10}\thinspace{}\textnormal{: }\bibpages{4:0}\@.
 
 \bibitem{younes2005ymer}
 \bibauthor{YOUNES H~L}\@. \bibtitle{Ymer: A statistical model
   checker}\bibmark{[C]} //\thinspace{}\bibbooktitle{Computer Aided
   Verification}\@. \bibyear{2005}\thinspace{}\textnormal{:
   }\bibpages{429\thinspace{}\textnormal{--}\thinspace{}433}\@.
+
+\bibitem{Bulychev2012Checking}
+\bibauthor{BULYCHEV P\@, DAVID A\@, LARSEN K~G, et~al}\@.
+  \bibbooktitle{Checking and Distributing Statistical Model
+  Checking}\bibmark{[M]}\@. \bibaddress{[S.l.]}\thinspace{}\textnormal{:
+  }\bibpublisher{Springer Berlin Heidelberg}\@,
+  \bibyear{2012}\thinspace{}\textnormal{:
+  }\bibpages{449\thinspace{}\textnormal{--}\thinspace{}463}\@.
 
 \bibitem{sen2005vesta}
 \bibauthor{SEN K\@, VISWANATHAN M\@, AGHA G~A}\@. \bibtitle{VESTA: A
@@ -212,13 +221,6 @@
   science}\@, \bibyear{2001}\thinspace{}\textnormal{:
   }\bibpages{101\thinspace{}\textnormal{--}\thinspace{}117}\@.
 
-\bibitem{pires2008interval}
-\bibauthor{PIRES A~M\@, AMADO C}\@. \bibtitle{Interval estimators for a
-  binomial proportion: Comparison of twenty methods}\bibmark{[J]}\@.
-  \bibjournal{REVSTAT--Statistical Journal}\@, \bibyear{2008}\@,
-  \bibvolume{6}\bibnumber{(2)}\thinspace{}\textnormal{:
-  }\bibpages{165\thinspace{}\textnormal{--}\thinspace{}197}\@.
-
 \bibitem{boyer2013plasma}
 \bibauthor{BOYER B\@, CORRE K\@, LEGAY A, et~al}\@. \bibtitle{PLASMA-lab: A
   flexible, distributable statistical model checking library}\bibmark{[G]}
@@ -226,6 +228,11 @@
   \bibaddress{[S.l.]}\thinspace{}\textnormal{: }\bibpublisher{Springer}\@,
   \bibyear{2013}\thinspace{}\textnormal{:
   }\bibpages{160\thinspace{}\textnormal{--}\thinspace{}164}\@.
+
+\bibitem{Dori16}
+\bibauthor{DORI D}\@. \bibbooktitle{Model-Based Systems Engineering with OPM
+  and SysML}\bibmark{[M]}\@. \bibaddress{[S.l.]}\thinspace{}\textnormal{:
+  }\bibpublisher{Springer New York}\@, \bibyear{2016}\@.
 
 \bibitem{dunteman1989principal}
 \bibauthor{DUNTEMAN G~H}\@. \bibbooktitle{Principal components

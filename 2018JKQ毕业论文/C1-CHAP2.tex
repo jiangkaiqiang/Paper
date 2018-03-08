@@ -1,7 +1,9 @@
 \chapter{预备知识与概念}
 \label{ch2}
-\section{FMI功能模型接口及FMU}
-CPS中各个组件之间的协同可以使用基于FMI标准的协同仿真来实现，FMI标准最初是在2008年开始的MODELISAR项目中开发的，并得到大量软件公司和研究中心的支持。FMI支持模拟由异构组件组成的复杂系统，通过一个协同仿真环境将不同模型与自己的求解器耦合起来。实现了FMI标准接口的系统组件被称为FMU，下面我们给出FMU的语法和语义。
+\section{功能模拟接口（FMI）}
+CPS中各个组件之间的协同可以使用基于FMI标准的协同仿真来实现，FMI标准最初是在2008年开始的MODELISAR项目中开发的，并得到大量软件公司和研究中心的支持。FMI支持模拟由异构组件组成的复杂系统，通过一个协同仿真环境将不同模型与自己的求解器耦合起来。
+\section{功能模拟单元（FMU）}
+实现了FMI标准接口的系统组件被称为FMU，下面我们给出FMU的语法和语义。
 \begin{define}
 \textbf{FMU 语法}
 
@@ -47,7 +49,7 @@ $t_{0} = 0$时刻的$s_{0}$状态表示$F$的初始状态。
 给定当前状态$s_{i}$, $set$函数用来将当前状态的输入参数设置为一个特定的数值$v$. 之后$F$执行$doStep$函数并且迁移到一个新的状态$s_{i}^{\prime}$.  $get$函数用来得到当前状态的所有输出参数值$v_{i}^{\prime}$.
 \end{itemize}
 因此, FMU的语义可以用一个标签迁移系统进行描述。
-\section{时间自动机}
+\section{时间自动机（TA）}
 时间自动机 \cite{BehrmannDLHPYH06}是一个建模实时系统行为的经典理论模型。它提供了一种用许多实值时钟标注状态转换图的有效方法。 在本小节中，我们来回顾一下时间自动机的语法和语义。
 \begin{define}
 \textbf{时间自动机 语法}
@@ -91,7 +93,7 @@ $(l,t) \xrightarrow{x_{1}} (l,t+x_{1}) \xrightarrow{x_{2}} (l,t+x_{1}+x_{2}) \xr
 
 其中 $x_{i} > 0$ 且无穷序列$x_{1} + x_{2} + . . .$ 对于$x$是收敛的。 
 
-\section{概率有界线性时态逻辑}
+\section{概率有界线性时态逻辑（PBLTL）}
 概率有界线性时态逻辑（Probabilistic Bounded Linear Temporal Logic，PBLTL）公式可以用来形式化的描述系统的验证属性。首先，我们定义用来验证单条仿真迹的有界线性时态逻辑（Bounded Linear Temporal Logic，BLTL）的语法和语义，然后将其扩展为PBLTL。
 
 给定一个模型$M$，设其状态变量的集合$SV$是一个有限的实数集。在$SV$上的一个布尔谓词约束为$y \sim v$的形式，其中$y\in SV$，$\sim \in \lbrace \geq,\leq,=\rbrace$，且$v\in \mathbb{R}$。BLTL的语法定义如下：

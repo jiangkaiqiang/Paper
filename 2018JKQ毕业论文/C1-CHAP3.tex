@@ -90,7 +90,7 @@ $A[] not deadlock$ 是死锁的验证, 用来验证主算法是否存在死锁�
 
 \section{异构系统协同行为的验证}
 在本小节，我们使用一个水箱的案例对整个协同行为的验证过程进行详细的描述。由于，在验证过程中，需要用时间自动机对FMU进行形式化描述，我们首先给出了从FMU到时间自动机的映射规则，然后我们使用SysML对整个系统进行架构设计，之后基于FMI标准对系统的各个组件进行实现，并给出多个FMU之间的连接关系配置，最后我们用时间自动机建模了FMU的形式化模型，并输入到UPPAAL工具中针对验证属性进行验证分析。
-\subsection{FMU到时间自动机的映射} 
+\subsection{FMU到TA的映射} 
 \label{sec:encode}
 在本文的第二章的预备知识中，我们给出了FMU和时间自动机的语法及语义，下面我们根据第二章的语法语义给出FMU和时间自动机的映射关系。我们发现FMU和时间自动机的语义之间存在一定的关联。FMU的语义关注于FMU的执行序列，也就是状态随着时间的不断迁移；因此，时间自动机的执行迹跟FMU的执行序列十分相似，也是状态随着时间的迁移序列。因此，我们使用时间自动机来对FMU进行形式化描述，从而来分析多个FMU之间的协同行为。
 给定一个FMU$F=(S,U,Y,D,s_{0},set,get,doStep)$, 我们可以根据他们执行语义之间的关联，将FMU用时间自动机$\textit{A}=(L,l_{0},E,I)$进行形式化描述：
@@ -170,7 +170,7 @@ SysML是为模型驱动式软件开发（Model-Based Systems Engineering，MBSE�
 	}
 \end{figure}
 在本小节我们用SysML BDD图描述了系统组件的结构，并用SysML的IBD图描述了各个组件之间的连接。在下一个小节，我们基于FMI标准用FMU来实现每一个系统组件，并将SysML IBD中描述的关联关系用一个FMU之间的接口配置文件进行表示。
-\subsection{基于FMI的连接关系配置} 
+\subsection{基于FMI的模型设计} 
 \label{sec:case}
 图\ref{fmu-con}描述的是水箱系统中的FMU组件及各个FMU之间的连接。根据图\ref{cd}给定的SysML IBD，我们也得到了三种FMU的情形。第一种情形如图\ref{fmu-con1}所示，系统中有三个FMU组件：$Controller$, $Valve$ 和$WaterTank1$和两个接口$v \_ vin$及$w \_ win$。 $Controller$ 和 $Valve$由$v \_ vin$接口连接； $Valve$ 和 $WaterTank1$ 由 $w \_ win$接口连接。第二种情形如图 \ref{fmu-con2}所示，其中在第一种情形上添加了$WaterTank1$ 和$Controller$的接口$sout \_ s$，表示控制器信号的发送受到水箱$WaterTank1$的水位影响。 图\ref{fmu-con3}是第三种情形，在第一种情形上添加了另一个水箱$WaterTank2$, 水箱$WaterTank1$ 和$WaterTank2$由接口$w \_ out$连接。 
 \begin{figure}[htbp]
@@ -189,7 +189,7 @@ SysML是为模型驱动式软件开发（Model-Based Systems Engineering，MBSE�
 \end{figure}
 
 在本小节我们设计了FMU及FMU之间的连接，我们只需要添加一个协同仿真的主算法就可以在协同仿真引擎当中对整个异构系统进行协同仿真并得到仿真迹。但是，在进行仿真之前，我们要保证各个FMU之间协同行为的正确性，因此，我们在下一个小节基于时间自动机理论对系统的协同行为进行验证，这也是我们本文的主要贡献点之一。
-\subsection{协同行为的验证分析} 
+\subsection{协同行为的正确性验证} 
 \label{sec:mauppaal}
 在本小节我们基于时间自动机理论对水箱系统中组件之间的协同行为的正确性进行验证。首先我们根据小节\ref{sec:encode}中提出的映射规则，将水箱系统中的FMU用时间自动机进行形式化描述，并取小节\ref{sec:ma}中建模的一个主算法（在此，采用可回滚算法作为主算法，其他算法的验证分析与该算法类似，在此不做描述），FMU之间的接口配置文件我们用时间自动机之间的信道进行描述。由此，我们得到了一个由主算法、FMU的时间自动机模型及由配置文件转化得到的信道组成的时间自动机网络。图\ref{tk-arch1}为上述小节中情形1的时间自动机网络模型。
 
