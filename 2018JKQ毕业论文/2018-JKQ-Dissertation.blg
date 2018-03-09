@@ -10,22 +10,26 @@ Repeated entry---line 64 of file bib/tex.bib
  : @article{Georg2014Analyzing
  :                            ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 226 of file bib/tex.bib
+Repeated entry---line 165 of file bib/tex.bib
+ : @inproceedings{Broman2013Determinate
+ :                                     ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 260 of file bib/tex.bib
  : @inproceedings{legay2010statistical
  :                                    ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 430 of file bib/tex.bib
+Repeated entry---line 464 of file bib/tex.bib
  : @article{kumar2014efficient
  :                            ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 522 of file bib/tex.bib
+Repeated entry---line 556 of file bib/tex.bib
  : @incollection{kim2012statistical
  :                                 ,
 I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "BehrmannDLHPYH06"
+Warning--I didn't find a database entry for "SemerathBHSV17"
 Warning--I didn't find a database entry for "BromanBGLMTW13"
 Warning--I didn't find a database entry for "•"
-Warning--I didn't find a database entry for "SemerathBHSV17"
 Warning--I didn't find a database entry for "DBLP:books/daglib/0019871"
 Warning--Require booktitle: Bastian2011Master
 Warning--Require journal: Legay2010Statistical
@@ -38,45 +42,45 @@ Warning--Require address: boyer2013plasma
 Warning--Require address: Dori16
 Warning--Require address: dunteman1989principal
 Warning--Require address: carrasco1994learning
-You've used 33 entries,
+You've used 36 entries,
             3050 wiz_defined-function locations,
-            907 strings with 12338 characters,
-and the built_in function-call counts, 58879 in all, are:
-= -- 6490
-> -- 111
-< -- 255
-+ -- 5127
-- -- 390
-* -- 1552
-:= -- 6525
+            931 strings with 12955 characters,
+and the built_in function-call counts, 64688 in all, are:
+= -- 7130
+> -- 122
+< -- 280
++ -- 5613
+- -- 431
+* -- 1725
+:= -- 7148
 add.period$ -- 0
-call.type$ -- 33
-change.case$ -- 156
+call.type$ -- 36
+change.case$ -- 172
 chr.to.int$ -- 0
-cite$ -- 44
-duplicate$ -- 8377
-empty$ -- 2313
-format.name$ -- 312
-if$ -- 15789
+cite$ -- 47
+duplicate$ -- 9223
+empty$ -- 2545
+format.name$ -- 344
+if$ -- 17317
 int.to.chr$ -- 0
-int.to.str$ -- 33
+int.to.str$ -- 36
 missing$ -- 0
-newline$ -- 126
-num.names$ -- 33
-pop$ -- 818
+newline$ -- 135
+num.names$ -- 36
+pop$ -- 902
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 541
+skip$ -- 585
 stack$ -- 0
-substring$ -- 7061
-swap$ -- 1538
+substring$ -- 7770
+swap$ -- 1710
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 11
-while$ -- 760
-width$ -- 35
-write$ -- 448
-(There were 4 error messages)
+while$ -- 838
+width$ -- 38
+write$ -- 493
+(There were 5 error messages)

@@ -234,6 +234,20 @@
   and SysML}\bibmark{[M]}\@. \bibaddress{[S.l.]}\thinspace{}\textnormal{:
   }\bibpublisher{Springer New York}\@, \bibyear{2016}\@.
 
+\bibitem{Bjerkander2003Architecting}
+\bibauthor{BJERKANDER M\@, KOBRYN C}\@. \bibtitle{Architecting systems with UML
+  2.0}\bibmark{[J]}\@. \bibjournal{IEEE Software}\@, \bibyear{2003}\@,
+  \bibvolume{20}\bibnumber{(4)}\thinspace{}\textnormal{:
+  }\bibpages{57\thinspace{}\textnormal{--}\thinspace{}61}\@.
+
+\bibitem{David2012Statistical}
+\bibauthor{DAVID A\@, DU D\@, LARSEN K~G, et~al}\@. \bibtitle{Statistical Model
+  Checking for Stochastic Hybrid Systems}\bibmark{[J]}\@.
+  \bibjournal{Electronic Proceedings in Theoretical Computer Science}\@,
+  \bibyear{2012}\@, \bibvolume{92}\bibnumber{(Proc. HSB
+  2012)}\thinspace{}\textnormal{:
+  }\bibpages{187\thinspace{}\textnormal{--}\thinspace{}199}\@.
+
 \bibitem{dunteman1989principal}
 \bibauthor{DUNTEMAN G~H}\@. \bibbooktitle{Principal components
   analysis\thinspace{}\textnormal{: }Vol~69}\bibmark{[M]}\@.
@@ -247,5 +261,12 @@
   \bibaddress{[S.l.]}\thinspace{}\textnormal{: }\bibpublisher{Springer}\@,
   \bibyear{1994}\thinspace{}\textnormal{:
   }\bibpages{139\thinspace{}\textnormal{--}\thinspace{}152}\@.
+
+\bibitem{David2012An}
+\bibauthor{DAVID A\@, DU D~H\@, LARSEN K~G, et~al}\@. \bibtitle{An evaluation
+  framework for energy aware buildings using statistical model
+  checking}\bibmark{[J]}\@. \bibjournal{Science China Information Sciences}\@,
+  \bibyear{2012}\@, \bibvolume{55}\bibnumber{(12)}\thinspace{}\textnormal{:
+  }\bibpages{2694\thinspace{}\textnormal{--}\thinspace{}2707}\@.
 
 \end{thebibliography}

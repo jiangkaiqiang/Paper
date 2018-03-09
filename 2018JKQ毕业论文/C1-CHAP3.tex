@@ -144,7 +144,7 @@ FMU的输出变量$y \in Y$可以看做为时间自动机的$Act_{o} \cup \{abse
 \subsection{基于SysML的架构建模} 
 为了更好的阐述我们的方法，我们采用了水箱的案例 \cite{•} 作为驱动以更加形象的展示我们的方法。下面我们先简单的介绍一下水箱案例，然后用SysML建模语言对整个案例的架构建模。水箱案例：有一个水源可以向水箱里面注水，且水箱里面的水通过一个管道流入到一个水池当中，这个水源的流出由一个阀门控制，而阀门的开关由一个控制器进行控制。在本小节，由于水箱、阀门、控制器连接方式的不同，我们在此描述了三种不同类型的水箱系统。
 
-SysML是为模型驱动式软件开发（Model-Based Systems Engineering，MBSE）\cite{Dori16}而提出的一种通用的领域建模语言（ Domain-Specific Language，DSL）\cite{SemerathBHSV17} ，它起源于国际系统工程委员会（INCOSE）的倡议\ cite {Pepper2015International}并于2001年1月发布 。SysML的BDD图用块来描述系统中组件的结构；IBD图用来描述各个块之间的关联关系。各个块的接口由连接器进行关联，因此，系统各个组件的依赖关系可以用各个块的接口之间的连接进行表示。
+我们用SysML来建模该系统的架构，其中用SysML的BDD图来描述系统中各个组件的结构，用SysML的IBD图用来描述各个组件之间的关联关系。各个组件的接口由连接器进行关联，因此系统各个组件的依赖关系可以用各个块的接口之间的连接进行表示。
 
 图\ref{myad}是水箱案例的SysML BDD图，其中包含三个块： $Valve$, $Tank$ 和 $Controller$。 $Valve$和$Tank$是物理组件；$Controller$是信息组件。每一个组件都有自己的输入和输出接口，例如：$Valve$的输入接口是$vin$，它用来输入阀门的开关$OpenClosed$信号。
 \begin{figure}[htbp]

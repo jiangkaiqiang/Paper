@@ -1,13 +1,26 @@
 \chapter{预备知识与概念}
 \label{ch2}
 \section{功能模拟接口（FMI）}
-CPS中各个组件之间的协同可以使用基于FMI标准的协同仿真来实现，FMI标准最初是在2008年开始的MODELISAR项目中开发的，并得到大量软件公司和研究中心的支持。FMI支持模拟由异构组件组成的复杂系统，通过一个协同仿真环境将不同模型与自己的求解器耦合起来。
+CPS中各个组件之间的协同仿真可以基于FMI标准来实现，FMI标准最初是在2008年开始的MODELISAR项目中开发的，并得到大量软件公司和研究中心的支持。FMI支持模拟由异构组件组成的复杂系统，通过一个协同仿真环境将不同模型与自己的求解器耦合起来。实现了FMI标准接口的系统组件被称为FMU，我们可以基于FMI标准将模型转化为FMU，之后加入协同仿真的主算法就可以对系统进行协同仿真，其中主算法并不是FMI标准的一部分。FMI标准包含两个主要部分：
+\begin{enumerate}
+\item 协同仿真接口：一组用来实现对仿真器控制和完成多个FMU之间进行数据传输的C语言函数。
+\item 协同仿真描述文件：用一个XML文件定义了模型的结构和主要的描述信息。主要包括模型的输入、输出信息，模型的仿真器和求解器等等。
+\end{enumerate}
+FMI至今已经有两个版本，即FMI1.0和FMI2.0\cite{Broman2013Determinate}。FMI1.0中有一个主要的函数是doStep，主函数可以调用该函数，使得FMI中的某个FMU进行一步的仿真。该函数的定义如下：\\
+fmiStatus fmiDoStep( fmiComponent c, fmiReal currentCommunicationPoint, fmiReal communicationStepSize, fmiBoolean newStep); 
+
+其中，$c$为主算法要调用的FMU组件，$currentCommunicationPoint$为主算法当前的仿真时间，$communicationStepSize$是主算法要FMU下一步进行仿真的步长。FMU接收到主算法的调用命令和调用步长时，将会接受或拒绝这一步长，如果接受这一步长则到进行仿真并到达一个新的状态，如果拒绝则需要重新调用。$newStep$用来表示当前的这一次仿真是一次新的调用还是拒绝之后的再次调用。
+
+FMI2.0针对FMU1.0做了一定的扩展，主要是增加了$fmiGetFMUstate$和$fmiSetFMUstate$两个方法。这两个方法使得FMU可以对状态进行保存和恢复，从而支持了FMU状态的回滚。在后续章节，我们提出的支持回滚的主算法是基于这一扩展进行设计的。因此，扩展之后的doStep函数如下：\\
+fmiStatus fmiDoStep(fmiComponent c, fmiReal currentCommunicationPoint, fmiReal communicationStepSize, fmiBoolean noSetFMUStatePriorToCurrentPoint);
+
+其中，前三个参数跟FMU1.0里面的参数相同，只是最后一个参数的含义与FMI1.0有了本质的区别，通过设置$noSetFMUStatePriorToCurrentPoint$为true和false，主算法可以来控制FMU是否将之前一个状态的值设置给当前时间节点。
 \section{功能模拟单元（FMU）}
-实现了FMI标准接口的系统组件被称为FMU，下面我们给出FMU的语法和语义。
+我们在以上小节介绍了FMI标准接口，下面我们对实现了FMI标准接口的FMU给出形式化的语法和语义。
 \begin{define}
 \textbf{FMU 语法}
 
-FMU的语法可以用一个八元组$F=(S,U,Y,D,s_{0},set,get,doStep)$表示, 
+FMU的语法可以用一个八元组$F=(S,U,Y,D,s_{0},set,get,doStep)$表示，
 \end{define}
 \begin{itemize}
 \item
@@ -17,111 +30,116 @@ $U$ 表示FMU的输入变量集合。
 \item
 $Y$ 表示FMU的输出变量集合。
 \item
-$D \subseteq U \times Y$ 表示多个FMU之间输入和输出之间的依赖关系集合。 $(u,y) \in D $表示输出变量 $y$ 直接依赖于输入变量$u$的取值。 
+$D \subseteq U \times Y$ 表示多个FMU之间输入和输出之间的依赖关系集合。 $(u,y) \in D $表示输出变量$y$直接依赖于输入变量$u$的取值。 
 \item
 $s_{0} \in S$ 表示FMU的初始状态。
 \item
-$set : S \times U \times \mathbb{V} \rightarrow S$ 表示$set$函数对一个输入变量进行赋值。给定当前状态 $s \in S$, 输入变量 $u \in U$, 及一个数值 $v \in \mathbb{V}$, 该函数将返回一个新的状态，此状态的$u$ 的值为 $v$.
+$set : S \times U \times \mathbb{V} \rightarrow S$表示$set$函数对一个输入变量进行赋值。给定当前状态$s \in S$, 输入变量 $u \in U$及一个数值 $v \in \mathbb{V}$, 该函数将返回一个新的状态，此状态中$u$的值为$v$。
 \item
-$get : S \times Y \rightarrow \mathbb{V}$ 表示$get$函数返回某个输出变量的数值。给定一个状态 $s \in S$ 和一个输出变量 $y \in Y$, $get(s,y)$返回$s$状态上$y$输出变量的取值。
+$get : S \times Y \rightarrow \mathbb{V}$表示$get$函数返回某个输出变量的数值。给定一个状态 $s \in S$和一个输出变量$y \in Y$, $get(s,y)$返回$s$状态上$y$输出变量的取值。
 \item
-$doStep : S \times \mathbb{R}_{\geqslant{0}} \rightarrow S \times \mathbb{R}_{\geqslant{0}}$ 表示$doStep$函数进行了一步仿真。 给定当前状态 $s$, 和一个非负实数$h \in \mathbb{R}_{\geqslant{0}}$, $doStep(s,h)$ 返回一个集合 $(s^{\prime},h^{\prime})$，且
+$doStep : S \times \mathbb{R}_{\geqslant{0}} \rightarrow S \times \mathbb{R}_{\geqslant{0}}$表示$doStep$函数进行了一步仿真。给定当前状态$s$和一个非负实数$h \in \mathbb{R}_{\geqslant{0}}$， $doStep(s,h)$返回一个元组$(s^{\prime},h^{\prime})$，且
 \\
-    当$h^{\prime} = h$时, $F$接受并执行步长$h$ 并且迁移到了一个新的状态 $s^{\prime}$;
+    当$h^{\prime} = h$时, $F$接受该步长并执行步长为$h$的仿真，并且迁移到了一个新的状态 $s^{\prime}$；
 \\
-    当$0 \leqslant h^{\prime} < h$时, $F$拒绝步长 $h$, 只执行步长$h^{\prime}$, 并且迁移到一个新的状态 $s^{\prime}$.
+    当$0 \leqslant h^{\prime} < h$时，$F$拒绝步长$h$，只执行步长为$h^{\prime}$的仿真，并且迁移到一个新的状态 $s^{\prime}$。
 \end{itemize}
 \begin{define}
 \textbf{FMU 语义}
 \end{define} 
-给定一个FMU $F=(S,U,Y,D,s_{0},set,get,doStep)$, FMU的执行依赖于$doStep$函数, FMU的执行可以用一个时间输入序列（Timed Input Sequence, TIS）进行描述。
-
-TIS是一个有限的四元组序列$(t,s,v,v^{\prime})$, $t \in \mathbb{R}_{\geqslant{0}}$ 表示当前时刻, $s \in S$表示$F$的一个状态, $v$是一个输入赋值, $v^{\prime} : Y \rightarrow \mathbb{V}$ 是一个输出赋值。
+给定一个FMU$F=(S,U,Y,D,s_{0},set,get,doStep)$，FMU的执行依赖于$doStep$函数，它的执行可以用一个时间输入序列（Timed Input Sequence, TIS）进行描述。TIS是一个有限的四元组序列$(t,s,v,v^{\prime})$, $t \in \mathbb{R}_{\geqslant{0}}$表示当前时刻，$s \in S$表示$F$的当前状态，$v$是一个输入变量，$v^{\prime} : Y \rightarrow \mathbb{V}$ 是一个输出变量。
  
 TIS = $(t_{0},s_{0},v_{0},v_{0}^{\prime}), (t_{1},s_{1},v_{1},v_{1}^{\prime}),(t_{2},s_{2},v_{2},v_{2}^{\prime}), ..., (t_{i},$
-$s_{i},v_{i},v_{i}^{\prime}), (t_{i+1},s_{i+1},v_{i+1},v_{i+1}^{\prime}), ...$定义如下:
+$s_{i},v_{i},v_{i}^{\prime}), (t_{i+1},s_{i+1},v_{i+1},v_{i+1}^{\prime}), ...$定义如下：
 \begin{itemize}
 \item
-$t_{0} = 0$时刻的$s_{0}$状态表示$F$的初始状态。
+$t_{0} = 0$时刻的$s_{0}$状态表示$F$处于初始状态位置。
 \item
-对于任意的$i \geqslant 1$, $t_{i} = t_{0} + \sum_{k = 1}^i h_{k}$
+对于任意的$i \geqslant 1$, $t_{i} = t_{0} + \sum_{k = 1}^i h_{k}$。
 \item
-给定当前状态$s_{i}$, $set$函数用来将当前状态的输入参数设置为一个特定的数值$v$. 之后$F$执行$doStep$函数并且迁移到一个新的状态$s_{i}^{\prime}$.  $get$函数用来得到当前状态的所有输出参数值$v_{i}^{\prime}$.
+给定当前状态$s_{i}$，$set$函数用来将当前状态的输入参数设置为一个特定的数值$v$，之后$F$执行$doStep$函数并且迁移到一个新的状态$s_{i}^{\prime}$。$get$函数用来得到当前状态的所有输出参数的取值$v_{i}^{\prime}$。
 \end{itemize}
-因此, FMU的语义可以用一个标签迁移系统进行描述。
 \section{时间自动机（TA）}
-时间自动机 \cite{BehrmannDLHPYH06}是一个建模实时系统行为的经典理论模型。它提供了一种用许多实值时钟标注状态转换图的有效方法。 在本小节中，我们来回顾一下时间自动机的语法和语义。
+时间自动机\cite{BehrmannDLHPYH06}是一个建模实时系统行为的经典理论模型。 在本小节中，我们给出时间自动机的形式化语法和语义。
 \begin{define}
 \textbf{时间自动机 语法}
 
-时间自动机可以用一个四元组$\textit{A}=(L,l_{0},E,I)$来表示, 其中:
+时间自动机可以用一个四元组$\textit{A}=(L,l_{0},E,I)$来表示，其中：
 \end{define}
 \begin{itemize}
 \item
-$L$表示时间自动机中有限的位置集合;
+$L$表示时间自动机中有限的位置集合；
 \item
-$l_{0} \in  L$为时间自动机的初始位置;
+$l_{0} \in  L$为时间自动机的初始位置；
 \item
-约束集合$G(x)$可以用$g = x \bowtie c \mid g \land g$来表示, 其中 $x \in X$, $c \in \mathbb{N}$且$\bowtie~\in \{<,\leqslant,\geqslant,>,=\}$. 
+约束集合$G(x)$可以用$g = x \bowtie c \mid g \land g$来表示，其中 $x \in X$, $c \in \mathbb{N}$且$\bowtie~\in \{<,\leqslant,\geqslant,>,=\}$。
 \item
-$E \subseteq L \times G(X) \times Act \times 2^X \times L$是包含约束和时钟的一组边的集合, 其中 $Act = Act_{i} \cup Act_{o}$. $Act_{i}$是一个输入动作的集合且$Act_{o}$是一个输出动作的集合。
+$E \subseteq L \times G(X) \times Act \times 2^X \times L$是一组边的集合, 该边包含约束和时钟，其中 $Act = Act_{i} \cup Act_{o}$。$Act_{i}$是一个输入动作的集合，$Act_{o}$是一个输出动作的集合。
 \item
 $I : L \rightarrow G(X)$将不变量指定给位置。
 \end{itemize}
 \begin{define}
-\textbf{时间自动机 语义} 
+\textbf{时间自动机语义} 
 
-时间自动机$\textit{A}=(L,l_{0},E,I)$ 的语义可以用一个标签迁移系统$L_{\textit{A}} = (Proc,Lab,\lbrace {{\xrightarrow{\alpha}}} \mid \alpha \in Lab \rbrace)$进行描述, 其中:
+时间自动机$\textit{A}=(L,l_{0},E,I)$的语义可以用一个标签迁移系统$L_{\textit{A}} = (Proc,Lab,\lbrace {{\xrightarrow{\alpha}}} \mid \alpha \in Lab \rbrace)$进行描述，其中：
 \end{define}
 \begin{itemize}
 \item 
-$Proc = \lbrace(l,v) \mid (l,v) \in L \times (X \rightarrow \mathbb{R}_{\geqslant{0}})$ 且 $v \models I(l) \rbrace$, 其中， 状态是一个$(l,v)$元组, $l$是时间自动机中的位置且$v$是满足$I(l)$的一个时钟变量;
+$Proc = \lbrace(l,v) \mid (l,v) \in L \times (X \rightarrow \mathbb{R}_{\geqslant{0}})$且$v \models I(l) \rbrace$，其中状态是一个$(l,v)$元组，$l$是时间自动机中的位置且$v$是满足$I(l)$的一个时钟变量；
 \item
-$Lab = Act \cup \mathbb{R}_{\geqslant{0}}$ 是一个标签集合；且 
+$Lab = Act \cup \mathbb{R}_{\geqslant{0}}$ 是一个标签集合；
 \item
 迁移关系定义如下：
 
-$(l,v) \xrightarrow{\alpha} (l^{\prime},v^{\prime})$，如果存在一个边 $(l \xrightarrow{g,\alpha,r} l^{\prime}) \in E$, 则$v \models g$, $v^{\prime} = v[r]$ 且 $v^{\prime} \models I(l^{\prime})$
+$(l,v) \xrightarrow{\alpha} (l^{\prime},v^{\prime})$，如果存在一个边 $(l \xrightarrow{g,\alpha,r} l^{\prime}) \in E$，则$v \models g$, $v^{\prime} = v[r]$且$v^{\prime} \models I(l^{\prime})$
 
-$(l,v) \xrightarrow{d} (l,v+d)$，对于所有的 $d \in  \mathbb{R}_{\geqslant{0}}$, 则$v \models I(l)$ and $v + d \models I(l)$
+$(l,v) \xrightarrow{d} (l,v+d)$，对于所有的$d \in  \mathbb{R}_{\geqslant{0}}$，则$v \models I(l)$且$v + d \models I(l)$
 \end{itemize}
-对于时间自动机$A$和其中某个位置$l$的可达性问题就是一个判断在迁移系统 $L_{A}$.中是否存在一个从初始状态 $(l_{0},v_{0})$ 到状态$(l,v)$的路径。为了验证需要，我们定义了时间自动机的符号语义。该定义用到了包含一组时钟的执行序列集合。
+对于时间自动机$A$中某个位置$l$的可达性问题就是一个判断在迁移系统$L_{A}$中是否存在一个从初始状态$(l_{0},v_{0})$到状态$(l,v)$的路径。为了验证需要，我们定义了时间自动机的符号语义，该定义用到了一组包含时钟的执行序列集合。
 
-对于一个特定的位置$l$，特定的时刻 $t \in X$，对于任意的$x \in X$, 则$t + x \in X$. 从该时刻位置开始的执行序列如下所示：
+对于一个特定的位置$l$和特定的时刻 $t \in X$，对于任意的$x \in X$，则$t + x \in X$。从该时刻位置开始的执行序列如下所示：
 
 $(l,t) \xrightarrow{x_{1}} (l,t+x_{1}) \xrightarrow{x_{2}} (l,t+x_{1}+x_{2}) \xrightarrow{x_{3}} (l,t+x_{1}+x_{2}+x_{3}) \xrightarrow{x_{4}}...\xrightarrow{x_{i}}(l,t+x_{1}+x_{2}+x_{3}+...+x_{i}) \xrightarrow{x_{i+1}}...$
 
-其中 $x_{i} > 0$ 且无穷序列$x_{1} + x_{2} + . . .$ 对于$x$是收敛的。 
+其中$x_{i} > 0$且无穷序列$x_{1} + x_{2} + . . .$ 对于$x$是收敛的。 
+\section{系统建模语言（SysML）}
+SysML是为模型驱动式软件开发（Model-Based Systems Engineering，MBSE）\cite{Dori16}而提出的一种通用的领域建模语言（ Domain-Specific Language，DSL）\cite{SemerathBHSV17} ，它起源于国际系统工程委员会（INCOSE）的倡议\ cite {Pepper2015International}并于2001年1月发布 。SysML基于统一建模语言2.0（Unified Modeling Language2.0，UML2.0）\cite{Bjerkander2003Architecting}的一个子集，加入了其他一些建模元素的扩张。SysML的提出是用来统一复杂系统开发的各种建模语言和技术。SysML是一种基于UML建模语言，针对系统工程做了相应的扩展而构造出的一种建模语言。它为系统的建模和需求建模提供了新的方法。 在\cite{Bjerkander2003Architecting}中，Willard B.重点介绍了UML2.0的发展，并提出了SysML带来的新的可能性，他声称SysML的主要优点是“为系统工程师提供标准和全面的系统规范范例”。 SysML使用UML2.0中的图作为类或对象图，但是采取了新的语义来避免软件词汇表（例如，类和对象被块代替）。此外，加入新的图来简化需求的声明，并针对之后的仿真提出了一些相关的设计。块（block）是SysML的基本概念。 块是描述系统的每个模块单元的基本建模元素。 块定义了一组代表组件结构和行为的特征和操作。 这些块在BDD内以层级关系进行声明和组织。 在BDD中，块拥有自己的属性，这些属性将它们的特征和子元素定义为部件和端口。此外，块还拥有它们能够执行的一组操作。IBD则显示了各个块的端口之间的连接关系。
 
 \section{概率有界线性时态逻辑（PBLTL）}
-概率有界线性时态逻辑（Probabilistic Bounded Linear Temporal Logic，PBLTL）公式可以用来形式化的描述系统的验证属性。首先，我们定义用来验证单条仿真迹的有界线性时态逻辑（Bounded Linear Temporal Logic，BLTL）的语法和语义，然后将其扩展为PBLTL。
+概率有界线性时态逻辑（Probabilistic Bounded Linear Temporal Logic，PBLTL）\cite{David2012Statistical}公式可以用来形式化的描述系统的验证属性。我们先给出有界线性时态逻辑（Bounded Linear Temporal Logic，BLTL）的语法和语义，然后再将其扩展为PBLTL。
 
-给定一个模型$M$，设其状态变量的集合$SV$是一个有限的实数集。在$SV$上的一个布尔谓词约束为$y \sim v$的形式，其中$y\in SV$，$\sim \in \lbrace \geq,\leq,=\rbrace$，且$v\in \mathbb{R}$。BLTL的语法定义如下：
+给定一个模型$M$，设其状态变量的集合$SV$是一个有限的实数集，在$SV$上的一个布尔谓词约束为$y \sim v$形式。其中$y\in SV$，$\sim \in \lbrace \geq,\leq,=\rbrace$且$v\in \mathbb{R}$。BLTL的语法定义如下：
 $$\varphi ::= y \sim v\mid\phi_{1}\wedge\phi_{2}\mid\phi_{1}\vee\phi_{2}\mid \neg \phi_{1}\mid\phi_{1}U^{\leq t}\phi_{2}
 $$
-其中$\sim \in \lbrace \geq,\leq,=\rbrace$，$y\in SV$，$v\in \mathbb{Q}$，$t\in \mathbb{Q}_{\geq 0}$。为方便使用，我们可以定义一些辅助的时序逻辑算子，例如“$F$”算子，$F^{\leq t}\phi = True U^{\leq t}\phi$，表示最终在$t$时间内存在$\phi$满足；又如"$G$"算子，$G^{\leq t}\phi = \neg F^{\leq t}\neg \phi$，表示在$t$时间内$\phi$始终满足。对于一条迹$\sigma$，$\sigma^k$表示这条迹的后缀，即$\sigma$从第$k$步开始执行的部分（$\sigma^0$则表示原始迹）。我们规定$V(\sigma,k,y)$表示迹 $\sigma$在第$k$步时状态变量$y$的值，$t_k$表示第$k$步的时间，$t$表示最终的时间约束，则BLTL在迹 $\sigma^k$上的语义可以如下定义：
+其中，$\sim \in \lbrace \geq,\leq,=\rbrace$，$y\in SV$，$v\in \mathbb{Q}$，$t\in \mathbb{Q}_{\geq 0}$。
+
+定义算子“$F$”表示最终会满足，$F^{\leq t}\phi = True U^{\leq t}\phi$，表示最终在$t$时间内存在$\phi$满足；
+
+定义算子"$G$"算子表示始终满足，$G^{\leq t}\phi = \neg F^{\leq t}\neg \phi$，表示在$t$时间内$\phi$始终满足。
+
+对于一条仿真迹$\sigma$，$\sigma^k$表示$\sigma$从第$k$步开始执行之后的部分。我们规定$V(\sigma,k,y)$表示迹 $\sigma$在第$k$步时状态变量$y$的值，$t_k$表示第$k$步需要的时间，$t$表示时间约束，则BLTL在迹$\sigma^k$上的语义定义如下：
 
 \begin{define}\label{def:bltl_semantics}
 （有界线性时态逻辑的语义）.	
 \begin{itemize}
 \item $\sigma^{k}\vDash y \sim v $当且仅当$V(\sigma,i,y)\sim v$。
-\item $\sigma^{k}\vDash\phi_{1}\vee\phi_{2}$当且仅当$\sigma^{k}\vDash\phi_{1}$或者$\sigma^{k}\vDash\phi_{2}$。
-\item $\sigma^{k}\vDash\phi_{1}\wedge\phi_{2}$当且仅当$\sigma^{k}\vDash\phi_{1}$并且$\sigma^{k}\vDash\phi_{2}$。
+\item $\sigma^{k}\vDash\phi_{1}\vee\phi_{2}$当且仅当$\sigma^{k}\vDash\phi_{1}$或$\sigma^{k}\vDash\phi_{2}$。
+\item $\sigma^{k}\vDash\phi_{1}\wedge\phi_{2}$当且仅当$\sigma^{k}\vDash\phi_{1}$且$\sigma^{k}\vDash\phi_{2}$。
 \item $\sigma^{k}\vDash\neg\phi_{1}$当且仅当$\sigma^{k}\vDash\phi_{1}$不成立。
-\item $\sigma^{k}\vDash\phi_{1}U^{t}\phi_{2}$当且仅当存在一个自然数$i$使得
+\item $\sigma^{k}\vDash\phi_{1}U^{t}\phi_{2}$当且仅当存在数值$i$使得
 
-1）$ \Sigma_{0\leq l<i}$ $t_{k+1}\leq t$；
+$ \Sigma_{0\leq l<i}$ $t_{k+1}\leq t$；
 
-2）$ \sigma_{k+i}\models\phi_{2}$；
+$ \sigma_{k+i}\models\phi_{2}$；
 
-3）$\sigma_{k+j}\models\phi_{1}$对于每个$ 0\leq j \leq i$。
+$\sigma_{k+j}\models\phi_{1}$，对于每个$ 0\leq j \leq i$。
 \end{itemize}
 \end{define}
 
 \begin{define}\label{def:pbltl}
 （概率有界线性时态逻辑）.
 
-一个PBLTL属性公式$\phi$表示为$P_{\geq \theta}(\phi')$的形式，其中$\phi'$是一个BLTL公式，$\theta$是一个介于0和1之间的阈值。我们定义模型$M$满足PBLTL属性$P_{\geq \theta}(\phi')$，表示为$M \models P_{\geq \theta}(\phi)$，即模型$M$的仿真迹满足BLTL属性$\phi'$的概率不小于$\theta$。而对于定量分析的PBLTL属性公式，则无需指定阈值$\theta$，所以可表示为$P_{=?}(\phi')$。
+一个PBLTL属性公式$\phi$可以表示为$P_{\geq \theta}(\phi')$，其中$\phi'$为BLTL公式，$\theta$为一个阈值（介于0和1之间）。对于定性分析的PBLTL验证属性，我们将其表示为$M \models P_{\geq \theta}(\phi)$，即来验证模型$M$满足BLTL属性$\phi'$的概率是否不小于$\theta$。对于定量分析的PBLTL验证属性公式，无需指定阈值$\theta$，可以将其表示为$M \models P_{=?}(\phi')$，即来验证模型$M$满足BLTL属性$\phi'$的概率是多少。
 \end{define}
 
 
