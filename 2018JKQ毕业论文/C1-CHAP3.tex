@@ -91,7 +91,7 @@ $A[] not deadlock$是死锁的检测, 用来检测主算法是否存在死锁。
 在本小节，我们使用一个水箱的案例对系统协同仿真行为的可信性检测过程进行详细的描述。由于，在检测过程中，需要用时间自动机对FMU进行形式化描述。因此，我们首先给出了从FMU到时间自动机的映射规则，然后使用SysML对整个系统进行架构设计，接下来基于FMI标准生成系统各个组件的FMU模型，并得到多个FMU之间的连接关系配置，最后我们用时间自动机建模了FMU的形式化模型，并输入到UPPAAL工具中针对多个属性进行检测分析。
 \subsection{FMU到TA的映射} 
 \label{sec:encode}
-在本文的第二章的预备知识中，我们给出了FMU和时间自动机的语法及语义，下面我们根据第二章的语法语义给出FMU和时间自动机的映射关系。我们发现FMU和时间自动机的语义之间存在一定的关联，FMU的语义关注于FMU的执行序列，也就是状态随着时间的不断迁移，时间自动机的执行迹跟FMU的执行序列十分相似，也是状态随着时间的迁移序列。因此，我们使用时间自动机来对FMU进行形式化描述，从而来分析多个FMU之间的协同行为。
+在本文的第二章的预备知识中，我们给出了FMU和时间自动机的语法及语义，下面我们根据第二章中的语法和语义给出FMU和时间自动机的映射关系。我们发现FMU和时间自动机的语义之间存在一定的关联，FMU的语义关注于FMU的执行序列，也就是状态随着时间的不断迁移，时间自动机的执行迹跟FMU的执行序列十分相似，也是状态随着时间的迁移序列。因此，我们使用时间自动机来对FMU进行形式化描述，从而来分析多个FMU之间的协同行为。
 给定一个FMU$F=(S,U,Y,D,s_{0},set,get,doStep)$，我们可以根据他们执行语义之间的关联，将FMU用时间自动机$\textit{A}=(L,l_{0},E,I)$进行形式化描述：
 \begin{itemize}
 \item
@@ -142,18 +142,18 @@ FMU的输出变量$y \in Y$可以看做为时间自动机的$Act_{o} \cup \{abse
 \end{itemize}
 为了更加准确的验证映射规则的正确性，我们分析了时间自动机和FMU的整个执行序列。我们通过分析得到FMU和时间自动机的执行序列是等价的，从而保证了映射规则的正确性。在之后几个小节的内容中，我们将此映射规则应用到了水箱的案例中，根据我们之后对案例仿真片段的分析，我们也发现该映射规则是正确的。 
 \subsection{基于SysML的架构建模} 
-为了更好的阐述我们的方法，我们采用了水箱的案例\cite{Am2016Checking}作为驱动以更加形象的展示我们的方法。下面我们先简单的介绍一下水箱案例，然后用SysML建模语言对整个案例的架构建模。水箱案例：有一个水源可以向水箱里面注水，且水箱里面的水通过一个管道流入到一个水池当中，这个水源的流出由一个阀门控制，而阀门的开关由一个控制器进行控制。在本小节，由于水箱、阀门、控制器连接方式的不同，我们在此描述了三种不同类型的水箱系统。
+为了更好的阐述我们的方法，我们采用了水箱的案例\cite{Am2016Checking}作为驱动以更加形象的展示我们的方法。下面我们先简单的介绍一下水箱案例，然后用SysML建模语言对整个案例的架构进行建模。水箱案例：有一个水源可以向水箱里面注水，且水箱里面的水通过一个管道流入到一个水池当中，这个水源中水的流出由一个阀门控制，而阀门的开关由一个控制器进行控制。在本小节，根据水箱、阀门、控制器连接方式的不同，我们在此描述了三种不同类型的水箱系统。
 
-我们用SysML来建模该系统的架构，其中用SysML的BDD图来描述系统中各个组件的结构，用SysML的IBD图用来描述各个组件之间的关联关系。各个组件的接口由连接器进行关联，因此系统各个组件的依赖关系可以用各个块的接口之间的连接进行表示。
+我们用SysML建模语言建模了该系统的架构，其中用SysML的BDD来描述系统中各个组件的结构，用SysML的IBD来描述各个组件之间的关联关系。各个组件的接口由连接器进行关联，因此系统各个组件的依赖关系可以用块的接口之间的连接关系进行表示。
 
-图\ref{myad}是水箱案例的SysML BDD图，其中包含三个块： $Valve$, $Tank$ 和 $Controller$。 $Valve$和$Tank$是物理组件；$Controller$是信息组件。每一个组件都有自己的输入和输出接口，例如：$Valve$的输入接口是$vin$，它用来输入阀门的开关$OpenClosed$信号。
+图\ref{myad}是水箱案例的SysML BDD，其中包含三个块： $Valve$，$Tank$和$Controller$。$Valve$和$Tank$是物理组件，$Controller$是信息组件。每一个组件都有自己的输入和输出接口，例如：$Valve$的输入接口是$vin$，该接口用来输入阀门的开关信号$OpenClosed$。
 \begin{figure}[htbp]
 	\centering	{\includegraphics[width=5.0in,height=3.5in]{fig/3/AD.jpg}}
 	\caption{水箱系统的SysML BDD}
 	\label{myad}
 \end{figure}
 
-图\ref{cd} 是SysML的IBD图，在这里我们给出了三种连接情形。在第一种情形中，系统包含一个阀门、一个控制器和一个水箱，控制器随机的给阀门发送开关信息，导致水箱中的水位不断的变化；在第二种情形中，控制器信号的发送受到水箱水位的影响，控制器根据水箱的水位发送开关信号；在第三种情形中，我们添加了一个水箱$waterTank2$，水箱$waterTank1$中的水通过管道先流入$waterTank2$中，最后流入水池。
+图\ref{cd} 是SysML的IBD，在这里我们给出了三种连接情形。在第一种情形中，系统包含一个阀门、一个控制器和一个水箱，控制器给阀门随机的发送开关信号，导致水箱中的水位不断的变化；在第二种情形中，控制器信号的发送受到水箱水位的影响，控制器根据水箱的水位给阀门发送开关信号；在第三种情形中，我们添加了一个水箱$waterTank2$，水箱$waterTank1$中的水通过管道先流入$waterTank2$中，最后再流入水池。
 
 \begin{figure}[htbp]
 \centering{
@@ -169,10 +169,10 @@ FMU的输出变量$y \in Y$可以看做为时间自动机的$Act_{o} \cup \{abse
 	\label{cd}
 	}
 \end{figure}
-在本小节我们用SysML BDD图描述了系统组件的结构，并用SysML的IBD图描述了各个组件之间的连接。在下一个小节，我们基于FMI标准用FMU来实现每一个系统组件，并将SysML IBD中描述的关联关系用一个FMU之间的接口配置文件进行表示。
+在本小节我们用SysML BDD描述了系统组件的结构，并用SysML的IBD描述了各个组件之间的连接关系。在下一个小节中，我们将基于FMI标准，根据BDD生成各个组件对应的FMU，并根据SysML IBD中描述的关联关系来生成FMU之间的接口配置文件。
 \subsection{基于FMI的协同仿真模型设计} 
 \label{sec:case}
-图\ref{fmu-con}描述的是水箱系统中的FMU组件及各个FMU之间的连接。根据图\ref{cd}给定的SysML IBD，我们也得到了三种FMU的情形。第一种情形如图\ref{fmu-con1}所示，系统中有三个FMU组件：$Controller$, $Valve$ 和$WaterTank1$和两个接口$v \_ vin$及$w \_ win$。 $Controller$ 和 $Valve$由$v \_ vin$接口连接； $Valve$ 和 $WaterTank1$ 由 $w \_ win$接口连接。第二种情形如图 \ref{fmu-con2}所示，其中在第一种情形上添加了$WaterTank1$ 和$Controller$的接口$sout \_ s$，表示控制器信号的发送受到水箱$WaterTank1$的水位影响。 图\ref{fmu-con3}是第三种情形，在第一种情形上添加了另一个水箱$WaterTank2$, 水箱$WaterTank1$ 和$WaterTank2$由接口$w \_ out$连接。 
+图\ref{fmu-con}描述的是水箱系统中的FMU组件及各个FMU之间的连接关系。根据图\ref{cd}给定的SysML IBD，我们也得到了三种FMU的情形：第一种情形如图\ref{fmu-con1}所示，系统中有三个FMU组件（$Controller$、$Valve$ 和$WaterTank1$）和两个接口（$v \_ vin$及$w \_ win$）。 $Controller$ 和 $Valve$由$v \_ vin$接口连接，$Valve$和$WaterTank1$由$w \_ win$接口连接。第二种情形如图 \ref{fmu-con2}所示，该情形在第一种情形的基础上添加了$WaterTank1$和$Controller$时间的接口$sout \_ s$，表示控制器信号的发送受到水箱$WaterTank1$的水位影响。 图\ref{fmu-con3}是第三种情形，该情形在第一种情形的基础上添加了一个水箱$WaterTank2$，水箱$WaterTank1$ 和$WaterTank2$由接口$w \_ out$连接。 
 \begin{figure}[htbp]
 \centering{
 		\subfigure[情形1]{\includegraphics[width=1.5in,height=0.9in]{fig/3/fmuc1.png}
@@ -188,10 +188,10 @@ FMU的输出变量$y \in Y$可以看做为时间自动机的$Act_{o} \cup \{abse
 	}
 \end{figure}
 
-在本小节我们设计了FMU及FMU之间的连接，我们只需要添加一个协同仿真的主算法就可以在协同仿真引擎当中对整个异构系统进行协同仿真并得到仿真迹。但是，在进行仿真之前，我们要保证各个FMU之间协同行为的正确性，因此，我们在下一个小节基于时间自动机理论对系统的协同行为进行验证，这也是我们本文的主要贡献点之一。
+在本小节我们设计了FMU及FMU之间的连接关系，我们只需要再添加一个协同仿真的主算法就可以在协同仿真引擎当中对整个系统进行协同仿真并得到仿真迹。但是，在进行仿真之前，我们要保证系统协同仿真的可信性。因此，我们在下一个小节将基于时间自动机理论对系统协同仿真行为的可信性进行检测，即系统中FMU之间依赖关系和数据交换的可信性检测，这也是我们本文的主要贡献点之一。
 \subsection{协同仿真行为的可信性检测} 
 \label{sec:mauppaal}
-在本小节我们基于时间自动机理论对水箱系统中组件之间的协同行为的正确性进行验证。首先我们根据小节\ref{sec:encode}中提出的映射规则，将水箱系统中的FMU用时间自动机进行形式化描述，并取小节\ref{sec:ma}中建模的一个主算法（在此，采用可回滚算法作为主算法，其他算法的验证分析与该算法类似，在此不做描述），FMU之间的接口配置文件我们用时间自动机之间的信道进行描述。由此，我们得到了一个由主算法、FMU的时间自动机模型及由配置文件转化得到的信道组成的时间自动机网络。图\ref{tk-arch1}为上述小节中情形1的时间自动机网络模型。
+在本小节，我们基于时间自动机理论对水箱系统中组件之间协同仿真行为的可信性进行验证。首先我们根据小节\ref{sec:encode}中提出的映射规则，将水箱系统中的FMU用时间自动机进行形式化描述，之后取在小节\ref{sec:ma}中建模并通过可信性检测的一个主算法（在此，采用可回滚算法作为主算法，其他算法的使用与该算法类似，在此不做描述），FMU之间的接口配置文件我们用时间自动机之间的信道来进行描述。由此，我们得到了一个由主算法、FMU的时间自动机模型及接口配置文件转化得到的信道组成的时间自动机网络。图\ref{tk-arch1}为上述小节中情形1的时间自动机网络模型。
 
 \begin{figure}[htbp]
 \centering{
@@ -206,7 +206,7 @@ FMU的输出变量$y \in Y$可以看做为时间自动机的$Act_{o} \cup \{abse
 		\hfil
 		 \subfigure[可回滚主算法的时间自动机模型]{\includegraphics[width=2.8in,height=2.0in]{fig/3/2signal_master.png}
 			\label{tk_ma}}		
-	\caption{情形1的时间自动机网络: $controller$ $\vert\vert$ $valve$ $\vert\vert$ $WaterTank1$ $\vert\vert$ $MA$.}
+	\caption{情形1的时间自动机网络: $controller$ $\vert\vert$ $valve$ $\vert\vert$ $WaterTank1$ $\vert\vert$ $MA$。}
 	\label{tk-arch1}
 	}
 \end{figure}
@@ -218,38 +218,38 @@ FMU的输出变量$y \in Y$可以看做为时间自动机的$Act_{o} \cup \{abse
 		\hfil
 		\subfigure[执行序列图]{\includegraphics[width=2.5in,height=3.5in]{fig/3/seq.png}
 			\label{seq}}
-	\caption{协同过程在UPPAAL中的执行序列。}
+	\caption{时间自动机网络在UPPAAL中的执行序列。}
 	\label{trs-seq}
 	}
 \end{figure}
 
-图\ref{tk_controller}, \ref{tk_v}, \ref{tk_wt1}分别是$controller$, $valve$ 和 $WaterTank1$的时间自动机模型。这些自动机都有四个主要的位置：$start$, $dostep$, $Rollback$和$reset$。图\ref{tk_controller}是 $controller$的时间自动机模型，它首先通过信道 $v$与$valve$的时间自动机模型进行交互并到达$Rollback$状态，然后等待主算法的信号，直到它收到了来自主算法的$continue$信号再与其他的FMU进行数据交互并到达$start$状态；否则，它收到$rollback$信号，并回到$Rollback$状态。$valve$和$WaterTank1$的时间自动机中位置和迁移与 $controller$类似。图\ref{tk_ma} 是主算法的时间自动机模型，首先主算法先进性参数初始化，然后根据条件来判断发出  $continue$信号或是$rollback$信号。
+图\ref{tk_controller}、\ref{tk_v}、\ref{tk_wt1}分别是$controller$、$valve$和$WaterTank1$的时间自动机模型。这些自动机都有四个主要的位置：$start$、$dostep$、$Rollback$和$reset$。图\ref{tk_controller}是$controller$的时间自动机模型，它首先通过信道$v$与$valve$的时间自动机模型进行数据交互并到达$Rollback$状态，然后等待主算法的信号，如果它收到了来自主算法的$continue$信号，则与其他的FMU进行数据交互并到达$start$状态；否则，它将收到来自主算法的$rollback$信号，并回到$Rollback$状态。$valve$和$WaterTank1$对应的时间自动机模型中的位置和迁移与$controller$类似。图\ref{tk_ma}是主算法的时间自动机模型，主算法首先进行参数初始化，然后根据条件来判断发出  $continue$信号或是$rollback$信号。
 
-图\ref{trs-seq}是协同过程在UPPAAL中的执行片段，我们可以看到 $valve$ 首先发送了信号$w$ 来与 $WaterTank1$进行数据交换，然后，$WaterTank1$ 到达了 $dostep$ 状态，之后主算法广播  $rollback$信号导致FMU到达$reset$状态，最后主算法发送$continue$ 信号使得所有的FMU到达 $start$状态并开始下一步仿真。通过对执行序列的分析，我们发现模型可以正确仿真。
+图\ref{trs-seq}为该时间自动机网络模型在UPPAAL中的执行片段，我们可以看到$valve$首先发送了信号$w$ 来与$WaterTank1$进行数据交换，然后$WaterTank1$ 到达了 $dostep$状态，之后主算法广播  $rollback$信号使得FMU到达$reset$状态，最后主算法发送$continue$信号使得所有的FMU到达$start$状态并开始下一步仿真。通过对执行序列的分析，我们发现该模型可以正确的进行仿真。
 
-为了比较小节\ref{sec:case}中描述的三种情形的协同行为，我们同时用时间自动机形式化描述了其他两种情形。对于第二种情形，我们在第一种情形基础上添加了$controller$ 和 $WaterTank1$之间的信道$s$如图\ref{tk-arch2}所示；对于第三种情形我们建模了$WaterTank2$的模型并添加了信道$w2$ 如图Fig.\ref{arc3}所示。其他的模型与第一种情形中的模型类似，我们在此只给出了新增加的或有改动的模型。接下来我们将对这三种情形进行验证。
+为了比较小节\ref{sec:case}中描述的三种情形的协同行为，我们同时用时间自动机形式化描述了其他两种情形。对于第二种情形，我们在第一种情形基础上添加了$controller$ 和 $WaterTank1$之间的信道$s$如图\ref{tk-arch2}所示；对于第三种情形我们建模了$WaterTank2$的模型并添加了信道$w2$，如图\ref{arc3}所示。其他的模型与第一种情形中的模型类似，我们在此只给出了情形2和情形3中新增加的或有改动的模型，接下来我们将对这三种情形进行可信性检测。
 \begin{figure}[htbp]
 \centering{
-		\subfigure[TA for FMU\_controller]{\includegraphics[width=2.7in,height=2.0in]{fig/3/2signal_cycle_controller.png}
+		\subfigure[FMU\_controller 的时间自动机模型]{\includegraphics[width=2.7in,height=2.0in]{fig/3/2signal_cycle_controller.png}
 			\label{tk2_controller}}
 		\hfil
-		\subfigure[TA for FMU\_WaterTank1]{\includegraphics[width=2.3in,height=2.0in]{fig/3/2signal_cycle_wt1.png}
+		\subfigure[FMU\_WaterTank1 的时间自动机模型]{\includegraphics[width=2.3in,height=2.0in]{fig/3/2signal_cycle_wt1.png}
 			\label{tk2_v}}		
-	\caption{TA for connection case 2.}
+	\caption{情形2中修改之后的时间自动机}
 	\label{tk-arch2}
 	}
 \end{figure}
 \begin{figure}[htbp]
 	\centering	{\includegraphics[width=5.0in,height=2.0in]{fig/3/4signal_wt2.png}}
-	\caption{TA for FMU\_WaterTank2 of connection case 3.}\label{arc3}
+	\caption{情形3中增加的FMU\_WaterTank2 的时间自动机模型}\label{arc3}
 \end{figure}
 
 \begin{table}
-\caption{三种情形的验证结果}
+\caption{三种情形的检测结果}
 \centering
 \begin{tabular}{c c c} 
         \hline  
-        情形 & 验证属性 & 结果\\
+        情形 & 属性 & 结果\\
         \hline
         \multirow{2}{2.0cm}{情形1}  
                 & $E\langle\rangle~WT1.Rollback$ & True\\ 
@@ -273,18 +273,18 @@ FMU的输出变量$y \in Y$可以看做为时间自动机的$Act_{o} \cup \{abse
 \label{rs}
 \end{table}
 
-我们对每一种情形都验证了以下属性：
+我们对每一种情形都检测了以下属性：
 \begin{itemize}
 \item
-$E\langle\rangle~WT1.Rollback$和 $E\langle\rangle~master.Continue$ 为可达性验证，它表示$WaterTank1$将到达$Rollback$状态 且主算法会到达 $Continue$状态。
+$E\langle\rangle~WT1.Rollback$和$E\langle\rangle~master.Continue$ 为可达性检测，它表示$WaterTank1$将到达$Rollback$状态且主算法会到达$Continue$状态。
 \item
-$master.start -> master.Continue$为活性验证，它表示一旦主算法开始，它最早会到达 $Continue$状态.
+$master.start -> master.Continue$为活性检测，它表示一旦主算法开始，它最早会到达$Continue$状态.
 \item 
-$A[]~not~deadlock$为死锁的验证，它用来验证系统有无死锁。
+$A[]~not~deadlock$为死锁的检测，它用来检测系统有无死锁。
 \end{itemize}
 
-验证结果如表\ref{rs}所示，我们发现情形1和情形3的验证属性都满足，它表示该情形的协同是正确的。然而情形2的可达性和活性不满足，是由于在该模型中出现了环路依赖，我们需要消除该环路依赖再进行下一步的仿真，在本文中我们只关注协同行为的验证，对于如何消除环路依赖在接下来的工作中我们会做进一步研究。 
+检测结果如表\ref{rs}所示，我们发现情形1和情形3的属性都满足，它表示该情形的协同仿真是可信的。然而情形2的可达性和活性不满足，我们分析得到是由于在该模型中出现了环路依赖而导致出现这一问题，因此我们需要消除该环路依赖再进行下一步的仿真。在本文中我们只关注协同仿真可信性的检测，对于如何消除环路依赖在接下来的工作中我们会做进一步研究。 
 
 
 \section{本章小结}
-在本小节我们提出了一种新的方法来验证异构系统协同行为的正确性，我们首先用SysML建模语言建模了整个系统的架构，然后基于FMI标准对整个架构进行实现。之后提出了一种映射规则将FMU用时间自动机进行了形式化描述，最后基于时间自动机理论对整个系统的协同行为的正确性进行了验证。经过本小节的验证，我们可以得到通过验证的基于FMI标准的模型，该模型可以在协同仿真引擎中直接仿真并得到仿真迹，在下一个小节，我们将提出一种高效的统计模型检测方法，针对某些验证属性对协同仿真的迹进行定量的评估。
+在本小节我们提出了一种新的方法来检测系统协同仿真的可信性，我们首先用SysML建模语言建模了整个系统的架构，然后基于FMI标准，根据SysML给出的系统架构得到了系统的协同仿真模型。为了检测仿真模型协同仿真的可信性，我们首先提出了一种映射规则，并根据此规则将FMU用时间自动机进行了形式化描述，然后基于时间自动机理论对整个系统的协同仿真的可信性进行了检测。经过本小节的检测，我们可以得到通过检测的协同仿真模型，该模型可以在协同仿真引擎进行仿真并得到仿真迹。我们已经基于JavaFMI\cite{Camus2016Hybrid}实现了协同仿真引擎并集成到了相关的工具中，将本小节设计好的协同仿真模型输入到该工具中即可进行协同仿真并得到仿真迹。在此，我们不对具体的仿真引擎实现及协同仿真生成迹的过程做详细的描述，在后面的工具介绍部分我们会结合工具简单介绍协同仿真的实现。在下一个小节，我们将提出一种高效的统计模型检测方法，针对某些验证属性对协同仿真生成的迹进行定量的评估分析。

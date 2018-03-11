@@ -248,6 +248,26 @@
   2012)}\thinspace{}\textnormal{:
   }\bibpages{187\thinspace{}\textnormal{--}\thinspace{}199}\@.
 
+\bibitem{Am2016Checking}
+\bibauthor{AMáLIO N\@, PAYNE R\@, CAVALCANTI A, et~al}\@. \bibtitle{Checking
+  SysML Models for Co-simulation}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{International Conference on Formal Engineering
+  Methods}\@. \bibyear{2016}\thinspace{}\textnormal{:
+  }\bibpages{450\thinspace{}\textnormal{--}\thinspace{}465}\@.
+
+\bibitem{Camus2016Hybrid}
+\bibauthor{CAMUS B\@, GALTIER V\@, CAUJOLLE M}\@. \bibtitle{Hybrid
+  Co-simulation of FMUs using DEV and DESS in MECSYCO}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{Symposium on Theory of Modeling and
+  Simulation}\@. \bibyear{2016}\thinspace{}\textnormal{: }\bibpages{8}\@.
+
+\bibitem{zhddh}
+\bibauthor{杜德慧\@, 昝慧\@, 姜凯强, et~al}\@.
+  \bibtitle{一种面向CPS的自适应统计模型检测方法}\bibmark{[J]}\@.
+  \bibjournal{软件学报}\@, \bibyear{2017}\@,
+  \bibvolume{28}\bibnumber{(5)}\thinspace{}\textnormal{:
+  }\bibpages{1128\thinspace{}\textnormal{--}\thinspace{}1143}\@.
+
 \bibitem{dunteman1989principal}
 \bibauthor{DUNTEMAN G~H}\@. \bibbooktitle{Principal components
   analysis\thinspace{}\textnormal{: }Vol~69}\bibmark{[M]}\@.
@@ -268,5 +288,13 @@
   checking}\bibmark{[J]}\@. \bibjournal{Science China Information Sciences}\@,
   \bibyear{2012}\@, \bibvolume{55}\bibnumber{(12)}\thinspace{}\textnormal{:
   }\bibpages{2694\thinspace{}\textnormal{--}\thinspace{}2707}\@.
+
+\bibitem{Lahijanian2010Motion}
+\bibauthor{LAHIJANIAN M\@, WASNIEWSKI J\@, ANDERSSON S~B, et~al}\@.
+  \bibtitle{Motion planning and control from temporal logic specifications with
+  probabilistic satisfaction guarantees}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{IEEE International Conference on Robotics and
+  Automation}\@. \bibyear{2010}\thinspace{}\textnormal{:
+  }\bibpages{3227\thinspace{}\textnormal{--}\thinspace{}3232}\@.
 
 \end{thebibliography}

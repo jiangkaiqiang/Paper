@@ -24,10 +24,10 @@
 \contentsline {subsubsection}{可预测步长算法}{22}{subsubsection*.9}
 \contentsline {subsection}{\numberline {3.2.2}协同仿真主算法的建模和可信性检测}{22}{subsection.3.2.2}
 \contentsline {section}{\numberline {3.3}系统协同仿真行为的可信性检测}{24}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}FMU到TA的映射}{24}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.1}FMU到TA的映射}{25}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}基于SysML的架构建模}{28}{subsection.3.3.2}
 \contentsline {subsection}{\numberline {3.3.3}基于FMI的协同仿真模型设计}{30}{subsection.3.3.3}
-\contentsline {subsection}{\numberline {3.3.4}协同仿真行为的可信性检测}{30}{subsection.3.3.4}
+\contentsline {subsection}{\numberline {3.3.4}协同仿真行为的可信性检测}{31}{subsection.3.3.4}
 \contentsline {section}{\numberline {3.4}本章小结}{34}{section.3.4}
 \contentsline {chapter}{\numberline {第四章\hspace {.3em}}基于抽象和学习的分布式统计模型检测方法}{36}{chapter.4}
 \contentsline {section}{\numberline {4.1}技术路线及分布式架构设计}{36}{section.4.1}
@@ -38,28 +38,28 @@
 \contentsline {subsection}{\numberline {4.2.2}分布式贝叶斯区间估计算法}{40}{subsection.4.2.2}
 \contentsline {section}{\numberline {4.3}基于抽象和学习的分布式统计模型检测算法}{41}{section.4.3}
 \contentsline {subsection}{\numberline {4.3.1}基于抽象和学习的统计模型检测算法}{41}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}基于抽象和学习的分布式统计模型检测算法}{42}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.2}基于抽象和学习的分布式统计模型检测算法}{41}{subsection.4.3.2}
 \contentsline {subsection}{\numberline {4.3.3}参数优化}{43}{subsection.4.3.3}
-\contentsline {section}{\numberline {4.4}算法分析}{45}{section.4.4}
-\contentsline {subsection}{\numberline {4.4.1}时空复杂度分析}{45}{subsection.4.4.1}
+\contentsline {section}{\numberline {4.4}算法分析}{44}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}时空复杂度分析}{44}{subsection.4.4.1}
 \contentsline {subsection}{\numberline {4.4.2}误差分析}{45}{subsection.4.4.2}
-\contentsline {section}{\numberline {4.5}本章小结}{46}{section.4.5}
-\contentsline {chapter}{\numberline {第五章\hspace {.3em}}工具实现}{51}{chapter.5}
-\contentsline {section}{\numberline {5.1}异构系统验证分析工具（Co-SMC）介绍}{51}{section.5.1}
-\contentsline {section}{\numberline {5.2}Co-SMC程序实现}{51}{section.5.2}
-\contentsline {section}{\numberline {5.3}本章小结}{51}{section.5.3}
-\contentsline {chapter}{\numberline {第六章\hspace {.3em}}案例分析与实验评估}{54}{chapter.6}
-\contentsline {section}{\numberline {6.1}案例一：智能温控系统}{54}{section.6.1}
+\contentsline {section}{\numberline {4.5}本章小结}{45}{section.4.5}
+\contentsline {chapter}{\numberline {第五章\hspace {.3em}}工具实现}{50}{chapter.5}
+\contentsline {section}{\numberline {5.1}系统验证分析工具（Co-SMC）介绍}{50}{section.5.1}
+\contentsline {section}{\numberline {5.2}Co-SMC程序实现}{50}{section.5.2}
+\contentsline {section}{\numberline {5.3}本章小结}{50}{section.5.3}
+\contentsline {chapter}{\numberline {第六章\hspace {.3em}}案例分析与实验评估}{53}{chapter.6}
+\contentsline {section}{\numberline {6.1}案例一：智能温控系统}{53}{section.6.1}
 \contentsline {subsection}{\numberline {6.1.1}系统建模与设计}{54}{subsection.6.1.1}
 \contentsline {subsection}{\numberline {6.1.2}系统验证分析}{54}{subsection.6.1.2}
-\contentsline {subsection}{\numberline {6.1.3}算法评估分析}{55}{subsection.6.1.3}
-\contentsline {section}{\numberline {6.2}案例二：机器人路径规划系统}{56}{section.6.2}
-\contentsline {subsection}{\numberline {6.2.1}系统建模与设计}{56}{subsection.6.2.1}
-\contentsline {subsection}{\numberline {6.2.2}系统验证分析}{56}{subsection.6.2.2}
-\contentsline {subsection}{\numberline {6.2.3}算法评估分析}{57}{subsection.6.2.3}
-\contentsline {section}{\numberline {6.3}本章小结}{58}{section.6.3}
-\contentsline {chapter}{\numberline {第七章\hspace {.3em}}总结与展望}{60}{chapter.7}
-\contentsline {chapter}{参考文献}{61}{section*.33}
-\contentsline {chapter}{致谢}{66}{section*.35}
-\contentsline {chapter}{发表论文和科研情况}{67}{section*.37}
+\contentsline {subsection}{\numberline {6.1.3}算法评估分析}{54}{subsection.6.1.3}
+\contentsline {section}{\numberline {6.2}案例二：机器人路径规划系统}{55}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}系统建模与设计}{55}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}系统验证分析}{55}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}算法评估分析}{56}{subsection.6.2.3}
+\contentsline {section}{\numberline {6.3}本章小结}{57}{section.6.3}
+\contentsline {chapter}{\numberline {第七章\hspace {.3em}}总结与展望}{59}{chapter.7}
+\contentsline {chapter}{参考文献}{60}{section*.33}
+\contentsline {chapter}{致谢}{65}{section*.35}
+\contentsline {chapter}{发表论文和科研情况}{66}{section*.37}
 \contentsfinish 
