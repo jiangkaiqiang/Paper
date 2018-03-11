@@ -9,7 +9,7 @@
 \begin{figure}[htbp]
 	{
 	\centering	
-	\includegraphics[width=4.0in,height=2.1in]{fig/4/paper-framework.png}
+	\includegraphics[width=5.0in,height=2.5in]{fig/4/paper-framework.png}
 \caption{基于抽象和学习的分布式统计模型检测方法技术路线}\label{tech-map}	
 	}	
 \end{figure}
@@ -145,7 +145,7 @@
 \subsection{基于抽象和学习的统计模型检测算法}
 贝叶斯区间估计算法有一个缺点：当它验证的属性的最终结果接近0.5时，将需要消耗大量的仿真迹。为了解决这个问题，我们使用抽象和学习的方法对贝叶斯区间估计算法进行了改进。在此，我们只对基于抽象和学习的统计模型检测算法给出简单的介绍，详细的信息见论文\cite{jiangkaiqiang2016}。图\ref{al-smc}本方法的框架图， 该算法主要包含三个步骤: (i)我们将模型仿真生成的迹输入得到抽象过程中，获得经过抽象的简化迹。该抽象过程又包含三个步骤：\textbf{基于属性的投影, 基于主成分分析算法的降维\cite{dunteman1989principal}和关键状态提取}. (ii)\textbf{前缀频率树的构建和约减}过程用到了论文\cite{carrasco1994learning}提出的学习方法将简化的迹构建成了一棵前缀频率树。经过该过程，我们实际上是将原始的模型划分为了多个\textbf{子模型}. (iii)\textbf{基于多个贝叶斯区间估计的评估分析}过程在多个子模型上分别执行贝叶斯区间估计算法来得到各个子模型的概率，然后将各个模型的概率累加即可得到最终概率。
 \begin{figure}[htbp]
-	\centering	{\includegraphics[width=5.0in,height=2.1in]{fig/4/ALSMC.png}}
+	\centering	{\includegraphics[width=5.0in,height=2.5in]{fig/4/ALSMC.png}}
 	%\vspace{0.10in}
 	\caption{基于抽象和学习的统计模型检测算法框架图}\label{al-smc}
 \end{figure}
